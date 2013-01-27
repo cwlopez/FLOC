@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{190361D9-3FB6-46FD-AAF9-56ED83B54187}</ProjectGuid>
+    <RootNamespace>ArduPlane</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\Users\God\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino;C:\Users\God\ARDUINO\arduino-1.0.1\hardware\arduino\variants\mega;C:\Users\God\Documents\Arduino\libraries\FastSerial;C:\Users\God\Documents\Arduino\libraries\FastSerial\utility;C:\Users\God\Documents\Arduino\libraries\AP_Common;C:\Users\God\Documents\Arduino\libraries\AP_Common\utility;C:\Users\God\Documents\Arduino\libraries\AP_Menu;C:\Users\God\Documents\Arduino\libraries\AP_Menu\utility;C:\Users\God\Documents\Arduino\libraries\Arduino_Mega_ISR_Registry;C:\Users\God\Documents\Arduino\libraries\Arduino_Mega_ISR_Registry\utility;C:\Users\God\Documents\Arduino\libraries\APM_RC;C:\Users\God\Documents\Arduino\libraries\APM_RC\utility;C:\Users\God\Documents\Arduino\libraries\AP_GPS;C:\Users\God\Documents\Arduino\libraries\AP_GPS\utility;C:\Users\God\Documents\Arduino\libraries\I2C;C:\Users\God\Documents\Arduino\libraries\I2C\utility;C:\Users\God\ARDUINO\arduino-1.0.1\libraries\SPI;C:\Users\God\ARDUINO\arduino-1.0.1\libraries\SPI\utility;C:\Users\God\Documents\Arduino\libraries\AP_Semaphore;C:\Users\God\Documents\Arduino\libraries\AP_Semaphore\utility;C:\Users\God\Documents\Arduino\libraries\DataFlash;C:\Users\God\Documents\Arduino\libraries\DataFlash\utility;C:\Users\God\Documents\Arduino\libraries\AP_ADC;C:\Users\God\Documents\Arduino\libraries\AP_ADC\utility;C:\Users\God\Documents\Arduino\libraries\AP_AnalogSource;C:\Users\God\Documents\Arduino\libraries\AP_AnalogSource\utility;C:\Users\God\Documents\Arduino\libraries\AP_PeriodicProcess;C:\Users\God\Documents\Arduino\libraries\AP_PeriodicProcess\utility;C:\Users\God\Documents\Arduino\libraries\AP_Baro;C:\Users\God\Documents\Arduino\libraries\AP_Baro\utility;C:\Users\God\Documents\Arduino\libraries\AP_Compass;C:\Users\God\Documents\Arduino\libraries\AP_Compass\utility;C:\Users\God\Documents\Arduino\libraries\AP_Math;C:\Users\God\Documents\Arduino\libraries\AP_Math\utility;C:\Users\God\Documents\Arduino\libraries\AP_InertialSensor;C:\Users\God\Documents\Arduino\libraries\AP_InertialSensor\utility;C:\Users\God\Documents\Arduino\libraries\AP_IMU;C:\Users\God\Documents\Arduino\libraries\AP_IMU\utility;C:\Users\God\Documents\Arduino\libraries\AP_AHRS;C:\Users\God\Documents\Arduino\libraries\AP_AHRS\utility;C:\Users\God\Documents\Arduino\libraries\PID;C:\Users\God\Documents\Arduino\libraries\PID\utility;C:\Users\God\Documents\Arduino\libraries\RC_Channel;C:\Users\God\Documents\Arduino\libraries\RC_Channel\utility;C:\Users\God\Documents\Arduino\libraries\AP_RangeFinder;C:\Users\God\Documents\Arduino\libraries\AP_RangeFinder\utility;C:\Users\God\Documents\Arduino\libraries\Filter;C:\Users\God\Documents\Arduino\libraries\Filter\utility;C:\Users\God\Documents\Arduino\libraries\AP_Relay;C:\Users\God\Documents\Arduino\libraries\AP_Relay\utility;C:\Users\God\Documents\Arduino\libraries\AP_Camera;C:\Users\God\Documents\Arduino\libraries\AP_Camera\utility;C:\Users\God\Documents\Arduino\libraries\AP_Airspeed;C:\Users\God\Documents\Arduino\libraries\AP_Airspeed\utility;C:\Users\God\Documents\Arduino\libraries\memcheck;C:\Users\God\Documents\Arduino\libraries\memcheck\utility;C:\Users\God\Documents\Arduino\libraries\GCS_MAVLink;C:\Users\God\Documents\Arduino\libraries\GCS_MAVLink\utility;C:\Users\God\Documents\Arduino\libraries\APM_Control;C:\Users\God\Documents\Arduino\libraries\APM_Control\utility;C:\Users\God\Documents\Arduino\libraries\AP_Mount;C:\Users\God\Documents\Arduino\libraries\AP_Mount\utility;C:\Users\God\Documents\Arduino\libraries\AP_Declination;C:\Users\God\Documents\Arduino\libraries\AP_Declination\utility;C:\Users\God\Documents\Arduino\libraries\APM_OBC;C:\Users\God\Documents\Arduino\libraries\APM_OBC\utility;C:\Users\God\Documents\Arduino\libraries\SITL;C:\Users\God\Documents\Arduino\libraries\SITL\utility;c:\users\god\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\;c:\users\god\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\avr\;c:\users\god\arduino\arduino-1.0.1\hardware\tools\avr\avr\;c:\users\god\arduino\arduino-1.0.1\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>C:\Users\God\Documents\Arduino\ArduPlane\Visual Micro\.ArduPlane.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <PreprocessorDefinitions>_VMDEBUG=1;ARDUINO=101;__AVR_ATmega2560__;F_CPU=16000000L;__AVR__;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>C:\Users\God\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino;C:\Users\God\ARDUINO\arduino-1.0.1\hardware\arduino\variants\mega;C:\Users\God\Documents\Arduino\libraries\FastSerial;C:\Users\God\Documents\Arduino\libraries\FastSerial\utility;C:\Users\God\Documents\Arduino\libraries\AP_Common;C:\Users\God\Documents\Arduino\libraries\AP_Common\utility;C:\Users\God\Documents\Arduino\libraries\AP_Menu;C:\Users\God\Documents\Arduino\libraries\AP_Menu\utility;C:\Users\God\Documents\Arduino\libraries\Arduino_Mega_ISR_Registry;C:\Users\God\Documents\Arduino\libraries\Arduino_Mega_ISR_Registry\utility;C:\Users\God\Documents\Arduino\libraries\APM_RC;C:\Users\God\Documents\Arduino\libraries\APM_RC\utility;C:\Users\God\Documents\Arduino\libraries\AP_GPS;C:\Users\God\Documents\Arduino\libraries\AP_GPS\utility;C:\Users\God\Documents\Arduino\libraries\I2C;C:\Users\God\Documents\Arduino\libraries\I2C\utility;C:\Users\God\ARDUINO\arduino-1.0.1\libraries\SPI;C:\Users\God\ARDUINO\arduino-1.0.1\libraries\SPI\utility;C:\Users\God\Documents\Arduino\libraries\AP_Semaphore;C:\Users\God\Documents\Arduino\libraries\AP_Semaphore\utility;C:\Users\God\Documents\Arduino\libraries\DataFlash;C:\Users\God\Documents\Arduino\libraries\DataFlash\utility;C:\Users\God\Documents\Arduino\libraries\AP_ADC;C:\Users\God\Documents\Arduino\libraries\AP_ADC\utility;C:\Users\God\Documents\Arduino\libraries\AP_AnalogSource;C:\Users\God\Documents\Arduino\libraries\AP_AnalogSource\utility;C:\Users\God\Documents\Arduino\libraries\AP_PeriodicProcess;C:\Users\God\Documents\Arduino\libraries\AP_PeriodicProcess\utility;C:\Users\God\Documents\Arduino\libraries\AP_Baro;C:\Users\God\Documents\Arduino\libraries\AP_Baro\utility;C:\Users\God\Documents\Arduino\libraries\AP_Compass;C:\Users\God\Documents\Arduino\libraries\AP_Compass\utility;C:\Users\God\Documents\Arduino\libraries\AP_Math;C:\Users\God\Documents\Arduino\libraries\AP_Math\utility;C:\Users\God\Documents\Arduino\libraries\AP_InertialSensor;C:\Users\God\Documents\Arduino\libraries\AP_InertialSensor\utility;C:\Users\God\Documents\Arduino\libraries\AP_IMU;C:\Users\God\Documents\Arduino\libraries\AP_IMU\utility;C:\Users\God\Documents\Arduino\libraries\AP_AHRS;C:\Users\God\Documents\Arduino\libraries\AP_AHRS\utility;C:\Users\God\Documents\Arduino\libraries\PID;C:\Users\God\Documents\Arduino\libraries\PID\utility;C:\Users\God\Documents\Arduino\libraries\RC_Channel;C:\Users\God\Documents\Arduino\libraries\RC_Channel\utility;C:\Users\God\Documents\Arduino\libraries\AP_RangeFinder;C:\Users\God\Documents\Arduino\libraries\AP_RangeFinder\utility;C:\Users\God\Documents\Arduino\libraries\Filter;C:\Users\God\Documents\Arduino\libraries\Filter\utility;C:\Users\God\Documents\Arduino\libraries\AP_Relay;C:\Users\God\Documents\Arduino\libraries\AP_Relay\utility;C:\Users\God\Documents\Arduino\libraries\AP_Camera;C:\Users\God\Documents\Arduino\libraries\AP_Camera\utility;C:\Users\God\Documents\Arduino\libraries\AP_Airspeed;C:\Users\God\Documents\Arduino\libraries\AP_Airspeed\utility;C:\Users\God\Documents\Arduino\libraries\memcheck;C:\Users\God\Documents\Arduino\libraries\memcheck\utility;C:\Users\God\Documents\Arduino\libraries\GCS_MAVLink;C:\Users\God\Documents\Arduino\libraries\GCS_MAVLink\utility;C:\Users\God\Documents\Arduino\libraries\APM_Control;C:\Users\God\Documents\Arduino\libraries\APM_Control\utility;C:\Users\God\Documents\Arduino\libraries\AP_Mount;C:\Users\God\Documents\Arduino\libraries\AP_Mount\utility;C:\Users\God\Documents\Arduino\libraries\AP_Declination;C:\Users\God\Documents\Arduino\libraries\AP_Declination\utility;C:\Users\God\Documents\Arduino\libraries\APM_OBC;C:\Users\God\Documents\Arduino\libraries\APM_OBC\utility;C:\Users\God\Documents\Arduino\libraries\SITL;C:\Users\God\Documents\Arduino\libraries\SITL\utility;c:\users\god\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\;c:\users\god\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\avr\;c:\users\god\arduino\arduino-1.0.1\hardware\tools\avr\avr\;c:\users\god\arduino\arduino-1.0.1\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>C:\Users\God\Documents\Arduino\ArduPlane\Visual Micro\.ArduPlane.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>ARDUINO=101;__AVR_ATmega2560__;F_CPU=16000000L;__AVR__;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="..\libraries\FastSerial\ftoa_engine.S" />
+    <None Include="..\libraries\FastSerial\ultoa_invert.S" />
+    <None Include="ArduPlane.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="Attitude.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="climb_rate.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="commands.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="commands_logic.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="commands_process.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="control_modes.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="events.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="failsafe.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="formation_flight.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="Formation_Mavlink.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="GCS_Mavlink.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="geofence.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="Log.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="navigation.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="Parameters.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="planner.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="radio.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="sensors.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="setup.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="system.ino">
+      <FileType>CppCode</FileType>
+    </None>
+    <None Include="test.ino">
+      <FileType>CppCode</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\binary.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Client.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\HardwareSerial.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\IPAddress.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\new.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Platform.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Print.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Printable.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Server.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Stream.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Udp.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\USBAPI.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\USBCore.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\USBDesc.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\WCharacter.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_private.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\WString.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" />
+    <ClInclude Include="..\..\..\ARDUINO\arduino-1.0.1\libraries\SPI\SPI.h" />
+    <ClInclude Include="..\libraries\APM_Control\APM_Control.h" />
+    <ClInclude Include="..\libraries\APM_Control\AP_PitchController.h" />
+    <ClInclude Include="..\libraries\APM_Control\AP_RollController.h" />
+    <ClInclude Include="..\libraries\APM_Control\AP_YawController.h" />
+    <ClInclude Include="..\libraries\APM_OBC\APM_OBC.h" />
+    <ClInclude Include="..\libraries\APM_RC\APM_RC.h" />
+    <ClInclude Include="..\libraries\APM_RC\APM_RC_APM1.h" />
+    <ClInclude Include="..\libraries\APM_RC\APM_RC_APM2.h" />
+    <ClInclude Include="..\libraries\AP_ADC\AP_ADC.h" />
+    <ClInclude Include="..\libraries\AP_ADC\AP_ADC_ADS7844.h" />
+    <ClInclude Include="..\libraries\AP_ADC\AP_ADC_HIL.h" />
+    <ClInclude Include="..\libraries\AP_AHRS\AP_AHRS.h" />
+    <ClInclude Include="..\libraries\AP_AHRS\AP_AHRS_DCM.h" />
+    <ClInclude Include="..\libraries\AP_AHRS\AP_AHRS_HIL.h" />
+    <ClInclude Include="..\libraries\AP_AHRS\AP_AHRS_MPU6000.h" />
+    <ClInclude Include="..\libraries\AP_Airspeed\AP_Airspeed.h" />
+    <ClInclude Include="..\libraries\AP_AnalogSource\AnalogSource.h" />
+    <ClInclude Include="..\libraries\AP_AnalogSource\AP_AnalogSource.h" />
+    <ClInclude Include="..\libraries\AP_AnalogSource\AP_AnalogSource_ADC.h" />
+    <ClInclude Include="..\libraries\AP_AnalogSource\AP_AnalogSource_Arduino.h" />
+    <ClInclude Include="..\libraries\AP_Baro\AP_Baro.h" />
+    <ClInclude Include="..\libraries\AP_Baro\AP_Baro_BMP085.h" />
+    <ClInclude Include="..\libraries\AP_Baro\AP_Baro_BMP085_hil.h" />
+    <ClInclude Include="..\libraries\AP_Baro\AP_Baro_MS5611.h" />
+    <ClInclude Include="..\libraries\AP_Camera\AP_Camera.h" />
+    <ClInclude Include="..\libraries\AP_Common\AP_Common.h" />
+    <ClInclude Include="..\libraries\AP_Common\AP_Curve.h" />
+    <ClInclude Include="..\libraries\AP_Common\AP_Loop.h" />
+    <ClInclude Include="..\libraries\AP_Common\AP_MetaClass.h" />
+    <ClInclude Include="..\libraries\AP_Common\AP_Param.h" />
+    <ClInclude Include="..\libraries\AP_Common\AP_Test.h" />
+    <ClInclude Include="..\libraries\AP_Common\AP_Vector.h" />
+    <ClInclude Include="..\libraries\AP_Common\c++.h" />
+    <ClInclude Include="..\libraries\AP_Compass\AP_Compass.h" />
+    <ClInclude Include="..\libraries\AP_Compass\AP_Compass_HIL.h" />
+    <ClInclude Include="..\libraries\AP_Compass\AP_Compass_HMC5843.h" />
+    <ClInclude Include="..\libraries\AP_Compass\Compass.h" />
+    <ClInclude Include="..\libraries\AP_Declination\AP_Declination.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_406.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_Auto.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_HIL.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_IMU.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_MTK.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_MTK16.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_MTK_Common.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_NMEA.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_None.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_Shim.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_SIRF.h" />
+    <ClInclude Include="..\libraries\AP_GPS\AP_GPS_UBLOX.h" />
+    <ClInclude Include="..\libraries\AP_GPS\GPS.h" />
+    <ClInclude Include="..\libraries\AP_IMU\AP_IMU.h" />
+    <ClInclude Include="..\libraries\AP_IMU\AP_IMU_INS.h" />
+    <ClInclude Include="..\libraries\AP_IMU\AP_IMU_Shim.h" />
+    <ClInclude Include="..\libraries\AP_IMU\IMU.h" />
+    <ClInclude Include="..\libraries\AP_InertialSensor\AP_InertialSensor.h" />
+    <ClInclude Include="..\libraries\AP_InertialSensor\AP_InertialSensor_MPU6000.h" />
+    <ClInclude Include="..\libraries\AP_InertialSensor\AP_InertialSensor_Oilpan.h" />
+    <ClInclude Include="..\libraries\AP_InertialSensor\AP_InertialSensor_Stub.h" />
+    <ClInclude Include="..\libraries\AP_Math\AP_Math.h" />
+    <ClInclude Include="..\libraries\AP_Math\matrix3.h" />
+    <ClInclude Include="..\libraries\AP_Math\polygon.h" />
+    <ClInclude Include="..\libraries\AP_Math\quaternion.h" />
+    <ClInclude Include="..\libraries\AP_Math\rotations.h" />
+    <ClInclude Include="..\libraries\AP_Math\vector2.h" />
+    <ClInclude Include="..\libraries\AP_Math\vector3.h" />
+    <ClInclude Include="..\libraries\AP_Menu\AP_Menu.h" />
+    <ClInclude Include="..\libraries\AP_Mount\AP_Mount.h" />
+    <ClInclude Include="..\libraries\AP_PeriodicProcess\AP_PeriodicProcess.h" />
+    <ClInclude Include="..\libraries\AP_PeriodicProcess\AP_PeriodicProcessStub.h" />
+    <ClInclude Include="..\libraries\AP_PeriodicProcess\AP_TimerProcess.h" />
+    <ClInclude Include="..\libraries\AP_PeriodicProcess\PeriodicProcess.h" />
+    <ClInclude Include="..\libraries\AP_RangeFinder\AP_RangeFinder.h" />
+    <ClInclude Include="..\libraries\AP_RangeFinder\AP_RangeFinder_MaxsonarXL.h" />
+    <ClInclude Include="..\libraries\AP_RangeFinder\AP_RangeFinder_SharpGP2Y.h" />
+    <ClInclude Include="..\libraries\AP_RangeFinder\RangeFinder.h" />
+    <ClInclude Include="..\libraries\AP_Relay\AP_Relay.h" />
+    <ClInclude Include="..\libraries\AP_Semaphore\AP_Semaphore.h" />
+    <ClInclude Include="..\libraries\Arduino_Mega_ISR_Registry\Arduino_Mega_ISR_Registry.h" />
+    <ClInclude Include="..\libraries\DataFlash\DataFlash.h" />
+    <ClInclude Include="..\libraries\DataFlash\DataFlash_APM1.h" />
+    <ClInclude Include="..\libraries\DataFlash\DataFlash_APM2.h" />
+    <ClInclude Include="..\libraries\FastSerial\BetterStream.h" />
+    <ClInclude Include="..\libraries\FastSerial\FastSerial.h" />
+    <ClInclude Include="..\libraries\FastSerial\ftoa_engine.h" />
+    <ClInclude Include="..\libraries\FastSerial\ntz.h" />
+    <ClInclude Include="..\libraries\FastSerial\xtoa_fast.h" />
+    <ClInclude Include="..\libraries\Filter\AverageFilter.h" />
+    <ClInclude Include="..\libraries\Filter\DerivativeFilter.h" />
+    <ClInclude Include="..\libraries\Filter\Filter.h" />
+    <ClInclude Include="..\libraries\Filter\FilterWithBuffer.h" />
+    <ClInclude Include="..\libraries\Filter\LowPassFilter.h" />
+    <ClInclude Include="..\libraries\Filter\ModeFilter.h" />
+    <ClInclude Include="..\libraries\GCS_MAVLink\GCS_MAVLink.h" />
+    <ClInclude Include="..\libraries\I2C\I2C.h" />
+    <ClInclude Include="..\libraries\memcheck\memcheck.h" />
+    <ClInclude Include="..\libraries\PID\PID.h" />
+    <ClInclude Include="..\libraries\RC_Channel\RC_Channel.h" />
+    <ClInclude Include="..\libraries\RC_Channel\RC_Channel_aux.h" />
+    <ClInclude Include="..\libraries\SITL\SITL.h" />
+    <ClInclude Include="APM_Config.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="APM_Config_DEWEY.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="APM_Config_HUEY.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="AP_XBee.h" />
+    <ClInclude Include="checksum.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="flock_member.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="formation_common.h" />
+    <ClInclude Include="GCS.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Parameters.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="pf_field.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.ArduPlane.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\CDC.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\HardwareSerial.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\HID.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\IPAddress.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\main.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\new.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Print.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Stream.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\Tone.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\USBCore.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\WInterrupts.c" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\wiring.c" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_analog.c" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_digital.c" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_pulse.c" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_shift.c" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\WMath.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino\WString.cpp" />
+    <ClCompile Include="..\..\..\ARDUINO\arduino-1.0.1\libraries\SPI\SPI.cpp" />
+    <ClCompile Include="..\libraries\APM_Control\AP_PitchController.cpp" />
+    <ClCompile Include="..\libraries\APM_Control\AP_RollController.cpp" />
+    <ClCompile Include="..\libraries\APM_Control\AP_YawController.cpp" />
+    <ClCompile Include="..\libraries\APM_OBC\APM_OBC.cpp" />
+    <ClCompile Include="..\libraries\APM_RC\APM_RC_APM1.cpp" />
+    <ClCompile Include="..\libraries\APM_RC\APM_RC_APM2.cpp" />
+    <ClCompile Include="..\libraries\AP_ADC\AP_ADC.cpp" />
+    <ClCompile Include="..\libraries\AP_ADC\AP_ADC_ADS7844.cpp" />
+    <ClCompile Include="..\libraries\AP_ADC\AP_ADC_HIL.cpp" />
+    <ClCompile Include="..\libraries\AP_AHRS\AP_AHRS.cpp" />
+    <ClCompile Include="..\libraries\AP_AHRS\AP_AHRS_DCM.cpp" />
+    <ClCompile Include="..\libraries\AP_AHRS\AP_AHRS_HIL.cpp" />
+    <ClCompile Include="..\libraries\AP_AHRS\AP_AHRS_MPU6000.cpp" />
+    <ClCompile Include="..\libraries\AP_Airspeed\AP_Airspeed.cpp" />
+    <ClCompile Include="..\libraries\AP_AnalogSource\AP_AnalogSource_ADC.cpp" />
+    <ClCompile Include="..\libraries\AP_AnalogSource\AP_AnalogSource_Arduino.cpp" />
+    <ClCompile Include="..\libraries\AP_Baro\AP_Baro.cpp" />
+    <ClCompile Include="..\libraries\AP_Baro\AP_Baro_BMP085.cpp" />
+    <ClCompile Include="..\libraries\AP_Baro\AP_Baro_BMP085_hil.cpp" />
+    <ClCompile Include="..\libraries\AP_Baro\AP_Baro_MS5611.cpp" />
+    <ClCompile Include="..\libraries\AP_Camera\AP_Camera.cpp" />
+    <ClCompile Include="..\libraries\AP_Common\AP_Common.cpp" />
+    <ClCompile Include="..\libraries\AP_Common\AP_Loop.cpp" />
+    <ClCompile Include="..\libraries\AP_Common\AP_MetaClass.cpp" />
+    <ClCompile Include="..\libraries\AP_Common\AP_Param.cpp" />
+    <ClCompile Include="..\libraries\AP_Common\AP_Var_menufuncs.cpp" />
+    <ClCompile Include="..\libraries\AP_Common\c++.cpp" />
+    <ClCompile Include="..\libraries\AP_Compass\AP_Compass_HIL.cpp" />
+    <ClCompile Include="..\libraries\AP_Compass\AP_Compass_HMC5843.cpp" />
+    <ClCompile Include="..\libraries\AP_Compass\Compass.cpp" />
+    <ClCompile Include="..\libraries\AP_Declination\AP_Declination.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_406.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_Auto.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_HIL.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_IMU.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_MTK.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_MTK16.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_NMEA.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_SIRF.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\AP_GPS_UBLOX.cpp" />
+    <ClCompile Include="..\libraries\AP_GPS\GPS.cpp" />
+    <ClCompile Include="..\libraries\AP_IMU\AP_IMU_INS.cpp" />
+    <ClCompile Include="..\libraries\AP_IMU\AP_IMU_Shim.cpp" />
+    <ClCompile Include="..\libraries\AP_IMU\IMU.cpp" />
+    <ClCompile Include="..\libraries\AP_InertialSensor\AP_InertialSensor_MPU6000.cpp" />
+    <ClCompile Include="..\libraries\AP_InertialSensor\AP_InertialSensor_Oilpan.cpp" />
+    <ClCompile Include="..\libraries\AP_InertialSensor\AP_InertialSensor_Stub.cpp" />
+    <ClCompile Include="..\libraries\AP_Math\AP_Math.cpp" />
+    <ClCompile Include="..\libraries\AP_Math\location.cpp" />
+    <ClCompile Include="..\libraries\AP_Math\matrix3.cpp" />
+    <ClCompile Include="..\libraries\AP_Math\polygon.cpp" />
+    <ClCompile Include="..\libraries\AP_Math\quaternion.cpp" />
+    <ClCompile Include="..\libraries\AP_Math\vector3.cpp" />
+    <ClCompile Include="..\libraries\AP_Menu\AP_Menu.cpp" />
+    <ClCompile Include="..\libraries\AP_Mount\AP_Mount.cpp" />
+    <ClCompile Include="..\libraries\AP_PeriodicProcess\AP_PeriodicProcessStub.cpp" />
+    <ClCompile Include="..\libraries\AP_PeriodicProcess\AP_TimerProcess.cpp" />
+    <ClCompile Include="..\libraries\AP_RangeFinder\AP_RangeFinder_MaxsonarXL.cpp" />
+    <ClCompile Include="..\libraries\AP_RangeFinder\AP_RangeFinder_SharpGP2Y.cpp" />
+    <ClCompile Include="..\libraries\AP_RangeFinder\RangeFinder.cpp" />
+    <ClCompile Include="..\libraries\AP_Relay\AP_Relay.cpp" />
+    <ClCompile Include="..\libraries\AP_Semaphore\AP_Semaphore.cpp" />
+    <ClCompile Include="..\libraries\Arduino_Mega_ISR_Registry\Arduino_Mega_ISR_Registry.cpp" />
+    <ClCompile Include="..\libraries\DataFlash\DataFlash.cpp" />
+    <ClCompile Include="..\libraries\DataFlash\DataFlash_APM1.cpp" />
+    <ClCompile Include="..\libraries\DataFlash\DataFlash_APM2.cpp" />
+    <ClCompile Include="..\libraries\FastSerial\BetterStream.cpp" />
+    <ClCompile Include="..\libraries\FastSerial\FastSerial.cpp" />
+    <ClCompile Include="..\libraries\FastSerial\vprintf.cpp" />
+    <ClCompile Include="..\libraries\Filter\DerivativeFilter.cpp" />
+    <ClCompile Include="..\libraries\GCS_MAVLink\GCS_MAVLink.cpp" />
+    <ClCompile Include="..\libraries\I2C\I2C.cpp" />
+    <ClCompile Include="..\libraries\memcheck\memcheck.cpp" />
+    <ClCompile Include="..\libraries\PID\PID.cpp" />
+    <ClCompile Include="..\libraries\RC_Channel\RC_Channel.cpp" />
+    <ClCompile Include="..\libraries\RC_Channel\RC_Channel_aux.cpp" />
+    <ClCompile Include="..\libraries\SITL\SITL.cpp" />
+    <ClCompile Include="AP_XBee.cpp" />
+    <ClCompile Include="flock_member.cpp" />
+    <ClCompile Include="pf_field.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties arduino.upload.port="COM11" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
