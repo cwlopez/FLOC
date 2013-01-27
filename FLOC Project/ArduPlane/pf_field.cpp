@@ -42,8 +42,14 @@ pf_field::pf_field()
 
 }
 
-void pf_field::update(flock_member* p_ac, AP_AHRS_DCM* ahrs, AP_Airspeed* airspeed)
+#if HIL_MODE == HIL_MODE_DISABLED
+	void pf_field::update(flock_member* p_ac, AP_AHRS_DCM* ahrs, AP_Airspeed* airspeed)
 {
+#endif
+#if HIL_MODE == HIL_MODE_ATTITUDE
+	void pf_field::update(flock_member* p_ac, AP_AHRS_HIL* ahrs, AP_Airspeed* airspeed)
+{
+#endif
 	//State Machine implemented to break calculation up into more managable chunks.
 	//5 cases means full calc should take place at 10 Hz
 	

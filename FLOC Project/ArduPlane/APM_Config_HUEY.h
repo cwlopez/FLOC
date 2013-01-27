@@ -7,6 +7,7 @@
 #define SYSID 1
 //Use the UART2 Pins on the APM Board
 # define TELEMETRY_UART2 ENABLED
+//#define HIL_MODE        HIL_MODE_ATTITUDE
 
 # define GEOFENCE_ENABLED DISABLED
 # define MAV_SYSTEM_ID          1 //1 = Huey, 2 = Dewey, 3 = Louie
@@ -33,12 +34,29 @@
 
 //Pre-defined Flight Modes
 # define FLIGHT_MODE_1                  LOITER
-#
 # define FLIGHT_MODE_2                  FORMATION
 # define FLIGHT_MODE_3                  STABILIZE
 # define FLIGHT_MODE_4                  MANUAL_IN_FORMATION
 # define FLIGHT_MODE_5                  RTL
 # define FLIGHT_MODE_6                  MANUAL
+
+//////////////////////////////////////////////////////////////////////////////
+// CAMERA TRIGGER AND CONTROL
+//
+// uses 1182 bytes of memory
+# define CAMERA         DISABLED
+
+//////////////////////////////////////////////////////////////////////////////
+// MOUNT (ANTENNA OR CAMERA)
+//
+// uses 4174 bytes of memory on 1280 chips (MNT_JSTICK_SPD_OPTION, MNT_RETRACT_OPTION, MNT_STABILIZE_OPTION and MNT_MOUNT2_OPTION disabled)
+// uses 7726 bytes of memory on 2560 chips (all options are enabled)
+# define MOUNT          DISABLED
+
+// second mount, can for example be used to keep an antenna pointed at the home position
+#ifndef MOUNT2
+ # define MOUNT2         DISABLED
+#endif
 //////////////////////////////////////////////////////////////////////////////
 // Altitude measurement and control.
 //
@@ -171,5 +189,5 @@
 # define	FORMATION_CURRENT_STATE 150 //Eroneous ID at the moment...may conflict with pre-defined MAVLink message ID
 //Goal Waypoint to Loiter around
 # define	GOAL_LAT	35193797
-# define	GOAL_LON	120451022
+# define	GOAL_LON	-120451022
 # define	GOAL_ALT	150

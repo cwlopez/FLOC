@@ -262,7 +262,7 @@ static void init_ardupilot()
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Formation Flight Stuff
-#if FORMATION_FLIGHT_DEFINED
+#if FORMATION_FLIGHT_ENABLED
 #if(SYSID==HUEY_ID)
 		ac_rollcall.Huey = true;
 		ac_rollcall.Dewey = false;

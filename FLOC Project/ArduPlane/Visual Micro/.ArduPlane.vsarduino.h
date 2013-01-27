@@ -1,4 +1,5 @@
 //Board = Arduino Mega 2560 or Mega ADK
+#define _VMDEBUG 1
 #define ARDUINO 101
 #define __AVR_ATmega2560__
 #define F_CPU 16000000L

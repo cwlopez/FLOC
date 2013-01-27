@@ -267,9 +267,11 @@ AP_TimerProcess timer_scheduler;
 GCS_MAVLINK gcs0;
 GCS_MAVLINK gcs3;
 
+//Added to support XBee API Mode
 #if TELEMETRY_UART2 == ENABLED
 XBee ac_xbee;
 #endif
+
 ////////////////////////////////////////////////////////////////////////////////
 // PITOT selection
 ////////////////////////////////////////////////////////////////////////////////
@@ -833,6 +835,7 @@ static void fast_loop()
   // ------------------------------
   set_servos();
   gcs_update();
+
   gcs_data_stream_send();
 
 }
@@ -891,7 +894,8 @@ static void medium_loop()
     }
 	//if(broadcast_enabled)
 	//{
-		broadcast_my_location();
+
+	broadcast_my_location();
 
 	//}
 #endif
@@ -1293,7 +1297,7 @@ static void update_current_flight_mode(void)
       /////////////////////////////////////////////////////////////////////////////////
       //Formation Flight Stuff
       /////////////////////////////////////////////////////////////////////////////////
-#if FORMATION_FLIGHT_DEFINED
+#if FORMATION_FLIGHT_ENABLED
     case FORMATION:
 		if(!ac_flockmember.get_leader_status())
 		{

@@ -489,7 +489,7 @@ static bool telemetry_delayed(mavlink_channel_t chan)
 static bool mavlink_try_send_message(mavlink_channel_t chan, enum ap_message id, uint16_t packet_drops)
 {
     int16_t payload_space = comm_get_txspace(chan) - MAVLINK_NUM_NON_PAYLOAD_BYTES;
-
+	bool debug_help = true;
     if (telemetry_delayed(chan)) {
         return false;
     }
@@ -647,7 +647,6 @@ static void mavlink_send_message(mavlink_channel_t chan, enum ap_message id, uin
 {
     uint8_t i, nextid;
     struct mavlink_queue *q = &mavlink_queue[(uint8_t)chan];
-
     // see if we can send the deferred messages, if any
     while (q->num_deferred_messages != 0) {
         if (!mavlink_try_send_message(chan,
@@ -866,7 +865,7 @@ GCS_MAVLINK::data_stream_send(void)
         send_message(MSG_FENCE_STATUS);
     }
 
-    if (stream_trigger(STREAM_POSITION)) {
+	if (stream_trigger(STREAM_POSITION)) {
         // sent with GPS read
         send_message(MSG_LOCATION);
     }
