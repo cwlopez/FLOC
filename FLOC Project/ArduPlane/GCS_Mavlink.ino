@@ -825,6 +825,7 @@ bool GCS_MAVLINK::stream_trigger(enum streams stream_num)
             rate = 50;
         }
         stream_ticks[stream_num] = (50 / rate) + stream_slowdown;
+		bool debughelper3 = false;
         return true;
     }
 
@@ -924,11 +925,12 @@ GCS_MAVLINK::send_text(gcs_severity severity, const prog_char_t *str)
 void GCS_MAVLINK::handleMessage(mavlink_message_t* msg)
 {
     struct Location tell_command = {};                // command for telemetry
-
+bool ddddbbbb = false;
 //ADDED: Message Interceptor==========================================================================
 #if FORMATION_FLIGHT_ENABLED
-	if(msg->sysid!= 0 && msg->sysid!=SYSID) //If the message was sent from anybody but this a/c or GCS
+	if(msg->sysid!= 0 && msg->sysid!=254 && msg->sysid!=255 && msg->sysid!=SYSID) //If the message was sent from anybody but this a/c or GCS
 	{
+		bool debuggerhelp4 = true;
 		switch (msg->msgid)
 		{
 		//There is really only one message type we care about right now
@@ -1790,6 +1792,7 @@ mission_failed:
     {
         mavlink_hil_state_t packet;
         mavlink_msg_hil_state_decode(msg, &packet);
+		bool dhelp = true;
 
         float vel = sqrt((packet.vx * (float)packet.vx) + (packet.vy * (float)packet.vy));
         float cog = wrap_360_cd(ToDeg(atan2(packet.vx, packet.vy)) * 100);

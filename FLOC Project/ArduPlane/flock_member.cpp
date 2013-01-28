@@ -3,6 +3,7 @@
 // 
 
 #include "flock_member.h"
+#include <GCS_MAVLink.h>
 
 flock_member::flock_member()	//Constructor for this a/c
 {
@@ -42,9 +43,9 @@ void flock_member::set_state(int32_t* p_current_lat, int32_t* p_current_lon, int
 		_V.z = *p_current_vz;
 		_hdg = *p_current_hdg;
 
-		_my_location.id = FORMATION_CURRENT_STATE; //Eroneous ID at the moment...
+		_my_location.id = MAVLINK_MSG_ID_GLOBAL_POSITION_INT; //Eroneous ID at the moment...
 		_my_location.options = MASK_OPTIONS_RELATIVE_ALT; //Sets options to signify relative altitude is used
-		_my_location.alt = _alt;
+		_my_location.alt = _relative_alt;
 		_my_location.lat = _lat;
 		_my_location.lng = _lon;
 

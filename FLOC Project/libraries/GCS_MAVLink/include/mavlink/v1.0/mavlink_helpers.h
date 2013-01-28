@@ -129,6 +129,7 @@ MAVLINK_HELPER void _mav_finalize_message_chan_send(mavlink_channel_t chan, uint
 	ck[1] = (uint8_t)(checksum >> 8);
 
 #if TELEMETRY_UART2 == ENABLED
+#if HIL_MODE == HIL_MODE_DISABLED 
 		uint32_t msb = 0x0013A200; //GCS MSB
 		uint32_t lsb = 0x409A92FF; //GCS LSB
 		uint8_t api_option = DISABLE_ACK_OPTION;
@@ -167,6 +168,7 @@ MAVLINK_HELPER void _mav_finalize_message_chan_send(mavlink_channel_t chan, uint
 		}
 
 #else
+#endif
 	MAVLINK_START_UART_SEND(chan, MAVLINK_NUM_NON_PAYLOAD_BYTES + (uint16_t)length);
 	_mavlink_send_uart(chan, (const char *)buf, MAVLINK_NUM_HEADER_BYTES);
 	_mavlink_send_uart(chan, packet, length);
