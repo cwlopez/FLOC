@@ -14,11 +14,9 @@ static void navigate()
     if(next_WP.lat == 0) {
         return;
     }
-
     // waypoint distance from plane
     // ----------------------------
     wp_distance = get_distance(&current_loc, &next_WP);
-
     if (wp_distance < 0) {
         gcs_send_text_P(SEVERITY_HIGH,PSTR("WP error - distance < 0"));
         //Serial.println(wp_distance,DEC);
@@ -93,7 +91,8 @@ static void calc_airspeed_errors()
     if (target_airspeed_cm > (g.flybywire_airspeed_max * 100))
         target_airspeed_cm = (g.flybywire_airspeed_max * 100);
 
-    airspeed_error_cm = target_airspeed_cm - aspeed_cm;
+    
+	airspeed_error_cm = target_airspeed_cm - aspeed_cm;
     airspeed_energy_error = ((target_airspeed_cm * target_airspeed_cm) - (aspeed_cm*aspeed_cm))*0.00005;
 }
 

@@ -83,10 +83,24 @@ static void init_ardupilot()
     //
     Serial.begin(SERIAL0_BAUD, 128, SERIAL_BUFSIZE);
 
-    // GPS serial port.
+	//Added to support full HIL debugging w/ VisualMicro
+#if HIL_MODE == HIL_MODE_ATTITUDE
+	#ifdef HIL_DEBUG
+		#if HIL_DEBUG
+			Serial1.begin(SERIAL0_BAUD, 128, SERIAL_BUFSIZE);
+		#else
+			// GPS serial port.
+			//
+			// standard gps running
+			Serial1.begin(38400, 256, 16);
+		#endif
+	#endif
+#else
+	// GPS serial port.
     //
     // standard gps running
-    Serial1.begin(38400, 256, 16);
+	Serial1.begin(38400, 256, 16);
+#endif
 
     Serial.printf_P(PSTR("\n\nInit " THISFIRMWARE
                          "\n\nFree RAM: %u\n"),
@@ -262,17 +276,17 @@ static void init_ardupilot()
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Formation Flight Stuff
-#if FORMATION_FLIGHT_ENABLED
-#if(SYSID==HUEY_ID)
+#if FORMATION_FLIGHT
+#if(MAV_SYSTEM_ID==HUEY_ID)
 		ac_rollcall.Huey = true;
 		ac_rollcall.Dewey = false;
 		ac_rollcall.Louie = false;
-#elif(SYSID==DEWEY_ID)
+#elif(MAV_SYSTEM_ID==DEWEY_ID)
 		RollCall ac_rollcall;
 		ac_rollcall.Huey = false;
 		ac_rollcall.Dewey = true;
 		ac_rollcall.Louie = false;
-#elif(SYSID==DEWEY_ID)
+#elif(MAV_SYSTEM_ID==DEWEY_ID)
 		RollCall ac_rollcall;
 		ac_rollcall.Huey = false;
 		ac_rollcall.Dewey = false;
@@ -357,7 +371,7 @@ static void set_mode(byte mode)
     {
     case INITIALISING:
     case MANUAL:
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
 		broadcast_enabled = false;
 #endif
     case CIRCLE:
@@ -371,14 +385,14 @@ static void set_mode(byte mode)
         break;
 
     case RTL:
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
 		broadcast_enabled = false;
 #endif
         do_RTL();
         break;
 
     case LOITER:
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
 		broadcast_enabled = true;
 #endif
         do_loiter_at_location();
@@ -390,18 +404,10 @@ static void set_mode(byte mode)
 ///////////////////////////////////////////////////////////////////////
 //Formation Flight Stuff
 //////////////////////////////////////////////////////////////////////
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
 	case FORMATION:
 		broadcast_enabled = true;
-
-		if(ac_flockmember.get_leader_status())
-		{
-			do_loiter_at_goal();
-		}
-		else
-		{
-			update_formation_flight_commands();
-		}
+		set_goal_WP();
 		break;
 	case MANUAL_IN_FORMATION:
 		broadcast_enabled = true;

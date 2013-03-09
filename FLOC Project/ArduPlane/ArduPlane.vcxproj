@@ -269,6 +269,9 @@
     <ClInclude Include="APM_Config_HUEY.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="APM_Config_LOUIE.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="AP_XBee.h" />
     <ClInclude Include="checksum.h">
       <FileType>CppCode</FileType>

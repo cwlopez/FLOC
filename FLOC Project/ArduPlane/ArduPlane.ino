@@ -268,7 +268,7 @@ GCS_MAVLINK gcs0;
 GCS_MAVLINK gcs3;
 
 //Added to support XBee API Mode
-#if TELEMETRY_UART2 == ENABLED
+#if FORMATION_FLIGHT == ENABLED
 XBee ac_xbee;
 #endif
 
@@ -619,7 +619,7 @@ static int32_t offset_altitude_cm;
 ////////////////////////////////////////////////////////////////////////////////
 //Formation Flight
 ///////////////////////////////////////////////////////////////////////////////
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
 //Initialize the RollCall structure
 RollCall		ac_rollcall;
 //Initialize the a/c flock member structure
@@ -629,15 +629,18 @@ pf_field		ac_pf_field;
 //Initialize the broadcast as false- this will get changed in the control mode selection
 static bool broadcast_enabled = false;
 //Initialize goal WP to loiter around
-Location goal_WP;
+static struct Location goal_WP;
+
+static int32_t V_altitude_error_cm;
+static int32_t F_airspeed_error;
 //Initialize Flock
-#if(SYSID!=HUEY_ID)
+#if(MAV_SYSTEM_ID!=HUEY_ID)
 		flock_member huey(HUEY_ID);
 #endif
-#if(SYSID!=DEWEY_ID)
+#if(MAV_SYSTEM_ID!=DEWEY_ID)
 		flock_member dewey(DEWEY_ID);
 #endif
-#if(SYSID!=LOUIE_ID)
+#if(MAV_SYSTEM_ID!=LOUIE_ID)
 		flock_member louie(LOUIE_ID);
 #endif
 #endif
@@ -790,8 +793,9 @@ static void fast_loop()
 
   // try to send any deferred messages if the serial port now has
   // some space available
-
-  gcs_send_message(MSG_RETRY_DEFERRED);
+  ///////////////REMOVED///////////////////////////////////////////////////////////////////////////
+  //gcs_send_message(MSG_RETRY_DEFERRED);
+  /////////////////////////////////////////////////////////////////////////////////////////////////
 
   // check for loss of control signal failsafe condition
   // ------------------------------------
@@ -836,8 +840,9 @@ static void fast_loop()
   set_servos();
   gcs_update();
 
-  gcs_data_stream_send();
-
+  ////////////////////////////////////////////////////REMOVED//////////////////////////////////////////////////
+  //gcs_data_stream_send();
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 static void medium_loop()
@@ -887,17 +892,30 @@ static void medium_loop()
     ////////////////////////////////////////////////////////////////////////
     //ADDED FORMATION FLIGHT STUFF
     ////////////////////////////////////////////////////////////////////////
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
     if(control_mode == FORMATION)
     {
+	//////////DEBUG//////////////////////////////
+		bool debebebeb = true;
+		bool debababab = true;
+
+		bool debobobob = true;
+		bool goobooboob = false;
+		bool hodcualf = false;
+		//////////DEBUG//////////////////////////////
 		update_ac_flockmember();
+		if(!ac_flockmember.get_leader_status())
+		{
+			bool deebuuuug = true;
+			bool debuggedyboo = false;
+			bool debuggedybob = false;
+			ac_pf_field.update(&ac_flockmember,&ahrs,&airspeed);
+		}
     }
-	//if(broadcast_enabled)
-	//{
-
-	broadcast_my_location();
-
-	//}
+	if(broadcast_enabled)
+	{
+		broadcast_my_location();
+	}
 #endif
     ///////////////////////////////////////////////////////////////////////
     break;
@@ -910,11 +928,15 @@ static void medium_loop()
     // Read 6-position switch on radio
     // -------------------------------
     read_control_switch();
-
+#if FORMATION_FLIGHT == ENABLED
+	if(control_mode==FORMATION)
+	{
+		update_formation_flight_commands();
+	}
+#endif
     // calculate the plane's desired bearing
     // -------------------------------------
     navigate();
-
 
     break;
 
@@ -1030,10 +1052,11 @@ static void slow_loop()
     ////////////////////////////////////////////////////////////////////////
     //ADDED FORMATION FLIGHT STUFF
     ////////////////////////////////////////////////////////////////////////
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
     if(control_mode == FORMATION)
     {
       update_flock_leadership();
+	  bool debdebdeb = true;
     }
 #endif
     ///////////////////////////////////////////////////////////////////////
@@ -1063,7 +1086,7 @@ static void one_second_loop()
   ////////////////////////////////////////////////////////////////////////
   //ADDED FORMATION FLIGHT STUFF
   ////////////////////////////////////////////////////////////////////////
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
   if(control_mode == FORMATION)
   {
     check_formation_health();
@@ -1297,16 +1320,12 @@ static void update_current_flight_mode(void)
       /////////////////////////////////////////////////////////////////////////////////
       //Formation Flight Stuff
       /////////////////////////////////////////////////////////////////////////////////
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
     case FORMATION:
-		if(!ac_flockmember.get_leader_status())
-		{
-			ac_pf_field.update(&ac_flockmember,&ahrs,&airspeed);
 			crash_checker();
 			calc_nav_roll();
 			calc_nav_pitch();
 			calc_throttle();
-		}	
 		break;
 #endif
     }
@@ -1331,11 +1350,17 @@ static void update_navigation()
       update_loiter();
       calc_bearing_error();
 	  break;
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
 	case FORMATION:
 		if(ac_flockmember.get_leader_status())
 		{
+			set_goal_WP();
 			update_loiter();
+			calc_bearing_error();
+		}
+		else
+		{
+			update_formation_flight_commands();
 		}
       break;
 #endif

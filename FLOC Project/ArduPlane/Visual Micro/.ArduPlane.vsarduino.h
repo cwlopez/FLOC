@@ -152,7 +152,6 @@ static bool verify_wait_delay();
 static bool verify_change_alt();
 static bool verify_within_distance();
 static void do_loiter_at_location();
-static void do_loiter_at_goal();
 static void do_jump();
 static void do_change_speed();
 static void do_set_home();
@@ -179,6 +178,7 @@ static void update_ac_flockmember();
 static void process_flockmember_location(uint8_t sysid, mavlink_global_position_int_t* packet);
 static void update_formation_flight_commands();
 static void update_flock_leadership();
+static void set_goal_WP(void);
 static bool member_in_view(int32_t* p_lat, int32_t* p_lon, int32_t* p_alt);
 static void check_formation_health();
 static Vector2l get_fence_point_with_index(unsigned i);
@@ -262,6 +262,7 @@ static void test_wp_print(struct Location *cmd, byte wp_index);
 #include "C:\Users\God\Documents\Arduino\ArduPlane\APM_Config.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\APM_Config_DEWEY.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\APM_Config_HUEY.h"
+#include "C:\Users\God\Documents\Arduino\ArduPlane\APM_Config_LOUIE.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\AP_XBee.cpp"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\AP_XBee.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\Attitude.ino"

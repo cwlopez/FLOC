@@ -9,7 +9,7 @@ Arduplane.ino should include
 "AP_AHRS_DCM.h"
 */
 //Making this static means it can only be called by functions inside the ArduPlane .ino project files
-//#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
 void ac_location_broadcast()
 {
 	//Get the current state of the a/c flock member:
@@ -21,14 +21,14 @@ void ac_location_broadcast()
 	packet.time_boot_ms = millis();
 	packet.lat = current_loc.lat;
 	packet.lon = current_loc.lng;
-	packet.alt = g_gps->altitude * 10;
-	packet.relative_alt = (current_loc.alt-home.alt) * 10;
+	packet.alt = g_gps->altitude * 10; //[mm]
+	packet.relative_alt = (current_loc.alt-home.alt) * 10; //[mm]
 	packet.vx = g_gps->ground_speed * rot.a.x;
 	packet.vy = g_gps->ground_speed * rot.b.x;
 	packet.vz = g_gps->ground_speed * rot.c.x;
 	packet.hdg = ahrs.yaw_sensor;
 
-	uint8_t* locpacket = (uint8_t*)&packet;
+	const char* locpacket = (const char*)&packet;
 	//information for the MAVLink message
 	uint8_t msgid	= MAVLINK_MSG_ID_GLOBAL_POSITION_INT;
 	uint8_t length	= 28;
@@ -49,7 +49,7 @@ void ac_location_broadcast()
 	status->current_tx_seq++;
 	//calculate checksum for MAVLink header and packet
 	checksum = crc_calculate((uint8_t*)&buf[1], MAVLINK_CORE_HEADER_LEN);
-	crc_accumulate_buffer(&checksum, (const char*)locpacket, length);
+	crc_accumulate_buffer(&checksum, locpacket, length);
 	crc_accumulate(crc_extra, &checksum);
 	ck[0] = (uint8_t)(checksum & 0xFF);
 	ck[1] = (uint8_t)(checksum >> 8);
@@ -78,7 +78,12 @@ void ac_location_broadcast()
 		index++;
 	}
 	mavlink_packet_length = index;
+	/*
+	uint32_t debug_timer = mavlink_packet[6] << 24 | mavlink_packet[7] << 16 | mavlink_packet[8] << 8 | mavlink_packet[9];
+	int32_t debug_lat = mavlink_packet[10] << 24 | mavlink_packet[11] << 16 | mavlink_packet[12] << 8 | mavlink_packet[13];
+	int32_t debug_lon = mavlink_packet[14] << 24 | mavlink_packet[15] << 16 | mavlink_packet[16] << 8 | mavlink_packet[17];
+	*/
 	Tx64Request mavlink_request64(gcs_xbee64, api_option , mavlink_packet, mavlink_packet_length, frame_id);
 	ac_xbee.send(mavlink_comm_1_port, mavlink_request64);
 }
-//#endif
+#endif

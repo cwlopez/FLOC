@@ -496,14 +496,6 @@ static void do_loiter_at_location()
     next_WP = current_loc;
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-//Formation Flight Stuff
-#if FORMATION_FLIGHT_ENABLED
-static void do_loiter_at_goal()
-{
-    next_WP = goal_WP;
-}
-#endif
 static void do_jump()
 {
     if (next_nonnav_command.lat == 0) {

@@ -28,7 +28,7 @@
 # define FORMATION_FLIGHT	ENABLED
 //Identifier for a/c 
 //Current configuration: 1 = Huey, 2 = Dewey, 3 = Louie
-# define MAV_SYSTEM_ID		2
+# define MAV_SYSTEM_ID		3
 //Other Flock Member IDs
 #define HUEY_ID		1
 #define DEWEY_ID	2
@@ -92,7 +92,7 @@
 # define	PFG_K_V_FAR			100
 # define	PFG_K_ALT_V_FAR		0
 # define	PFG_K_PHI_V_FAR		0
-# define	PFG_DEFAULT_SIDE	-1
+# define	PFG_DEFAULT_SIDE	1
 
 # define	PFG_MIN_ALT			10000
 # define	PFG_MAX_ALT			30000

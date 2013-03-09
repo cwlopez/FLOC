@@ -4,6 +4,6 @@
     <Platform Name="Arduino">
       <Board Name="mega2560" Description="Arduino Mega 2560 or Mega ADK" CoreFolder="C:\Users\God\ARDUINO\arduino-1.0.1\hardware\arduino\cores\arduino" VariantFullPath="C:\Users\God\ARDUINO\arduino-1.0.1\hardware\arduino\variants\mega" bootloader.extended_fuses="0xFD" bootloader.file="stk500boot_v2_mega2560.hex" bootloader.high_fuses="0xD8" bootloader.lock_bits="0x0F" bootloader.low_fuses="0xFF" bootloader.path="stk500v2" bootloader.unlock_bits="0x3F" build.core="arduino" build.f_cpu="16000000L" build.mcu="atmega2560" build.variant="mega" build.variant.vmresolved="C:\Users\God\ARDUINO\arduino-1.0.1\hardware\arduino\variants\mega" name="Arduino Mega 2560 or Mega ADK" upload.maximum_size="258048" upload.protocol="stk500v2" upload.speed="115200" />
     </Platform>
-    <Debug DebugMode="Full" DebugEnabled="1" RemotePortTransport="FastSerial" RemotePortSpeed="57600" LocalPortSpeed="57600" LocalPort="COM3" RemotePort="Serial3" PinTX="" PinRX="" />
+    <Debug DebugMode="Full" DebugEnabled="1" RemotePortTransport="FastSerial" PinTX="" PinRX="" LocalPortSpeed="115200" RemotePortSpeed="115200" LocalPort="COM3" RemotePort="Serial1" />
   </Program>
 </VisualMicro>

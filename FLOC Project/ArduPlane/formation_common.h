@@ -15,16 +15,17 @@
 struct Relative {
 	uint8_t			Num_members;
 	uint8_t			Member_ids[FLOCK_SIZE];
-	int32_t			dX[FLOCK_SIZE];
-	int32_t			dY[FLOCK_SIZE];
-	int32_t			dZ[FLOCK_SIZE];
-	int32_t			dXL;
-	int32_t			dYL;
-	int32_t			dZL;
-	int32_t			d2L;
-	int32_t			dvx;
-	int32_t			dvy;
-	int32_t			dvz;
+	float			dX[FLOCK_SIZE];
+	float			dY[FLOCK_SIZE];
+	float			dZ[FLOCK_SIZE];
+	float			dXL;
+	float			dYL;
+	float			dZL;
+	float			d2L;
+	float			dvx;
+	float			dvy;
+	float			dvz;
+	uint16_t		hdgL;
 };
 
 //Specific to Huey, Dewey, Louie Formation: To easily tell who is part of the formation
@@ -34,5 +35,8 @@ struct RollCall {
 	bool Louie;
 };
 
+#define MtoFT(x) (x*3.28084)			//	*3.28084
+#define De7ToFT(x) (x*0.0365214)		// Change Lat/Lon degrees * 10^7 to feet
+#define De7ToM(x) (x*.01113195)			// Change Lat/Lon degrees *10^7 to M
 #endif
 

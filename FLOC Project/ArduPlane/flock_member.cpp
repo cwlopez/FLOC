@@ -7,8 +7,8 @@
 
 flock_member::flock_member()	//Constructor for this a/c
 {
-	//upon construction of a/c flock member, assign it the SYSID given in the APM_Config file
-	_sysid = SYSID;
+	//upon construction of a/c flock member, assign it the MAV_SYSTEM_ID given in the APM_Config file
+	_sysid = MAV_SYSTEM_ID;
 	//initialize the check for global leadership as false (this has yet to be determined by the swarming algorithm)
 	_global_leader = true;
 	//initialize the number of flock members as 0 (they have yet to be added to the flock)
@@ -30,30 +30,25 @@ flock_member::flock_member(uint8_t sysid) //constructor for a different flock me
 }
 
 //Sets the private state variables of a flock member based on information passed in from outside
-void flock_member::set_state(int32_t* p_current_lat, int32_t* p_current_lon, int32_t* p_current_alt, int32_t* p_current_relative_alt, 
-					int16_t* p_current_vx, int16_t* p_current_vy, int16_t* p_current_vz, uint16_t* p_current_hdg)
+void flock_member::set_state(int32_t &current_lat, int32_t &current_lon, int32_t &current_alt, int32_t &current_relative_alt, 
+					int16_t &current_vx, int16_t &current_vy, int16_t &current_vz, uint16_t &current_hdg)
 {
 		_time_boot_ms = millis();
-		_lat = *p_current_lat;
-		_lon = *p_current_lon;
-		_alt = *p_current_alt;
-		_relative_alt = *p_current_relative_alt;
-		_V.x = *p_current_vx;
-		_V.y = *p_current_vy;
-		_V.z = *p_current_vz;
-		_hdg = *p_current_hdg;
+		_lat = current_lat;
+		_lon = current_lon;
+		_alt = current_alt;
+		_relative_alt = current_relative_alt;
+		_V.x = current_vx;
+		_V.y = current_vy;
+		_V.z = current_vz;
+		_hdg = current_hdg;
 
 		_my_location.id = MAVLINK_MSG_ID_GLOBAL_POSITION_INT; //Eroneous ID at the moment...
 		_my_location.options = MASK_OPTIONS_RELATIVE_ALT; //Sets options to signify relative altitude is used
-		_my_location.alt = _relative_alt;
+		_my_location.alt = _alt/10; //[cm]
 		_my_location.lat = _lat;
 		_my_location.lng = _lon;
 
-		_alt_ft = _alt*3281/1000; //conversion from mm to ft*1000 (3 decimal precision)
-		_relative_alt_ft = _alt*3281/1000; //conversion from mm to ft*1000 (3 decimal precision)
-		_V_fps.x = _V.x*328/100; //conversion from cm/s to ft/s*100 (2 decimal precision)
-		_V_fps.y = _V.y*328/100; //conversion from cm/s to ft/s*100 (2 decimal precision)
-		_V_fps.z = _V.z*328/100; //conversion from cm/s to ft/s*100 (2 decimal precision)
 		state_updated = true;
 }
 
@@ -74,8 +69,13 @@ const Location* flock_member::get_loc(){
 }
 
 const uint8_t* flock_member::get_vel(){
-	uint8_t tmp_vel[3] = {_V_fps.x, _V_fps.y, _V_fps.z};
+	uint8_t tmp_vel[3] = {_V.x, _V.y, _V.z};
 	return (const uint8_t*)tmp_vel;
+}
+
+const uint16_t* flock_member::get_hdg(){
+	uint16_t* p_hdg = &_hdg;
+	return (const uint16_t*)p_hdg;
 }
 
 const Relative* flock_member::get_rel(){
@@ -85,56 +85,83 @@ const Relative* flock_member::get_rel(){
 }
 
 void flock_member::update_rel(){
-	for(int i = 0; i < _num_members; i++)
+	if(_num_members == 0)
 	{
-		uint8_t j;				//new index to allow skipping ids not in view
-		const Location* tmp_loc;//Temporary storage for flock member location pointer
-		const Location* my_loc;	//Temporary storage for a/c location
-		int32_t tmp_distance;	//Temporary storage for distance magnitude
-		int32_t tmp_bearing;	//Temporary storage for bearing
-		float tmp_distance_ft;	//Temporary storage for converted distance
-		float tmp_bearing_rad;	//Temporary storage for converted bearing 
-		
-		j = _member_ids[i]-1;	//subtract 1 to start at offset ids (we start at 0 in C)
-
-		tmp_loc = _member_ptrs[j]->get_loc();
-		my_loc = get_loc();
-
-		tmp_distance = get_distance_cm(my_loc,tmp_loc);
-		tmp_bearing = get_bearing_cd(my_loc,tmp_loc);
-
-		tmp_distance_ft = float(tmp_distance)/100.0*3.281;
-		tmp_bearing_rad = float(tmp_bearing)/100.0*0.01745329252;
-
-		_dX[j].x = int32_t(100*tmp_distance_ft*sin(PI/2-tmp_bearing_rad));	//X distance of member wrt a/c (NED frame)
-		_dX[j].y = int32_t(100*tmp_distance_ft*cos(PI/2-tmp_bearing_rad));	//Y distance of member wrt a/c (NED frame)
-		_dX[j].z = -(tmp_loc->alt - my_loc->alt)*328;						//Z distance of member wrt a/c (NED frame)
-		//Store Relative values in structure
 		_my_relative.Num_members = _num_members;
-		_my_relative.Member_ids[i]= _member_ids[i];
-		_my_relative.dX[j] = _dX[j].x;
-		_my_relative.dY[j] = _dX[j].y;
-		_my_relative.dZ[j] = _dX[j].z;
-		
-		if(_member_ids[i] == _local_leader)
+	}
+	else
+	{
+		for(int i = 0; i < _num_members; i++)
 		{
-			_dist_2_leader = int32_t(100*tmp_distance_ft);
-			const uint8_t* tmp_leader_v = _member_ptrs[j]->get_vel();		//get velocity array from leader 
-			//calc relative velocity of leader wrt a/c in ft*100 (NED frame)
-			_dV.x = tmp_leader_v[0]-_V_fps.x;													
-			_dV.y = tmp_leader_v[1]-_V_fps.x;
-			_dV.z = -(tmp_leader_v[2]-_V_fps.x);
+			uint8_t j;				//new index to allow skipping ids not in view
+			const Location* tmp_loc;//Temporary storage for flock member location pointer
+			const Location* my_loc;	//Temporary storage for a/c location
+			float tmp_distance;		//Temporary storage for distance magnitude
+		
+			j = _member_ids[i]-1;	//subtract 1 to start at offset ids (we start at 0 in C)
+
+			tmp_loc = _member_ptrs[j]->get_loc();
+			my_loc = get_loc();
+
+			//Use the same lon correction technique used in Location.cpp
+			float	tmp_lon_scale;
+			static int32_t last_lat;
+			static float scale = 1.0;
+			if (labs(last_lat - tmp_loc->lat) < 100000) 
+			{
+			// we are within 0.01 degrees (about 1km) of the
+			// same latitude. We can avoid the cos() and return
+			// the same scale factor.
+			tmp_lon_scale = scale;
+			}
+			else
+			{
+			tmp_lon_scale = cos((fabs((float)tmp_loc->lat)/1.0e7) * 0.0174532925);
+			last_lat = tmp_loc->lat;
+			}
+
+			tmp_distance = get_distance(my_loc,tmp_loc); //[M]
+			///////////////////////////DEBUGGING//////////////////////
+			debug_my_lat = my_loc->lat;
+			debug_my_lon = my_loc->lng;
+			debug_their_lat = tmp_loc->lat;
+			debug_their_lon = tmp_loc->lng;
+			//////////////////////////////////////////////////////////
+
 			//Store Relative values in structure
-			_my_relative.dvx = _dV.x;
-			_my_relative.dvy = _dV.y;
-			_my_relative.dvz = _dV.z;
-			_my_relative.dXL = _dX[j].x;
-			_my_relative.dYL = _dX[j].y;
-			_my_relative.dZL = _dX[j].z;
-			_my_relative.d2L = _dist_2_leader;
+			_dX[j].x = De7ToM((float)(tmp_loc->lat-my_loc->lat));						//X distance of member wrt a/c (NED frame) [M]
+			_dX[j].y = De7ToM((float)(tmp_loc->lng-my_loc->lng)*tmp_lon_scale);			//Y distance of member wrt a/c (NED frame) [M]
+			_dX[j].z = my_loc->alt/100.0-tmp_loc->alt/100.0;						//Z distance of member wrt a/c (NED frame) [M]
+
+			//Store Relative values in structure
+			_my_relative.Num_members = _num_members;
+			_my_relative.Member_ids[i]= _member_ids[i];
+			_my_relative.dX[j] = _dX[j].x;
+			_my_relative.dY[j] = _dX[j].y;
+			_my_relative.dZ[j] = _dX[j].z;
+		
+			if(_member_ids[i] == _local_leader)
+			{
+				_dist_2_leader = tmp_distance;
+				const uint8_t* tmp_leader_v = _member_ptrs[j]->get_vel();		//get velocity array from leader
+				const uint16_t* tmp_p_hdg = _member_ptrs[j]->get_hdg();
+				//calc relative velocity of leader wrt a/c in ft (NED frame) [M/s]
+				_dV.x = (tmp_leader_v[0]-_V.x)/100.0;													
+				_dV.y = (tmp_leader_v[1]-_V.y)/100.0;
+				_dV.z = (tmp_leader_v[2]-_V.z)/100.0;
+				//Store Relative values in structure
+				_my_relative.dvx = _dV.x;
+				_my_relative.dvy = _dV.y;
+				_my_relative.dvz = _dV.z;
+				_my_relative.dXL = _dX[j].x;
+				_my_relative.dYL = _dX[j].y;
+				_my_relative.dZL = _dX[j].z;
+				_my_relative.d2L = _dist_2_leader;
+				_my_relative.hdgL = *tmp_p_hdg;
+			}
+			//signal that the jth flock member's state has been used in a relative calc
+			_member_ptrs[j]->state_updated = false;
 		}
-		//signal that the jth flock member's state has been used in a relative calc
-		_member_ptrs[j]->state_updated = false;
 	}
 	//note that the relative state of the a/c flock member
 	rel_updated = true;
@@ -153,7 +180,7 @@ void flock_member::add_member_in_view(uint8_t sysid, flock_member* p_member){
 	//add the member sysid to the next available slot
 	_member_ids[i] = sysid;
 	//add the pointer to the slot corresponding with their sysid-1
-	_member_ptrs[_member_ids[i]] = p_member;
+	_member_ptrs[_member_ids[i]-1] = p_member;
 	//signal that this member is in view (if we want to implement view restriction)
 	p_member->in_view = true;
 }

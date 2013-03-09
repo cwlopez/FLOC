@@ -489,7 +489,6 @@ static bool telemetry_delayed(mavlink_channel_t chan)
 static bool mavlink_try_send_message(mavlink_channel_t chan, enum ap_message id, uint16_t packet_drops)
 {
     int16_t payload_space = comm_get_txspace(chan) - MAVLINK_NUM_NON_PAYLOAD_BYTES;
-	bool debug_help = true;
     if (telemetry_delayed(chan)) {
         return false;
     }
@@ -825,7 +824,6 @@ bool GCS_MAVLINK::stream_trigger(enum streams stream_num)
             rate = 50;
         }
         stream_ticks[stream_num] = (50 / rate) + stream_slowdown;
-		bool debughelper3 = false;
         return true;
     }
 
@@ -925,20 +923,20 @@ GCS_MAVLINK::send_text(gcs_severity severity, const prog_char_t *str)
 void GCS_MAVLINK::handleMessage(mavlink_message_t* msg)
 {
     struct Location tell_command = {};                // command for telemetry
-bool ddddbbbb = false;
 //ADDED: Message Interceptor==========================================================================
-#if FORMATION_FLIGHT_ENABLED
-	if(msg->sysid!= 0 && msg->sysid!=254 && msg->sysid!=255 && msg->sysid!=SYSID) //If the message was sent from anybody but this a/c or GCS
+#if FORMATION_FLIGHT
+	if(msg->sysid!= 0 && msg->sysid!=254 && msg->sysid!=255 && msg->sysid!=MAV_SYSTEM_ID) //If the message was sent from anybody but this a/c or GCS
 	{
-		bool debuggerhelp4 = true;
 		switch (msg->msgid)
 		{
 		//There is really only one message type we care about right now
 		case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
-
+			if(broadcast_enabled)
+			{
 			mavlink_global_position_int_t packet;
 			mavlink_msg_global_position_int_decode(msg, &packet);
 			process_flockmember_location(msg->sysid, &packet);
+			}
 		}
 	}
 	else //If message was received from GCS
@@ -1770,6 +1768,7 @@ mission_failed:
         mavlink_msg_gps_raw_int_decode(msg, &packet);
 
         // set gps hil sensor
+		// added unit conversion for HIL with X-Plane 
         g_gps->setHIL(packet.time_usec/1000,
                       packet.lat*1.0e-7, packet.lon*1.0e-7, packet.alt*1.0e-3,
                       packet.vel*1.0e-2, packet.cog*1.0e-2, 0, 10);
@@ -1792,7 +1791,6 @@ mission_failed:
     {
         mavlink_hil_state_t packet;
         mavlink_msg_hil_state_decode(msg, &packet);
-		bool dhelp = true;
 
         float vel = sqrt((packet.vx * (float)packet.vx) + (packet.vy * (float)packet.vy));
         float cog = wrap_360_cd(ToDeg(atan2(packet.vx, packet.vy)) * 100);
@@ -1962,7 +1960,7 @@ mission_failed:
         break;
 
     } // end switch
-#if FORMATION_FLIGHT_ENABLED
+#if FORMATION_FLIGHT
 	} // end else
 #endif
 } // end handle mavlink
@@ -2113,7 +2111,7 @@ static void gcs_send_message(enum ap_message id)
 static void gcs_data_stream_send(void)
 {
     gcs0.data_stream_send();
-    if (gcs3.initialised) {
+	if (gcs3.initialised) {
         gcs3.data_stream_send();
 
     }

@@ -552,6 +552,9 @@
     <ClInclude Include="AP_XBee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="APM_Config_LOUIE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="flock_member.cpp">
