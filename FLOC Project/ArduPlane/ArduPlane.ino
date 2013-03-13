@@ -72,6 +72,7 @@
 #include "defines.h"
 #include "Parameters.h"
 #include "GCS.h"
+#include "fcom_types.h"
 #include "AP_XBee.h"
 #include "checksum.h"
 #include "pf_field.h"
@@ -89,7 +90,7 @@
 //
 FastSerialPort0(Serial);        // FTDI/console
 FastSerialPort1(Serial1);       // GPS port
-#if TELEMETRY_UART2 == ENABLED
+#if TELEMETRY_UART2 == ENABLED || FCOM_UART2 == ENABLED
 // solder bridge set to enable UART2 instead of USB MUX
 FastSerialPort2(Serial3);
 #else
@@ -267,9 +268,20 @@ AP_TimerProcess timer_scheduler;
 GCS_MAVLINK gcs0;
 GCS_MAVLINK gcs3;
 
-//Added to support XBee API Mode
-#if FORMATION_FLIGHT == ENABLED
-XBee ac_xbee;
+//Added to support inter-ac communication with XBee in API Mode
+#if FCOM_UART2 == ENABLED
+GCS_MAVLINK fcom; //instance of GCS so that we can use all of its functionallity to parse incoming messages, even if we aren't sending with it.
+mavlink_channel_t fcom_chan = MAVLINK_COMM_1; //This has to be declared for the xbee send function
+
+//XBee object
+XBee fcom_xbee;
+//XBee API parameters
+uint8_t api_option = DISABLE_ACK_OPTION;
+uint8_t frame_id = NO_RESPONSE_FRAME_ID;
+//Addresses
+XBeeAddress64  fcom_broadcast64((uint32_t)0,(uint32_t)BROADCAST_ADDRESS);
+XBeeAddress64  fcom_QGCS64((uint32_t)QGCS_MSB,(uint32_t)QGCS_LSB);
+
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -630,9 +642,12 @@ pf_field		ac_pf_field;
 static bool broadcast_enabled = false;
 //Initialize goal WP to loiter around
 static struct Location goal_WP;
+//Initialize the "distance to the goal" variable
+static int32_t D2Goal;
 
 static int32_t V_altitude_error_cm;
 static int32_t F_airspeed_error;
+
 //Initialize Flock
 #if(MAV_SYSTEM_ID!=HUEY_ID)
 		flock_member huey(HUEY_ID);
@@ -793,9 +808,7 @@ static void fast_loop()
 
   // try to send any deferred messages if the serial port now has
   // some space available
-  ///////////////REMOVED///////////////////////////////////////////////////////////////////////////
-  //gcs_send_message(MSG_RETRY_DEFERRED);
-  /////////////////////////////////////////////////////////////////////////////////////////////////
+  gcs_send_message(MSG_RETRY_DEFERRED);
 
   // check for loss of control signal failsafe condition
   // ------------------------------------
@@ -840,9 +853,16 @@ static void fast_loop()
   set_servos();
   gcs_update();
 
-  ////////////////////////////////////////////////////REMOVED//////////////////////////////////////////////////
-  //gcs_data_stream_send();
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+//ADDED FORMATION FLIGHT STUFF
+//////////////////////////////////////////////////////////////////
+#if FCOM_UART2 == ENABLED
+  //update the inter-ac network
+  fcom.update();
+#endif
+//////////////////////////////////////////////////////////////////
+
+  gcs_data_stream_send();
 }
 
 static void medium_loop()
@@ -889,35 +909,24 @@ static void medium_loop()
      *  Serial.println(tempaccel.z, DEC);
      *  }*/
 
-    ////////////////////////////////////////////////////////////////////////
-    //ADDED FORMATION FLIGHT STUFF
-    ////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+//ADDED FORMATION FLIGHT STUFF
+/////////////////////////////////////////////////////////////////////////////
 #if FORMATION_FLIGHT
     if(control_mode == FORMATION)
     {
-	//////////DEBUG//////////////////////////////
-		bool debebebeb = true;
-		bool debababab = true;
-
-		bool debobobob = true;
-		bool goobooboob = false;
-		bool hodcualf = false;
-		//////////DEBUG//////////////////////////////
 		update_ac_flockmember();
 		if(!ac_flockmember.get_leader_status())
 		{
-			bool deebuuuug = true;
-			bool debuggedyboo = false;
-			bool debuggedybob = false;
 			ac_pf_field.update(&ac_flockmember,&ahrs,&airspeed);
 		}
     }
 	if(broadcast_enabled)
 	{
-		broadcast_my_location();
+		fcom_send_location(fcom_broadcast64);
 	}
 #endif
-    ///////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
     break;
 
     // This case performs some navigation computations
@@ -987,7 +996,32 @@ static void medium_loop()
 
     if (g.log_bitmask & MASK_LOG_GPS)
       Log_Write_GPS(g_gps->time, current_loc.lat, current_loc.lng, g_gps->altitude, current_loc.alt, (long) g_gps->ground_speed, g_gps->ground_course, g_gps->fix, g_gps->num_sats);
-    break;
+
+#if FORMATION_FLIGHT
+  #if FF_LOGGING_ENABLED == ENABLED
+	if(LOG_REL_STATE)
+		{
+			Relative rel =*ac_flockmember.get_rel();
+			Log_Write_Relative((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, (int16_t)(rel.dXL*100), (int16_t)(rel.dYL*100), (int16_t)(rel.dZL*100), (int16_t)(rel.dvx*100), (int16_t)(rel.dvy*100), (int16_t)(rel.dvz*100));
+		}
+	if(LOG_PF_FIELD)
+		{
+			Vector3f phi_att = *ac_pf_field.get_pfg_att();
+			Vector3f phi_rep = *ac_pf_field.get_pfg_rep();
+			Vector3f phi_norm = *ac_pf_field.get_pfg_norm();
+
+			Log_Write_PF_Field((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, (int16_t)(phi_att.x*1000), (int16_t)(phi_att.y*1000), (int16_t)(phi_att.z*1000), (int16_t)(phi_rep.x*1000), (int16_t)(phi_rep.y*1000), (int16_t)(phi_rep.z*1000),
+				(int16_t)(phi_norm.x*10000), (int16_t)(phi_norm.y*10000), (int16_t)(phi_norm.z*10000), (byte)ac_pf_field.get_regime_mask());
+		}
+	if(LOG_VWP)
+		{
+			Location VWP_Loc = *ac_pf_field.get_VWP();
+			uint16_t VWP_Aspd = *ac_pf_field.get_new_speed();
+			Log_Write_VWP((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, VWP_Loc.lat, VWP_Loc.lng, VWP_Loc.alt, (int16_t)VWP_Aspd);
+		}
+  #endif
+#endif
+	break;
 
     // This case controls the slow loop
     //---------------------------------
@@ -1056,7 +1090,6 @@ static void slow_loop()
     if(control_mode == FORMATION)
     {
       update_flock_leadership();
-	  bool debdebdeb = true;
     }
 #endif
     ///////////////////////////////////////////////////////////////////////
@@ -1080,15 +1113,46 @@ static void one_second_loop()
 {
   if (g.log_bitmask & MASK_LOG_CUR)
     Log_Write_Current();
-
   // send a heartbeat
   gcs_send_message(MSG_HEARTBEAT);
   ////////////////////////////////////////////////////////////////////////
   //ADDED FORMATION FLIGHT STUFF
   ////////////////////////////////////////////////////////////////////////
 #if FORMATION_FLIGHT
+	#if FF_LOGGING_ENABLED 
+		if (LOG_FLOCK_STATUS) 
+		{
+			Log_Write_Flock_Status((int32_t)g_gps->time, (byte)ac_flockmember.get_local_leader(), (byte)ac_flockmember.get_members_iv(), 
+									(int32_t)*ac_flockmember.get_membermask(), (int32_t)*ac_flockmember.get_D2Goal());
+		}
+		if (LOG_GPS_ERROR_ASSIST) 
+		{
+			Log_Write_Error_Assist((int32_t)g_gps->time,(byte)g_gps->fix,(g_gps->altitude - home.alt), g_gps->hdop, (byte)g_gps->num_sats);
+		}
+	#endif
+
+  if(broadcast_enabled)
+  {
+	  // send heartbeat to inter-ac network
+	  fcom_send_heartbeat(fcom_broadcast64);
+	  fcom_send_gps_error_assist(fcom_QGCS64);
+
+  }
+  else
+  {
+	  // send hearbeat, location, and GPS error assist to QGCS for monitoring all the UAVs
+	  fcom_send_heartbeat(fcom_QGCS64);
+	  fcom_send_location(fcom_QGCS64);
+	  fcom_send_gps_error_assist(fcom_QGCS64);
+  }
+
   if(control_mode == FORMATION)
   {
+	fcom_send_flock_status(fcom_broadcast64);
+	fcom_send_pf_field(fcom_QGCS64);
+	fcom_send_vwp(fcom_QGCS64);
+	fcom_send_rel_state(fcom_QGCS64);
+
     check_formation_health();
   }
 #endif

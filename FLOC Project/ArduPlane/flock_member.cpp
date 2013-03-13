@@ -52,13 +52,25 @@ void flock_member::set_state(int32_t &current_lat, int32_t &current_lon, int32_t
 		state_updated = true;
 }
 
+void flock_member::set_D2Goal(int32_t* p_D2Goal){
+	_d2goal = *p_D2Goal;
+}
+
 // Only applicable to a/c, not other formation members.
 void flock_member::set_local_leader(uint8_t leader_sysid){
 	_local_leader = leader_sysid;
 }
 
 void flock_member::set_global_leader(bool global_status){
+	if(global_status)
+		_local_leader = 0;
+
 	_global_leader = global_status;
+}
+
+void flock_member::set_membermask(uint32_t* p_membermask)
+{
+	_membermask=*p_membermask;
 }
 //----------------------------------------------------
 
@@ -82,6 +94,10 @@ const Relative* flock_member::get_rel(){
 	Relative* p_current_relative;
 	p_current_relative= &_my_relative;
 	return (const Relative*)p_current_relative;
+}
+
+const int32_t* flock_member::get_D2Goal(){
+	return (const int32_t*)&_d2goal;
 }
 
 void flock_member::update_rel(){
@@ -121,12 +137,6 @@ void flock_member::update_rel(){
 			}
 
 			tmp_distance = get_distance(my_loc,tmp_loc); //[M]
-			///////////////////////////DEBUGGING//////////////////////
-			debug_my_lat = my_loc->lat;
-			debug_my_lon = my_loc->lng;
-			debug_their_lat = tmp_loc->lat;
-			debug_their_lon = tmp_loc->lng;
-			//////////////////////////////////////////////////////////
 
 			//Store Relative values in structure
 			_dX[j].x = De7ToM((float)(tmp_loc->lat-my_loc->lat));						//X distance of member wrt a/c (NED frame) [M]
@@ -203,9 +213,24 @@ const uint32_t* flock_member::get_last_update_time(){
 	return (const uint32_t*)&_time_boot_ms;
 }
 
+uint8_t flock_member::get_local_leader()
+{
+	return _local_leader;
+}
+
 bool flock_member::get_leader_status()
 {
 	return _global_leader;
+}
+
+const uint32_t* flock_member::get_membermask()
+{
+	return (const uint32_t*)&_membermask;
+}
+
+uint8_t flock_member::get_members_iv()
+{
+	return _num_members;
 }
 
 flock_member FLOCK_MEMBER;

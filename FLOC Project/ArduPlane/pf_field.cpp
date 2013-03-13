@@ -101,6 +101,8 @@ pf_field::pf_field()
 				tmp_a_phi.z = tmp_dL.z;//_lambda.z*(tmp_dL.z);			//Calculate PF Z gradient with weighting parameter
 
 				//Calculate the total potential gradient components
+				_phi_a = tmp_a_phi;
+				_phi_r = tmp_r_phi;
 				_phi_NED = tmp_a_phi + tmp_r_phi;
 				//Calculate the magnitude of the total potential function gradient
 				tmp_mag_phi = _phi_NED.length();
@@ -117,6 +119,7 @@ pf_field::pf_field()
 					_Nphi_NED = _phi_NED.normalized(); 
 					if(tmp_d2L<_chi) //Near-field consideration- We don't want the VWP behind the body
 					{
+						_regime_mask = 0x01;
 						_Nphi_b.x = _Nphi_NED.x*cos(ToRad(*p_ac->get_hdg()/100.0)) + _Nphi_NED.y*sin(ToRad(*p_ac->get_hdg()/100.0));
 						if(_Nphi_b.x<0)
 						{
@@ -126,17 +129,16 @@ pf_field::pf_field()
 							_phi_c_NED.x= _phi_b.x*cos(ToRad(*p_ac->get_hdg()/100.0)) - _phi_b.y*sin(ToRad(*p_ac->get_hdg()/100.0));
 							_phi_c_NED.y= _phi_b.x*sin(ToRad(*p_ac->get_hdg()/100.0)) + _phi_b.y*cos(ToRad(*p_ac->get_hdg()/100.0));
 							_Nphi_c_NED = _phi_c_NED.normalized();
+							_regime_mask = 0x03;
 						}
+						else _regime_mask = 0x01;
+					}
+					else
+					{
+						_regime_mask = 0x00;
 					}
 				}
 
-				///////////////////////DEBUG
-				debug_tmp_dX = tmp_dX;
-				debug_r_phi = tmp_r_phi;
-				debug_a_phi = tmp_a_phi;
-				debug_Nphi = _Nphi_NED;
-				debug_mag_phi = tmp_mag_phi;
-				//////////////////////DEBUG
 				if(tmp_d2L<_chi)
 				{
 					//Calculate the North and East Offset [m]
@@ -150,6 +152,7 @@ pf_field::pf_field()
 					tmp_dspd_com=_k_phi_V_near*_Nphi_b.x + _k_V_near*tmp_dV.length(); //[m/s]
 					//Convert to units used by WP and airspeed commands
 					tmp_dspd_com= tmp_dspd_com*100; //[cm/s]
+					_phi_norm = _Nphi_c_NED;
 				}
 				else
 				{								//Far-Field Case
@@ -157,23 +160,18 @@ pf_field::pf_field()
 					tmp_dEast_com	=	_VWP_offset*_k_phi_far.y*_Nphi_NED.y;
 					tmp_dalt_com	=	_VWP_offset*_k_phi_far.z*_Nphi_NED.z + _k_alt_V_far*tmp_dV.z;
 					tmp_dspd_com	=	0;
+					_phi_norm = _Nphi_NED;
 				}
 				
-				////////////////////////DEBUG////////////////
-				debug_dNorth_com = tmp_dNorth_com;
-				debug_dEast_com = tmp_dEast_com;
-				//debug_dalt_com = tmp_dalt_com;
-				debug_dspd_com = tmp_dspd_com;
-				////////////////////////////////////////////
 					const Location* p_current_location = p_ac->get_loc();
 					_next_VWP = *p_current_location;
 					location_offset(&_next_VWP, tmp_dNorth_com, tmp_dEast_com);
 					_next_VWP.alt-=(int32_t)100*tmp_dalt_com; //double-check sign here. I am subtracting to counter the + is down convention (units converted to cm)
 					constrain(_next_VWP.alt,PFG_MIN_ALT,PFG_MAX_ALT);
-					debug_dalt_com = _next_VWP.alt;
+
 				if(tmp_d2L<_chi)
 				{							//Near-Field Case
-					_next_airspeed_com = airspeed->get_airspeed_cm()+tmp_dspd_com;
+					_next_airspeed_com = (uint16_t)airspeed->get_airspeed_cm()+tmp_dspd_com; //converted to uint16_t with units of (cm/s)
 					constrain(_next_airspeed_com,PFG_MIN_AIRSPEED_CM,PFG_MAX_AIRSPEED_CM);
 				}
 				else
@@ -186,8 +184,25 @@ const Location* pf_field::get_VWP(){
 	return (const Location*)&_next_VWP;
 }
 
-const int32_t* pf_field::get_new_speed(){
-	return (const int32_t*)&_next_airspeed_com;
+const uint16_t* pf_field::get_new_speed(){
+	return (const uint16_t*)&_next_airspeed_com;
 }
+
+const Vector3f* pf_field::get_pfg_att(){
+	return (const Vector3f*)&_phi_a;
+}
+
+const Vector3f* pf_field::get_pfg_rep(){
+	return (const Vector3f*)&_phi_r;
+}
+
+const Vector3f* pf_field::get_pfg_norm(){
+	return (const Vector3f*)&_phi_norm;
+}
+
+uint8_t pf_field::get_regime_mask(){
+	return _regime_mask;
+}
+
 pf_field PF_FIELD;
 

@@ -155,7 +155,12 @@ static void init_ardupilot()
 	Serial3.begin(map_baudrate(g.serial3_baud, SERIAL3_BAUD), 128, SERIAL_BUFSIZE);
     gcs3.init(&Serial3);
 #endif
-
+//////////////////FORMATION FLIGHT ADDITION: Added to support inter-ac comms//////////////// 
+#if FCOM_UART2 == ENABLED
+	Serial3.begin(FCOM_BAUD, 128, SERIAL_BUFSIZE);
+	fcom.init(&Serial3);
+#endif
+///////////////////////////////////////////////////////////////////////////////////////////
     mavlink_system.sysid = g.sysid_this_mav;
 
 #if LOGGING_ENABLED == ENABLED
@@ -361,6 +366,13 @@ static void set_mode(byte mode)
         // don't switch modes if we are already in the correct mode.
         return;
     }
+#if FORMATION_FLIGHT
+	if(control_mode == MANUAL && mode == MANUAL_IN_FORMATION && broadcast_enabled){
+		//don't switch modes because manual_in_formation redirects to manual after in enables broadcast
+		//switching modes will clutter up the log
+		return;
+	}
+#endif
     if(g.auto_trim > 0 && control_mode == MANUAL)
         trim_control_surfaces();
 
@@ -427,7 +439,7 @@ static void set_mode(byte mode)
     }
 
     if (g.log_bitmask & MASK_LOG_MODE)
-        Log_Write_Mode(control_mode);
+        Log_Write_Mode(mode); //changed so that MANUAL_IN_FORMATION can be logged, even though it redirects to MANUAL
 }
 
 static void check_long_failsafe()
@@ -656,6 +668,16 @@ print_flight_mode(uint8_t mode)
     case LOITER:
         Serial.println_P(PSTR("Loiter"));
         break;
+///////////////////////////////////////////////////////
+//Added Formation Flight Mode
+///////////////////////////////////////////////////////
+	case FORMATION:
+		Serial.println_P(PSTR("Formation"));
+		break;
+	case MANUAL_IN_FORMATION:
+		Serial.println_P(PSTR("Manual_in_Formation"));
+		break;
+///////////////////////////////////////////////////////
     default:
         Serial.println_P(PSTR("---"));
         break;

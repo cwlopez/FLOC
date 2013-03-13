@@ -47,7 +47,18 @@ static bool suppress_throttle(void);
 static void set_servos(void);
 static void demo_servos(byte i);
 static bool alt_control_airspeed(void);
-void ac_location_broadcast();
+static NOINLINE void fcom_send_heartbeat(XBeeAddress64 &address64);
+static NOINLINE void fcom_send_location(XBeeAddress64 &address64);
+static NOINLINE void fcom_send_flock_status(XBeeAddress64 &address64);
+static NOINLINE void fcom_send_pf_field(XBeeAddress64 &address64);
+static NOINLINE void fcom_send_vwp(XBeeAddress64 &address64);
+static NOINLINE void fcom_send_rel_state(XBeeAddress64 &address64);
+static NOINLINE void fcom_send_gps_error_assist(XBeeAddress64 &address64);
+static void handle_fcom_sender(mavlink_message_t* msg);
+static void handle_fcom_message(flock_member* p_flockmember, bool* p_rollcall, mavlink_message_t* msg);
+static void process_flockmember_heartbeat(uint8_t sysid, flock_member* p_flockmember, bool* p_rollcall, mavlink_heartbeat_t* packet);
+static void process_flockmember_location(flock_member* p_flockmember, mavlink_global_position_int_t* packet);
+static void process_flockmember_status(flock_member* p_flockmember, mavlink_ff_flock_status_t* packet);
 static NOINLINE void send_heartbeat(mavlink_channel_t chan);
 static NOINLINE void send_attitude(mavlink_channel_t chan);
 static NOINLINE void send_fence_status(mavlink_channel_t chan);
@@ -90,6 +101,16 @@ static void Log_Write_Mode(byte mode);
 static void Log_Write_GPS(      int32_t log_Time, int32_t log_Lattitude, int32_t log_Longitude, int32_t log_gps_alt, int32_t log_mix_alt,                                 int32_t log_Ground_Speed, int32_t log_Ground_Course, byte log_Fix, byte log_NumSats);
 static void Log_Write_Raw();
 static void Log_Write_Current();
+static void  Log_Write_Flock_Status(int32_t log_time, byte leader, byte member_iv, int32_t member_ids, int32_t dist2goal);
+static void Log_Write_PF_Field(int32_t log_time, byte coordinate_frame, int16_t phix_att, int16_t phiy_att, int16_t phiz_att, int16_t phix_rep, int16_t phiy_rep, int16_t phiz_rep, 							int16_t phix_norm, int16_t phiy_norm, int16_t phiz_norm, byte regime_mask);
+static void Log_Write_VWP(int32_t log_time,byte coordinate_frame, int32_t latitude, int32_t longitude, int32_t altitude, int16_t airspeed);
+static void Log_Write_Relative(int32_t log_time, byte coordinate_frame, int16_t relx, int16_t rely, int16_t relz, int16_t relvx, int16_t relvy, int16_t relvz);
+static void Log_Write_Error_Assist(int32_t log_time,byte gps_fix, int32_t gps_rel, int16_t gps_hdop, byte gps_num_sat);
+static void Log_Read_Flock_Status();
+static void Log_Read_PF_Field();
+static void Log_Read_VWP();
+static void Log_Read_Relative();
+static void Log_Read_Error_Assist();
 static void Log_Read_Current();
 static void Log_Read_Control_Tuning();
 static void Log_Read_Nav_Tuning();
@@ -173,9 +194,7 @@ static void failsafe_short_off_event();
 void low_battery_event(void);
 static void update_events(void);
 void failsafe_check(uint32_t tnow);
-static void broadcast_my_location();
 static void update_ac_flockmember();
-static void process_flockmember_location(uint8_t sysid, mavlink_global_position_int_t* packet);
 static void update_formation_flight_commands();
 static void update_flock_leadership();
 static void set_goal_WP(void);
@@ -266,7 +285,7 @@ static void test_wp_print(struct Location *cmd, byte wp_index);
 #include "C:\Users\God\Documents\Arduino\ArduPlane\AP_XBee.cpp"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\AP_XBee.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\Attitude.ino"
-#include "C:\Users\God\Documents\Arduino\ArduPlane\Formation_Mavlink.ino"
+#include "C:\Users\God\Documents\Arduino\ArduPlane\FCOM_Mavlink.ino"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\GCS.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\GCS_Mavlink.ino"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\Log.ino"
@@ -282,6 +301,7 @@ static void test_wp_print(struct Location *cmd, byte wp_index);
 #include "C:\Users\God\Documents\Arduino\ArduPlane\defines.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\events.ino"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\failsafe.ino"
+#include "C:\Users\God\Documents\Arduino\ArduPlane\fcom_types.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\flock_member.cpp"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\flock_member.h"
 #include "C:\Users\God\Documents\Arduino\ArduPlane\formation_common.h"

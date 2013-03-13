@@ -70,8 +70,6 @@
         <VCCodeMacro Name="NUM_CHANNELS" Value="8" />
         <VCCodeMacro Name="__SITL_H__" Value="" />
         <VCCodeMacro Name="B00" Value="0" />
-        <VCCodeMacro Name="CONFIG_APM_HARDWARE" Value="APM_HARDWARE_APM2" />
-        <VCCodeMacro Name="CONFIG_APM_HARDWARE" Value="APM_HARDWARE_APM2" />
         <VCCodeMacro Name="__AVR__" Value="" />
         <VCCodeMacro Name="bit_set" Value="((p) |= ( 1&lt;&lt;m))" />
         <VCCodeMacro Name="PRESS_FILTER_SIZE" Value="2" />
@@ -82,15 +80,18 @@
         <VCCodeMacro Name="DataFlash_h" Value="" />
         <VCCodeMacro Name="__DATAFLASH_APM1_H__" Value="" />
         <VCCodeMacro Name="__DATAFLASH_APM2_H__" Value="" />
-        <VCCodeMacro Name="CONFIG_APM_HARDWARE" Value="APM_HARDWARE_APM2" />
         <VCCodeMacro Name="B000" Value="0" />
         <VCCodeMacro Name="NEW_H" Value="" />
+        <VCCodeMacro Name="CONFIG_APM_HARDWARE" Value="APM_HARDWARE_APM2" />
+        <VCCodeMacro Name="AIRFRAME_NAME" Value="&quot;DEWEY&quot;" />
+        <VCCodeMacro Name="AIRFRAME_NAME" Value="&quot;HUEY&quot;" />
         <VCCodeMacro Name="_CHECKSUM_H_" Value="" />
         <VCCodeMacro Name="__cplusplus" Value="" />
         <VCCodeMacro Name="bit_clear" Value="((p) &amp;= ~(1&lt;&lt;m))" />
         <VCCodeMacro Name="AP_RANGEFINDER_SHARPEGP2Y_MIN_DISTANCE" Value="20" />
         <VCCodeMacro Name="MAX_PULSEWIDTH" Value="2100" />
         <VCCodeMacro Name="ISR_REGISTRY_TIMER4_CAPT" Value="1" />
+        <VCCodeMacro Name="AIRFRAME_NAME" Value="&quot;LOUIE&quot;" />
         <VCCodeMacro Name="B0000" Value="0" />
         <VCCodeMacro Name="__attribute__" Value="" />
         <VCCodeMacro Name="MAX_PIN_SOURCES" Value="5" />
@@ -106,9 +107,10 @@
         <VCCodeMacro Name="GCS_MAVLink_h" Value="" />
         <VCCodeMacro Name="PID_h" Value="" />
         <VCCodeMacro Name="RC_Channel_h" Value="" />
+        <VCCodeMacro Name="__FCOM_TYPES_H" Value="" />
         <VCCodeMacro Name="B00000" Value="0" />
-        <VCCodeMacro Name="TELEMETRY_UART2" Value="ENABLED" />
-        <VCCodeMacro Name="TELEMETRY_UART2" Value="ENABLED" />
+        <VCCodeMacro Name="MAV_SYSTEM_ID" Value="2" />
+        <VCCodeMacro Name="MAV_SYSTEM_ID" Value="1" />
         <VCCodeMacro Name="__GCS_H" Value="" />
         <VCCodeMacro Name="__inline__" Value="" />
         <VCCodeMacro Name="AP_CAMERA_H" Value="" />
@@ -117,9 +119,10 @@
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARXL_SCALER" Value="1.0" />
         <VCCodeMacro Name="ISR_REGISTRY_NUM_SLOTS" Value="3" />
         <VCCodeMacro Name="RC_CHANNEL_AUX_H_" Value="" />
-        <VCCodeMacro Name="TELEMETRY_UART2" Value="ENABLED" />
+        <VCCodeMacro Name="MAV_SYSTEM_ID" Value="3" />
         <VCCodeMacro Name="HEAD_BYTE1" Value="0xA3" />
         <VCCodeMacro Name="B000000" Value="0" />
+        <VCCodeMacro Name="TELEMETRY_UART2" Value="DISABLED" />
         <VCCodeMacro Name="TRUE" Value="1" />
         <VCCodeMacro Name="__asm__" Value="" />
         <VCCodeMacro Name="ADC_DATAOUT" Value="51" />
@@ -130,17 +133,20 @@
         <VCCodeMacro Name="HEAD_BYTE2" Value="0x95" />
         <VCCodeMacro Name="Debug" Value=") do {Serial.printf(&quot;%s:%d: &quot; fmt &quot;\n&quot;, __FUNCTION__, __LINE__,##args); delay(0); } while(0)" />
         <VCCodeMacro Name="B0000000" Value="0" />
-        <VCCodeMacro Name="HIL_MODE" Value="HIL_MODE_DISABLED" />
-        <VCCodeMacro Name="HIL_MODE" Value="HIL_MODE_DISABLED" />
+        <VCCodeMacro Name="HUEY_ID" Value="1" />
+        <VCCodeMacro Name="HUEY_ID" Value="1" />
         <VCCodeMacro Name="FALSE" Value="0" />
         <VCCodeMacro Name="CHECK_PAYLOAD_SIZE" Value="if (payload_space &lt; MAVLINK_MSG_ID_##id##_LEN) return false" />
         <VCCodeMacro Name="__extension__" Value="" />
         <VCCodeMacro Name="ADC_DATAIN" Value="50" />
         <VCCodeMacro Name="DISABLED" Value="0" />
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARXL_MAX_DISTANCE" Value="765" />
-        <VCCodeMacro Name="HIL_MODE" Value="HIL_MODE_DISABLED" />
+        <VCCodeMacro Name="HUEY_ID" Value="1" />
         <VCCodeMacro Name="END_BYTE" Value="0xBA" />
         <VCCodeMacro Name="B00000000" Value="0" />
+        <VCCodeMacro Name="FCOM_UART2" Value="ENABLED" />
+        <VCCodeMacro Name="DEWEY_ID" Value="2" />
+        <VCCodeMacro Name="DEWEY_ID" Value="2" />
         <VCCodeMacro Name="ToRad" Value="(x*0.01745329252)" />
         <VCCodeMacro Name="__ATTR_PURE__" Value="" />
         <VCCodeMacro Name="ADC_SPICLOCK" Value="52" />
@@ -151,11 +157,12 @@
         <VCCodeMacro Name="AP_IMU_SHIM_UPDATE_MICROS" Value="10000" />
         <VCCodeMacro Name="QUATERNION_H" Value="" />
         <VCCodeMacro Name="AP_TIMERPROCESS_MAX_PROCS" Value="5" />
+        <VCCodeMacro Name="DEWEY_ID" Value="2" />
         <VCCodeMacro Name="Debug" Value=")" />
         <VCCodeMacro Name="B1" Value="1" />
         <VCCodeMacro Name="_SPI_H_INCLUDED" Value="" />
-        <VCCodeMacro Name="HIL_DEBUG" Value="DISABLED" />
-        <VCCodeMacro Name="HIL_DEBUG" Value="DISABLED" />
+        <VCCodeMacro Name="LOUIE_ID" Value="3" />
+        <VCCodeMacro Name="LOUIE_ID" Value="3" />
         <VCCodeMacro Name="ToDeg" Value="(x*57.2957795131)" />
         <VCCodeMacro Name="GSCALAR" Value="{ g.v.vtype, name, Parameters::k_param_##v, &amp;g.v, {def_value : def} }" />
         <VCCodeMacro Name="__ATTR_CONST__" Value="" />
@@ -167,8 +174,9 @@
         <VCCodeMacro Name="AP_GPS_UBLOX_h" Value="" />
         <VCCodeMacro Name="CH_1" Value="0" />
         <VCCodeMacro Name="__BETTERSTREAM_H" Value="" />
-        <VCCodeMacro Name="HIL_DEBUG" Value="DISABLED" />
+        <VCCodeMacro Name="LOUIE_ID" Value="3" />
         <VCCodeMacro Name="B01" Value="1" />
+        <VCCodeMacro Name="FCOM_BAUD" Value="57600" />
         <VCCodeMacro Name="GGROUP" Value="{ AP_PARAM_GROUP, name, Parameters::k_param_##v, &amp;g.v, {group_info : class::var_info} }" />
         <VCCodeMacro Name="__inline__" Value="" />
         <VCCodeMacro Name="GYRO_BIAS_FROM_GRAVITY_RATE" Value="4" />
@@ -187,8 +195,6 @@
         <VCCodeMacro Name="STACK_OFFSET" Value="2" />
         <VCCodeMacro Name="MNT_JSTICK_SPD_OPTION" Value="DISABLED" />
         <VCCodeMacro Name="B001" Value="1" />
-        <VCCodeMacro Name="LOGGING_ENABLED" Value="ENABLED" />
-        <VCCodeMacro Name="LOGGING_ENABLED" Value="ENABLED" />
         <VCCodeMacro Name="DEBUG" Value="0" />
         <VCCodeMacro Name="GOBJECT" Value="{ AP_PARAM_GROUP, name, Parameters::k_param_##v, &amp;v, {group_info : class::var_info} }" />
         <VCCodeMacro Name="__asm__" Value="" />
@@ -207,11 +213,11 @@
         <VCCodeMacro Name="Filter_h" Value="" />
         <VCCodeMacro Name="ModeFilter_h" Value="" />
         <VCCodeMacro Name="SENTINEL" Value="0x28021967" />
-        <VCCodeMacro Name="LOGGING_ENABLED" Value="ENABLED" />
         <VCCodeMacro Name="MNT_RETRACT_OPTION" Value="DISABLED" />
         <VCCodeMacro Name="B0001" Value="1" />
-        <VCCodeMacro Name="LOG_ATTITUDE_FAST" Value="DISABLED" />
-        <VCCodeMacro Name="LOG_ATTITUDE_FAST" Value="DISABLED" />
+        <VCCodeMacro Name="QGCS_MSB" Value="0x0013a200" />
+        <VCCodeMacro Name="FORMATION" Value="13" />
+        <VCCodeMacro Name="FORMATION" Value="13" />
         <VCCodeMacro Name="X25_INIT_CRC" Value="0xffff" />
         <VCCodeMacro Name="LOITER_RANGE" Value="60" />
         <VCCodeMacro Name="__volatile__" Value="" />
@@ -221,11 +227,10 @@
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARLV_MIN_DISTANCE" Value="15" />
         <VCCodeMacro Name="CH_4" Value="3" />
         <VCCodeMacro Name="LowPassFilter_h" Value="" />
-        <VCCodeMacro Name="LOG_ATTITUDE_FAST" Value="DISABLED" />
+        <VCCodeMacro Name="FORMATION" Value="13" />
         <VCCodeMacro Name="MNT_GPSPOINT_OPTION" Value="ENABLED" />
         <VCCodeMacro Name="B00001" Value="1" />
-        <VCCodeMacro Name="LOG_ATTITUDE_MED" Value="DISABLED" />
-        <VCCodeMacro Name="LOG_ATTITUDE_MED" Value="DISABLED" />
+        <VCCodeMacro Name="QGCS_LSB" Value="0x409a92ff" />
         <VCCodeMacro Name="X25_VALIDATE_CRC" Value="0xf0b8" />
         <VCCodeMacro Name="SERVO_MAX" Value="4500" />
         <VCCodeMacro Name="__builtin_va_list" Value="" />
@@ -239,11 +244,10 @@
         <VCCodeMacro Name="CH_5" Value="4" />
         <VCCodeMacro Name="DF_LOGGING_FORMAT_INVALID" Value="0x28122012" />
         <VCCodeMacro Name="FilterWithBuffer_h" Value="" />
-        <VCCodeMacro Name="LOG_ATTITUDE_MED" Value="DISABLED" />
         <VCCodeMacro Name="MNT_STABILIZE_OPTION" Value="DISABLED" />
         <VCCodeMacro Name="B000001" Value="1" />
-        <VCCodeMacro Name="LOG_GPS" Value="ENABLED" />
-        <VCCodeMacro Name="LOG_GPS" Value="ENABLED" />
+        <VCCodeMacro Name="MANUAL_IN_FORMATION" Value="14" />
+        <VCCodeMacro Name="MANUAL_IN_FORMATION" Value="14" />
         <VCCodeMacro Name="__builtin_va_start" Value="" />
         <VCCodeMacro Name="AP_COMPASS_COMPONENTS_UP_PINS_LEFT" Value="ROTATION_YAW_270" />
         <VCCodeMacro Name="GPS_406_BITRATE" Value="57600" />
@@ -251,42 +255,37 @@
         <VCCodeMacro Name="MPUREG_X_FINE_GAIN" Value="0x03" />
         <VCCodeMacro Name="__AP_MENU_H__" Value="" />
         <VCCodeMacro Name="CH_6" Value="5" />
-        <VCCodeMacro Name="LOG_GPS" Value="ENABLED" />
+        <VCCodeMacro Name="MANUAL_IN_FORMATION" Value="14" />
         <VCCodeMacro Name="Debug" Value=") do {Serial.printf(&quot;%s:%d: &quot; fmt &quot;\n&quot;, __FUNCTION__, __LINE__,##args); delay(0); } while(0)" />
         <VCCodeMacro Name="MNT_MOUNT2_OPTION" Value="DISABLED" />
         <VCCodeMacro Name="HIGH" Value="0x1" />
         <VCCodeMacro Name="B0000001" Value="1" />
         <VCCodeMacro Name="SPI_CLOCK_DIV4" Value="0x00" />
-        <VCCodeMacro Name="LOG_PM" Value="DISABLED" />
-        <VCCodeMacro Name="LOG_PM" Value="DISABLED" />
         <VCCodeMacro Name="__builtin_va_end" Value="" />
         <VCCodeMacro Name="GPS_SPEED_MIN" Value="300" />
         <VCCodeMacro Name="AP_COMPASS_COMPONENTS_UP_PINS_FORWARD_LEFT" Value="ROTATION_YAW_315" />
         <VCCodeMacro Name="MPUREG_Y_FINE_GAIN" Value="0x04" />
         <VCCodeMacro Name="CH_7" Value="6" />
         <VCCodeMacro Name="MAVLINK_MAX_PAYLOAD_LEN" Value="MAVLINK_MAX_DIALECT_PAYLOAD_SIZE" />
-        <VCCodeMacro Name="LOG_PM" Value="DISABLED" />
         <VCCodeMacro Name="LOW" Value="0x0" />
         <VCCodeMacro Name="B00000001" Value="1" />
         <VCCodeMacro Name="__USBCORE_H__" Value="" />
         <VCCodeMacro Name="CDC_ENABLED" Value="" />
         <VCCodeMacro Name="SPI_CLOCK_DIV16" Value="0x01" />
-        <VCCodeMacro Name="LOG_CTUN" Value="DISABLED" />
-        <VCCodeMacro Name="LOG_CTUN" Value="DISABLED" />
+        <VCCodeMacro Name="HIL_MODE" Value="HIL_MODE_ATTITUDE" />
         <VCCodeMacro Name="__DOXYGEN__" Value="" />
         <VCCodeMacro Name="AP_COMPASS_COMPONENTS_DOWN_PINS_FORWARD" Value="ROTATION_ROLL_180" />
         <VCCodeMacro Name="MTK_OUTPUT_1HZ" Value="&quot;$PMTK220,1000*1F\r\n&quot;" />
         <VCCodeMacro Name="MPUREG_Z_FINE_GAIN" Value="0x05" />
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARXLL" Value="2" />
         <VCCodeMacro Name="CH_8" Value="7" />
-        <VCCodeMacro Name="LOG_CTUN" Value="DISABLED" />
         <VCCodeMacro Name="Debug" Value=")" />
         <VCCodeMacro Name="MNT_JSTICK_SPD_OPTION" Value="ENABLED" />
         <VCCodeMacro Name="B10" Value="2" />
         <VCCodeMacro Name="HID_ENABLED" Value="" />
         <VCCodeMacro Name="SPI_CLOCK_DIV64" Value="0x02" />
-        <VCCodeMacro Name="LOG_NTUN" Value="ENABLED" />
-        <VCCodeMacro Name="LOG_NTUN" Value="ENABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_1" Value="LOITER" />
+        <VCCodeMacro Name="FLIGHT_MODE_1" Value="LOITER" />
         <VCCodeMacro Name="prog_void" Value="" />
         <VCCodeMacro Name="GPS_SPEED_MIN" Value="300" />
         <VCCodeMacro Name="AP_Loop_H" Value="" />
@@ -297,7 +296,7 @@
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARXLL_SCALER" Value="2.0" />
         <VCCodeMacro Name="CH_9" Value="8" />
         <VCCodeMacro Name="MAVLINK_COMM_NUM_BUFFERS" Value="2" />
-        <VCCodeMacro Name="LOG_NTUN" Value="ENABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_1" Value="LOITER" />
         <VCCodeMacro Name="MNT_RETRACT_OPTION" Value="ENABLED" />
         <VCCodeMacro Name="INPUT" Value="0x0" />
         <VCCodeMacro Name="B010" Value="2" />
@@ -305,8 +304,9 @@
         <VCCodeMacro Name="Printable_h" Value="" />
         <VCCodeMacro Name="Character_h" Value="" />
         <VCCodeMacro Name="SPI_CLOCK_DIV128" Value="0x03" />
-        <VCCodeMacro Name="LOG_MODE" Value="ENABLED" />
-        <VCCodeMacro Name="LOG_MODE" Value="ENABLED" />
+        <VCCodeMacro Name="HIL_DEBUG" Value="DISABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_2" Value="FORMATION" />
+        <VCCodeMacro Name="FLIGHT_MODE_2" Value="FORMATION" />
         <VCCodeMacro Name="FAILSAFE_NONE" Value="0" />
         <VCCodeMacro Name="PGM_VOID_P" Value="int" />
         <VCCodeMacro Name="AP_META_CLASS_H" Value="" />
@@ -318,14 +318,14 @@
         <VCCodeMacro Name="CH_10" Value="9" />
         <VCCodeMacro Name="RC_CHANNEL_ANGLE" Value="0" />
         <VCCodeMacro Name="AP_XBee_h" Value="" />
-        <VCCodeMacro Name="LOG_MODE" Value="ENABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_2" Value="FORMATION" />
         <VCCodeMacro Name="MNT_GPSPOINT_OPTION" Value="ENABLED" />
         <VCCodeMacro Name="OUTPUT" Value="0x1" />
         <VCCodeMacro Name="B0010" Value="2" />
         <VCCodeMacro Name="GET_STATUS" Value="0" />
         <VCCodeMacro Name="SPI_CLOCK_DIV2" Value="0x04" />
-        <VCCodeMacro Name="LOG_RAW" Value="DISABLED" />
-        <VCCodeMacro Name="LOG_RAW" Value="DISABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_3" Value="STABILIZE" />
+        <VCCodeMacro Name="FLIGHT_MODE_3" Value="STABILIZE" />
         <VCCodeMacro Name="FAILSAFE_SHORT" Value="1" />
         <VCCodeMacro Name="NOINLINE" Value="__attribute__((noinline))" />
         <VCCodeMacro Name="GPS_SPEED_RESET" Value="100" />
@@ -340,7 +340,7 @@
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARXLL_MAX_DISTANCE" Value="1068" />
         <VCCodeMacro Name="CH_11" Value="10" />
         <VCCodeMacro Name="RC_CHANNEL_RANGE" Value="1" />
-        <VCCodeMacro Name="LOG_RAW" Value="DISABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_3" Value="STABILIZE" />
         <VCCodeMacro Name="MNT_STABILIZE_OPTION" Value="ENABLED" />
         <VCCodeMacro Name="INPUT_PULLUP" Value="0x2" />
         <VCCodeMacro Name="B00010" Value="2" />
@@ -349,8 +349,8 @@
         <VCCodeMacro Name="CLEAR_FEATURE" Value="1" />
         <VCCodeMacro Name="String_class_h" Value="" />
         <VCCodeMacro Name="SPI_CLOCK_DIV8" Value="0x05" />
-        <VCCodeMacro Name="LOG_CMD" Value="DISABLED" />
-        <VCCodeMacro Name="LOG_CMD" Value="DISABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_4" Value="MANUAL_IN_FORMATION" />
+        <VCCodeMacro Name="FLIGHT_MODE_4" Value="MANUAL_IN_FORMATION" />
         <VCCodeMacro Name="FAILSAFE_LONG" Value="2" />
         <VCCodeMacro Name="AP_NESTED_GROUPS_ENABLED" Value="" />
         <VCCodeMacro Name="AP_COMPASS_COMPONENTS_DOWN_PINS_BACK" Value="ROTATION_PITCH_180" />
@@ -358,14 +358,15 @@
         <VCCodeMacro Name="MPUREG_YA_OFFS_L" Value="0x09" />
         <VCCodeMacro Name="MENU_COMMAND_MAX" Value="14" />
         <VCCodeMacro Name="RC_CHANNEL_ANGLE_RAW" Value="2" />
-        <VCCodeMacro Name="LOG_CMD" Value="DISABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_4" Value="MANUAL_IN_FORMATION" />
         <VCCodeMacro Name="MNT_MOUNT2_OPTION" Value="ENABLED" />
         <VCCodeMacro Name="B000010" Value="2" />
         <VCCodeMacro Name="SET_FEATURE" Value="3" />
         <VCCodeMacro Name="CDC_INTERFACE_COUNT" Value="2" />
         <VCCodeMacro Name="SPI_CLOCK_DIV32" Value="0x06" />
-        <VCCodeMacro Name="LOG_CUR" Value="DISABLED" />
-        <VCCodeMacro Name="LOG_CUR" Value="DISABLED" />
+        <VCCodeMacro Name="LOGGING_ENABLED" Value="ENABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_5" Value="RTL" />
+        <VCCodeMacro Name="FLIGHT_MODE_5" Value="RTL" />
         <VCCodeMacro Name="FAILSAFE_GCS" Value="3" />
         <VCCodeMacro Name="GPS_SPEED_RESET" Value="100" />
         <VCCodeMacro Name="AP_COMPASS_COMPONENTS_DOWN_PINS_BACK_LEFT" Value="ROTATION_ROLL_180_YAW_225" />
@@ -373,12 +374,15 @@
         <VCCodeMacro Name="MPUREG_ZA_OFFS_H" Value="0x0A" />
         <VCCodeMacro Name="MATRIX_ROTATION_NONE" Value="Matrix3f(1, 0, 0, 0, 1, 0, 0,0, 1)" />
         <VCCodeMacro Name="VECTOR2_H" Value="" />
-        <VCCodeMacro Name="LOG_CUR" Value="DISABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_5" Value="RTL" />
         <VCCodeMacro Name="true" Value="0x1" />
         <VCCodeMacro Name="B0000010" Value="2" />
         <VCCodeMacro Name="EP_TYPE_CONTROL" Value="0x00" />
         <VCCodeMacro Name="SET_ADDRESS" Value="5" />
         <VCCodeMacro Name="CDC_ENPOINT_COUNT" Value="3" />
+        <VCCodeMacro Name="LOG_ATTITUDE_FAST" Value="DISABLED" />
+        <VCCodeMacro Name="FLIGHT_MODE_6" Value="MANUAL" />
+        <VCCodeMacro Name="FLIGHT_MODE_6" Value="MANUAL" />
         <VCCodeMacro Name="FAILSAFE_SHORT_TIME" Value="1500" />
         <VCCodeMacro Name="AP_COMPASS_COMPONENTS_DOWN_PINS_LEFT" Value="ROTATION_ROLL_180_YAW_270" />
         <VCCodeMacro Name="MTK_BAUD_RATE_38400" Value="&quot;$PMTK251,38400*27\r\n&quot;" />
@@ -386,6 +390,8 @@
         <VCCodeMacro Name="MATRIX_ROTATION_YAW_45" Value="Matrix3f(HALF_SQRT_2, -HALF_SQRT_2, 0, HALF_SQRT_2, HALF_SQRT_2, 0, 0, 0, 1)" />
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARHRLV" Value="3" />
         <VCCodeMacro Name="NUM_CHANNELS" Value="8" />
+        <VCCodeMacro Name="FLIGHT_MODE_6" Value="MANUAL" />
+        <VCCodeMacro Name="MAVLINK_HEARTBEAT_LEN" Value="17" />
         <VCCodeMacro Name="false" Value="0x0" />
         <VCCodeMacro Name="B00000010" Value="2" />
         <VCCodeMacro Name="PARSE_TIMEOUT" Value="1000" />
@@ -393,14 +399,13 @@
         <VCCodeMacro Name="GET_DESCRIPTOR" Value="6" />
         <VCCodeMacro Name="WiringPrivate_h" Value="" />
         <VCCodeMacro Name="Pins_Arduino_h" Value="" />
-        <VCCodeMacro Name="GEOFENCE_ENABLED" Value="DISABLED" />
-        <VCCodeMacro Name="GEOFENCE_ENABLED" Value="DISABLED" />
+        <VCCodeMacro Name="LOG_ATTITUDE_MED" Value="DISABLED" />
         <VCCodeMacro Name="FAILSAFE_LONG_TIME" Value="20000" />
         <VCCodeMacro Name="AP_COMPASS_COMPONENTS_DOWN_PINS_FORWARD_LEFT" Value="ROTATION_ROLL_180_YAW_315" />
         <VCCodeMacro Name="MPUREG_PRODUCT_ID" Value="0x0C" />
         <VCCodeMacro Name="MATRIX_ROTATION_YAW_90" Value="Matrix3f(0, -1, 0, 1, 0, 0, 0, 0, 1)" />
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARHRLV_SCALER" Value="0.512" />
-        <VCCodeMacro Name="GEOFENCE_ENABLED" Value="DISABLED" />
+        <VCCodeMacro Name="MAVLINK_HEARTBEAT_CRC" Value="50" />
         <VCCodeMacro Name="serialDebug" Value=") if (FastSerial::getInitialized(0)) do {Serial.printf(&quot;%s:%d: &quot; fmt &quot;\n&quot;, __FUNCTION__, __LINE__,##args); delay(0); } while(0)" />
         <VCCodeMacro Name="B11" Value="3" />
         <VCCodeMacro Name="SERIAL_BUFFER_SIZE" Value="16" />
@@ -411,6 +416,7 @@
         <VCCodeMacro Name="CDC_INTERFACE_COUNT" Value="0" />
         <VCCodeMacro Name="ARDUINO_MAIN" Value="" />
         <VCCodeMacro Name="SPI_MODE0" Value="0x00" />
+        <VCCodeMacro Name="LOG_GPS" Value="ENABLED" />
         <VCCodeMacro Name="AP_COMPASS_APM2_SHIELD" Value="ROTATION_NONE" />
         <VCCodeMacro Name="SBAS_ON" Value="&quot;$PMTK313,1*2E\r\n&quot;" />
         <VCCodeMacro Name="MPUREG_XG_OFFS_USRH" Value="0x13" />
@@ -422,8 +428,7 @@
         <VCCodeMacro Name="GET_CONFIGURATION" Value="8" />
         <VCCodeMacro Name="CDC_ENPOINT_COUNT" Value="0" />
         <VCCodeMacro Name="SPI_MODE1" Value="0x04" />
-        <VCCodeMacro Name="FORMATION_FLIGHT" Value="ENABLED" />
-        <VCCodeMacro Name="FORMATION_FLIGHT" Value="ENABLED" />
+        <VCCodeMacro Name="LOG_PM" Value="DISABLED" />
         <VCCodeMacro Name="SPIN_RATE_LIMIT" Value="20" />
         <VCCodeMacro Name="AP_VAROFFSET" Value="(((uintptr_t)(&amp;((const type *)1)-&gt;element))-1)" />
         <VCCodeMacro Name="COMPASS_ADDRESS" Value="0x1E" />
@@ -432,7 +437,6 @@
         <VCCodeMacro Name="RADIUS_OF_EARTH" Value="6378100" />
         <VCCodeMacro Name="MATRIX_ROTATION_YAW_180" Value="Matrix3f(-1, 0, 0, 0, -1, 0, 0, 0, 1)" />
         <VCCodeMacro Name="AP_RANGEFINDER_MAXSONARHRLV_MAX_DISTANCE" Value="500" />
-        <VCCodeMacro Name="FORMATION_FLIGHT" Value="ENABLED" />
         <VCCodeMacro Name="serialDebug" Value=")" />
         <VCCodeMacro Name="HALF_PI" Value="1.5707963267948966192313216916398" />
         <VCCodeMacro Name="B0011" Value="3" />
@@ -442,6 +446,7 @@
         <VCCodeMacro Name="SET_CONFIGURATION" Value="9" />
         <VCCodeMacro Name="MICROSECONDS_PER_TIMER0_OVERFLOW" Value="(clockCyclesToMicroseconds(64 * 256))" />
         <VCCodeMacro Name="SPI_MODE2" Value="0x08" />
+        <VCCodeMacro Name="LOG_CTUN" Value="DISABLED" />
         <VCCodeMacro Name="ConfigRegA" Value="0x00" />
         <VCCodeMacro Name="MPUREG_YG_OFFS_USRH" Value="0x15" />
         <VCCodeMacro Name="MATRIX_ROTATION_YAW_225" Value="Matrix3f(-HALF_SQRT_2, HALF_SQRT_2, 0, -HALF_SQRT_2, -HALF_SQRT_2, 0, 0, 0, 1)" />
@@ -452,6 +457,7 @@
         <VCCodeMacro Name="GET_INTERFACE" Value="10" />
         <VCCodeMacro Name="NUM_DIGITAL_PINS" Value="70" />
         <VCCodeMacro Name="SPI_MODE3" Value="0x0C" />
+        <VCCodeMacro Name="LOG_NTUN" Value="ENABLED" />
         <VCCodeMacro Name="SPIN_RATE_LIMIT" Value="20" />
         <VCCodeMacro Name="ConfigRegB" Value="0x01" />
         <VCCodeMacro Name="AP_COMPASS_SPARKFUN_COMPONENTS_UP_PINS_FORWARD" Value="ROTATION_YAW_270" />
@@ -464,8 +470,9 @@
         <VCCodeMacro Name="EP_TYPE_ISOCHRONOUS_OUT" Value="0x40" />
         <VCCodeMacro Name="SET_INTERFACE" Value="11" />
         <VCCodeMacro Name="NUM_ANALOG_INPUTS" Value="16" />
-        <VCCodeMacro Name="MAV_SYSTEM_ID" Value="2" />
-        <VCCodeMacro Name="MAV_SYSTEM_ID" Value="1" />
+        <VCCodeMacro Name="LOG_MODE" Value="ENABLED" />
+        <VCCodeMacro Name="CAMERA" Value="DISABLED" />
+        <VCCodeMacro Name="CAMERA" Value="DISABLED" />
         <VCCodeMacro Name="SONAR" Value="0" />
         <VCCodeMacro Name="AP_CLASSTYPE" Value="(((const class *) 1)-&gt;element.vtype)" />
         <VCCodeMacro Name="magGain" Value="0x20" />
@@ -473,7 +480,7 @@
         <VCCodeMacro Name="WAAS_OFF" Value="&quot;$PSRF151,0*3E\r\n&quot;" />
         <VCCodeMacro Name="MPUREG_ZG_OFFS_USRH" Value="0x17" />
         <VCCodeMacro Name="MATRIX_ROTATION_YAW_315" Value="Matrix3f(HALF_SQRT_2, HALF_SQRT_2, 0, -HALF_SQRT_2, HALF_SQRT_2, 0, 0, 0, 1)" />
-        <VCCodeMacro Name="MAV_SYSTEM_ID" Value="3" />
+        <VCCodeMacro Name="CAMERA" Value="DISABLED" />
         <VCCodeMacro Name="RAD_TO_DEG" Value="57.295779513082320876798154814105" />
         <VCCodeMacro Name="B0000011" Value="3" />
         <VCCodeMacro Name="BIN" Value="2" />
@@ -481,6 +488,7 @@
         <VCCodeMacro Name="MILLIS_INC" Value="(MICROSECONDS_PER_TIMER0_OVERFLOW / 1000)" />
         <VCCodeMacro Name="analogInputToDigitalPin" Value="((p &lt; 16) ? (p) + 54 : -1)" />
         <VCCodeMacro Name="SPI_MODE_MASK" Value="0x0C" />
+        <VCCodeMacro Name="LOG_RAW" Value="DISABLED" />
         <VCCodeMacro Name="BARO" Value="1" />
         <VCCodeMacro Name="PGM_UINT8" Value="pgm_read_byte((const prog_char *)addr)" />
         <VCCodeMacro Name="PositiveBiasConfig" Value="0x11" />
@@ -495,21 +503,18 @@
         <VCCodeMacro Name="HID_ENPOINT_COUNT" Value="1" />
         <VCCodeMacro Name="digitalPinHasPWM" Value="(((p) &gt;= 2 &amp;&amp; (p) &lt;= 13) || ((p) &gt;= 44 &amp;&amp; (p)&lt;= 46))" />
         <VCCodeMacro Name="SPI_CLOCK_MASK" Value="0x03" />
-        <VCCodeMacro Name="HUEY_ID" Value="1" />
-        <VCCodeMacro Name="HUEY_ID" Value="1" />
+        <VCCodeMacro Name="LOG_CMD" Value="DISABLED" />
         <VCCodeMacro Name="PGM_UINT16" Value="pgm_read_word((const uint16_t *)addr)" />
         <VCCodeMacro Name="NegativeBiasConfig" Value="0x12" />
         <VCCodeMacro Name="AP_COMPASS_SPARKFUN_COMPONENTS_UP_PINS_BACK_RIGHT" Value="ROTATION_YAW_45" />
         <VCCodeMacro Name="MPUREG_SMPLRT_DIV" Value="0x19" />
         <VCCodeMacro Name="MATRIX_ROTATION_ROLL_180_YAW_45" Value="Matrix3f(HALF_SQRT_2, HALF_SQRT_2, 0, HALF_SQRT_2, -HALF_SQRT_2, 0, 0, 0, -1)" />
         <VCCodeMacro Name="printf_P" Value="_printf_P((const prog_char *)fmt,##__VA_ARGS__)" />
-        <VCCodeMacro Name="HUEY_ID" Value="1" />
         <VCCodeMacro Name="SERIAL" Value="0x0" />
         <VCCodeMacro Name="B100" Value="4" />
         <VCCodeMacro Name="TX_RX_LED_PULSE_MS" Value="100" />
         <VCCodeMacro Name="SPI_2XCLOCK_MASK" Value="0x01" />
-        <VCCodeMacro Name="DEWEY_ID" Value="2" />
-        <VCCodeMacro Name="DEWEY_ID" Value="2" />
+        <VCCodeMacro Name="LOG_CUR" Value="DISABLED" />
         <VCCodeMacro Name="PITOT_SOURCE_ADC" Value="1" />
         <VCCodeMacro Name="PGM_FLOAT" Value="pgm_read_float((const float *)addr)" />
         <VCCodeMacro Name="AP_GROUPINFO" Value="{ AP_CLASSTYPE(class, element), idx, name, AP_VAROFFSET(class, element), {def_value : def} }" />
@@ -518,14 +523,11 @@
         <VCCodeMacro Name="__GPS_SHIM_SET" Value="void set_##__name(__type v) { __name = v; _updated = true; }" />
         <VCCodeMacro Name="MPUREG_SMPLRT_1000HZ" Value="0x00" />
         <VCCodeMacro Name="MATRIX_ROTATION_ROLL_180_YAW_90" Value="Matrix3f(0, 1, 0, 1, 0, 0, 0, 0, -1)" />
-        <VCCodeMacro Name="DEWEY_ID" Value="2" />
         <VCCodeMacro Name="SERIES_1" Value="" />
         <VCCodeMacro Name="DISPLAY" Value="0x1" />
         <VCCodeMacro Name="B0100" Value="4" />
         <VCCodeMacro Name="REQUEST_HOSTTODEVICE" Value="0x00" />
         <VCCodeMacro Name="HID_INTERFACE_COUNT" Value="0" />
-        <VCCodeMacro Name="LOUIE_ID" Value="3" />
-        <VCCodeMacro Name="LOUIE_ID" Value="3" />
         <VCCodeMacro Name="PITOT_SOURCE_ANALOG_PIN" Value="2" />
         <VCCodeMacro Name="PGM_POINTER" Value="pgm_read_pointer((const void *)addr)" />
         <VCCodeMacro Name="ModeRegister" Value="0x02" />
@@ -533,7 +535,6 @@
         <VCCodeMacro Name="MPUREG_SMPLRT_500HZ" Value="0x01" />
         <VCCodeMacro Name="MATRIX_ROTATION_ROLL_180_YAW_135" Value="Matrix3f(-HALF_SQRT_2, HALF_SQRT_2, 0, HALF_SQRT_2, HALF_SQRT_2, 0, 0, 0, -1)" />
         <VCCodeMacro Name="_XTOA_FAST_H_" Value="" />
-        <VCCodeMacro Name="LOUIE_ID" Value="3" />
         <VCCodeMacro Name="B00100" Value="4" />
         <VCCodeMacro Name="udp_h" Value="" />
         <VCCodeMacro Name="REQUEST_DEVICETOHOST" Value="0x80" />
@@ -547,6 +548,7 @@
         <VCCodeMacro Name="B000100" Value="4" />
         <VCCodeMacro Name="REQUEST_DIRECTION" Value="0x80" />
         <VCCodeMacro Name="FRACT_INC" Value="((MICROSECONDS_PER_TIMER0_OVERFLOW % 1000) &gt;&gt; 3)" />
+        <VCCodeMacro Name="FF_LOGGING_ENABLED" Value="ENABLED" />
         <VCCodeMacro Name="T6" Value="1000000" />
         <VCCodeMacro Name="SingleConversion" Value="0x01" />
         <VCCodeMacro Name="AP_COMPASS_SPARKFUN_COMPONENTS_UP_PINS_FORWARD_LEFT" Value="ROTATION_YAW_225" />
@@ -558,19 +560,21 @@
         <VCCodeMacro Name="LSB" Value="((_x) &amp; 0xFF)" />
         <VCCodeMacro Name="FRACT_MAX" Value="(1000 &gt;&gt; 3)" />
         <VCCodeMacro Name="F" Value="(reinterpret_cast&lt;__FlashStringHelper *&gt;(PSTR(string_literal)))" />
-        <VCCodeMacro Name="FORMATION" Value="13" />
-        <VCCodeMacro Name="FORMATION" Value="13" />
+        <VCCodeMacro Name="LOG_FLOCK_STATUS" Value="ENABLED" />
+        <VCCodeMacro Name="MOUNT" Value="DISABLED" />
+        <VCCodeMacro Name="MOUNT" Value="DISABLED" />
         <VCCodeMacro Name="T7" Value="10000000" />
         <VCCodeMacro Name="MtoFT" Value="(x*3.28084)" />
         <VCCodeMacro Name="AP_COMPASS_SPARKFUN_COMPONENTS_DOWN_PINS_FORWARD" Value="ROTATION_ROLL_180_YAW_90" />
         <VCCodeMacro Name="MPUREG_SMPLRT_100HZ" Value="0x09" />
         <VCCodeMacro Name="MATRIX_ROTATION_ROLL_180_YAW_270" Value="Matrix3f(0, -1, 0, -1, 0, 0, 0, 0, -1)" />
-        <VCCodeMacro Name="FORMATION" Value="13" />
+        <VCCodeMacro Name="MOUNT" Value="DISABLED" />
         <VCCodeMacro Name="AP_NESTEDGROUPINFO" Value="{ AP_PARAM_GROUP, idx, &quot;&quot;, 0, { group_info : class::var_info } }" />
         <VCCodeMacro Name="B00000100" Value="4" />
         <VCCodeMacro Name="MSB" Value="((_x) &gt;&gt; 8)" />
         <VCCodeMacro Name="REQUEST_STANDARD" Value="0x00" />
         <VCCodeMacro Name="CDC_ACM_INTERFACE" Value="0" />
+        <VCCodeMacro Name="LOG_PF_FIELD" Value="ENABLED" />
         <VCCodeMacro Name="De7ToFT" Value="(x*0.0365214)" />
         <VCCodeMacro Name="AP_COMPASS_SPARKFUN_COMPONENTS_DOWN_PINS_FORWARD_RIGHT" Value="ROTATION_ROLL_180_YAW_135" />
         <VCCodeMacro Name="MPUREG_SMPLRT_50HZ" Value="0x13" />
@@ -582,21 +586,20 @@
         <VCCodeMacro Name="REQUEST_CLASS" Value="0x20" />
         <VCCodeMacro Name="CDC_DATA_INTERFACE" Value="1" />
         <VCCodeMacro Name="cbi" Value="(_SFR_BYTE(sfr) &amp;= ~_BV(bit))" />
-        <VCCodeMacro Name="MANUAL_IN_FORMATION" Value="14" />
-        <VCCodeMacro Name="MANUAL_IN_FORMATION" Value="14" />
+        <VCCodeMacro Name="LOG_VWP" Value="ENABLED" />
         <VCCodeMacro Name="ENABLED" Value="1" />
         <VCCodeMacro Name="De7ToM" Value="(x*.01113195)" />
         <VCCodeMacro Name="SampleAveraging_1" Value="0x00" />
         <VCCodeMacro Name="AP_COMPASS_SPARKFUN_COMPONENTS_DOWN_PINS_RIGHT" Value="ROTATION_PITCH_180" />
         <VCCodeMacro Name="MPUREG_CONFIG" Value="0x1A" />
         <VCCodeMacro Name="DF_LAST_PAGE" Value="4096" />
-        <VCCodeMacro Name="MANUAL_IN_FORMATION" Value="14" />
         <VCCodeMacro Name="FALLING" Value="2" />
         <VCCodeMacro Name="B0101" Value="5" />
         <VCCodeMacro Name="RAWHID_USAGE_PAGE" Value="0xFFC0" />
         <VCCodeMacro Name="TCCR2B" Value="TCCR2" />
         <VCCodeMacro Name="REQUEST_VENDOR" Value="0x40" />
         <VCCodeMacro Name="CDC_FIRST_ENDPOINT" Value="1" />
+        <VCCodeMacro Name="LOG_REL_STATE" Value="ENABLED" />
         <VCCodeMacro Name="DISABLED" Value="0" />
         <VCCodeMacro Name="GPS_PROTOCOL_NONE" Value="-1" />
         <VCCodeMacro Name="MS5611_CS" Value="40" />
@@ -612,6 +615,7 @@
         <VCCodeMacro Name="COM2A1" Value="COM21" />
         <VCCodeMacro Name="REQUEST_TYPE" Value="0x60" />
         <VCCodeMacro Name="CDC_ENDPOINT_ACM" Value="(CDC_FIRST_ENDPOINT)" />
+        <VCCodeMacro Name="LOG_GPS_ERROR_ASSIST" Value="ENABLED" />
         <VCCodeMacro Name="GPS_PROTOCOL_NMEA" Value="0" />
         <VCCodeMacro Name="AP_VAREND" Value="{ AP_PARAM_NONE, &quot;&quot;, 0, NULL, { group_info : NULL } }" />
         <VCCodeMacro Name="SampleAveraging_4" Value="0x02" />
@@ -619,15 +623,18 @@
         <VCCodeMacro Name="VECTOR3_H" Value="" />
         <VCCodeMacro Name="FS_MAX_PORTS" Value="4" />
         <VCCodeMacro Name="FTOA_MINUS" Value="1" />
+        <VCCodeMacro Name="MAVLINK_GLOBAL_POSITION_INT_LEN" Value="36" />
+        <VCCodeMacro Name="MOUNT2" Value="DISABLED" />
+        <VCCodeMacro Name="MOUNT2" Value="DISABLED" />
         <VCCodeMacro Name="I2C_h" Value="" />
+        <VCCodeMacro Name="MOUNT2" Value="DISABLED" />
         <VCCodeMacro Name="B000101" Value="5" />
         <VCCodeMacro Name="RAWHID_TX_SIZE" Value="64" />
         <VCCodeMacro Name="COM2A0" Value="COM20" />
         <VCCodeMacro Name="CDC_ENDPOINT_OUT" Value="(CDC_FIRST_ENDPOINT+1)" />
         <VCCodeMacro Name="sbi" Value="(_SFR_BYTE(sfr) |= _BV(bit))" />
-        <VCCodeMacro Name="FLIGHT_MODE_1" Value="LOITER" />
-        <VCCodeMacro Name="FLIGHT_MODE_1" Value="LOITER" />
         <VCCodeMacro Name="GPS_PROTOCOL_SIRF" Value="1" />
+        <VCCodeMacro Name="LOG_FLOCK_STATUS_MSG" Value="0x0B" />
         <VCCodeMacro Name="CMD_MS5611_RESET" Value="0x1E" />
         <VCCodeMacro Name="GROUP_ID" Value="((base)+(((uint16_t)PGM_UINT8(&amp;grpinfo[i].idx))&lt;&lt;(shift)))" />
         <VCCodeMacro Name="SampleAveraging_8" Value="0x03" />
@@ -636,39 +643,36 @@
         <VCCodeMacro Name="BITS_GYRO_FS_250DPS" Value="0x00" />
         <VCCodeMacro Name="FastSerial_h" Value="" />
         <VCCodeMacro Name="FTOA_ZERO" Value="2" />
-        <VCCodeMacro Name="FLIGHT_MODE_1" Value="LOITER" />
+        <VCCodeMacro Name="MAVLINK_GLOBAL_POSITION_INT_CRC" Value="104" />
         <VCCodeMacro Name="SERIAL_BUFFER_SIZE" Value="64" />
         <VCCodeMacro Name="B0000101" Value="5" />
         <VCCodeMacro Name="RAWHID_RX_SIZE" Value="64" />
         <VCCodeMacro Name="OCR2A" Value="OCR2" />
         <VCCodeMacro Name="REQUEST_DEVICE" Value="0x00" />
         <VCCodeMacro Name="CDC_ENDPOINT_IN" Value="(CDC_FIRST_ENDPOINT+2)" />
-        <VCCodeMacro Name="FLIGHT_MODE_2" Value="FORMATION" />
-        <VCCodeMacro Name="FLIGHT_MODE_2" Value="FORMATION" />
+        <VCCodeMacro Name="GEOFENCE_ENABLED" Value="DISABLED" />
         <VCCodeMacro Name="ENABLE" Value="ENABLED" />
         <VCCodeMacro Name="GPS_PROTOCOL_UBLOX" Value="2" />
+        <VCCodeMacro Name="LOG_PF_FIELD_MSG" Value="0x0C" />
         <VCCodeMacro Name="CMD_MS5611_PROM_Setup" Value="0xA0" />
         <VCCodeMacro Name="AP_COMPASS_SPARKFUN_COMPONENTS_DOWN_PINS_LEFT" Value="ROTATION_ROLL_180" />
         <VCCodeMacro Name="BITS_GYRO_FS_500DPS" Value="0x08" />
         <VCCodeMacro Name="FS_MAX_PORTS" Value="3" />
         <VCCodeMacro Name="FTOA_INF" Value="4" />
         <VCCodeMacro Name="ATAP" Value="2" />
-        <VCCodeMacro Name="FLIGHT_MODE_2" Value="FORMATION" />
         <VCCodeMacro Name="DF_DATAOUT" Value="51" />
         <VCCodeMacro Name="DEFAULT" Value="0" />
         <VCCodeMacro Name="B00000101" Value="5" />
         <VCCodeMacro Name="TIMSK2" Value="TIMSK" />
         <VCCodeMacro Name="REQUEST_INTERFACE" Value="0x01" />
-        <VCCodeMacro Name="FLIGHT_MODE_3" Value="STABILIZE" />
-        <VCCodeMacro Name="FLIGHT_MODE_3" Value="STABILIZE" />
         <VCCodeMacro Name="DISABLE" Value="DISABLED" />
         <VCCodeMacro Name="GPS_PROTOCOL_IMU" Value="3" />
+        <VCCodeMacro Name="LOG_VWP_MSG" Value="0x0D" />
         <VCCodeMacro Name="CMD_MS5611_PROM_C1" Value="0xA2" />
         <VCCodeMacro Name="AP_COMPASS_SPARKFUN_COMPONENTS_DOWN_PINS_FORWARD_LEFT" Value="ROTATION_ROLL_180_YAW_45" />
         <VCCodeMacro Name="BITS_GYRO_FS_1000DPS" Value="0x10" />
         <VCCodeMacro Name="FTOA_NAN" Value="8" />
         <VCCodeMacro Name="XTOA_PREFIX" Value="0x0100" />
-        <VCCodeMacro Name="FLIGHT_MODE_3" Value="STABILIZE" />
         <VCCodeMacro Name="DF_DATAIN" Value="50" />
         <VCCodeMacro Name="START" Value="0x08" />
         <VCCodeMacro Name="EXTERNAL" Value="1" />
@@ -677,9 +681,9 @@
         <VCCodeMacro Name="REQUEST_ENDPOINT" Value="0x02" />
         <VCCodeMacro Name="HID_INTERFACE" Value="(CDC_ACM_INTERFACE + CDC_INTERFACE_COUNT)" />
         <VCCodeMacro Name="EXTERNAL_INT_0" Value="0" />
-        <VCCodeMacro Name="FLIGHT_MODE_4" Value="MANUAL_IN_FORMATION" />
-        <VCCodeMacro Name="FLIGHT_MODE_4" Value="MANUAL_IN_FORMATION" />
+        <VCCodeMacro Name="FORMATION_FLIGHT" Value="ENABLED" />
         <VCCodeMacro Name="GPS_PROTOCOL_MTK" Value="4" />
+        <VCCodeMacro Name="LOG_REL_MSG" Value="0x0E" />
         <VCCodeMacro Name="CMD_MS5611_PROM_C2" Value="0xA4" />
         <VCCodeMacro Name="DataOutputRate_0_75HZ" Value="0x00" />
         <VCCodeMacro Name="BITS_GYRO_FS_2000DPS" Value="0x18" />
@@ -687,7 +691,6 @@
         <VCCodeMacro Name="FTOA_CARRY" Value="16" />
         <VCCodeMacro Name="XTOA_UPPER" Value="0x0200" />
         <VCCodeMacro Name="START_BYTE" Value="0x7e" />
-        <VCCodeMacro Name="FLIGHT_MODE_4" Value="MANUAL_IN_FORMATION" />
         <VCCodeMacro Name="DF_SPICLOCK" Value="52" />
         <VCCodeMacro Name="REPEATED_START" Value="0x10" />
         <VCCodeMacro Name="INTERNAL" Value="2" />
@@ -696,14 +699,12 @@
         <VCCodeMacro Name="REQUEST_OTHER" Value="0x03" />
         <VCCodeMacro Name="HID_FIRST_ENDPOINT" Value="(CDC_FIRST_ENDPOINT + CDC_ENPOINT_COUNT)" />
         <VCCodeMacro Name="EXTERNAL_INT_1" Value="1" />
-        <VCCodeMacro Name="FLIGHT_MODE_5" Value="RTL" />
-        <VCCodeMacro Name="FLIGHT_MODE_5" Value="RTL" />
         <VCCodeMacro Name="GPS_PROTOCOL_HIL" Value="5" />
+        <VCCodeMacro Name="LOG_ERROR_ASSIST_MSG" Value="0x0F" />
         <VCCodeMacro Name="CMD_MS5611_PROM_C3" Value="0xA6" />
         <VCCodeMacro Name="DataOutputRate_1_5HZ" Value="0x01" />
         <VCCodeMacro Name="BITS_GYRO_FS_MASK" Value="0x18" />
         <VCCodeMacro Name="ESCAPE" Value="0x7d" />
-        <VCCodeMacro Name="FLIGHT_MODE_5" Value="RTL" />
         <VCCodeMacro Name="DF_SLAVESELECT" Value="53" />
         <VCCodeMacro Name="MT_SLA_ACK" Value="0x18" />
         <VCCodeMacro Name="B00110" Value="6" />
@@ -711,25 +712,29 @@
         <VCCodeMacro Name="REQUEST_RECIPIENT" Value="0x03" />
         <VCCodeMacro Name="HID_ENDPOINT_INT" Value="(HID_FIRST_ENDPOINT)" />
         <VCCodeMacro Name="EXTERNAL_INT_2" Value="2" />
-        <VCCodeMacro Name="FLIGHT_MODE_6" Value="MANUAL" />
-        <VCCodeMacro Name="FLIGHT_MODE_6" Value="MANUAL" />
+        <VCCodeMacro Name="FF_BARO_ALT" Value="ENABLED" />
+        <VCCodeMacro Name="PFG_CHI" Value="30" />
+        <VCCodeMacro Name="PFG_CHI" Value="30" />
         <VCCodeMacro Name="GPS_PROTOCOL_MTK16" Value="6" />
         <VCCodeMacro Name="CMD_MS5611_PROM_C4" Value="0xA8" />
         <VCCodeMacro Name="DataOutputRate_3HZ" Value="0x02" />
         <VCCodeMacro Name="BITS_GYRO_ZGYRO_SELFTEST" Value="0x20" />
         <VCCodeMacro Name="FS_MAX_PORTS" Value="1" />
         <VCCodeMacro Name="XON" Value="0x11" />
-        <VCCodeMacro Name="FLIGHT_MODE_6" Value="MANUAL" />
+        <VCCodeMacro Name="PFG_CHI" Value="30" />
         <VCCodeMacro Name="DF_RESET" Value="31" />
         <VCCodeMacro Name="MT_DATA_ACK" Value="0x28" />
         <VCCodeMacro Name="B000110" Value="6" />
         <VCCodeMacro Name="EXTERNAL_INT_3" Value="3" />
+        <VCCodeMacro Name="PFG_TAU" Value="200" />
+        <VCCodeMacro Name="PFG_TAU" Value="200" />
         <VCCodeMacro Name="GPS_PROTOCOL_AUTO" Value="7" />
         <VCCodeMacro Name="CMD_MS5611_PROM_C5" Value="0xAA" />
         <VCCodeMacro Name="DataOutputRate_7_5HZ" Value="0x03" />
         <VCCodeMacro Name="BITS_GYRO_YGYRO_SELFTEST" Value="0x40" />
         <VCCodeMacro Name="HardwareSerial_h" Value="" />
         <VCCodeMacro Name="XOFF" Value="0x13" />
+        <VCCodeMacro Name="PFG_TAU" Value="200" />
         <VCCodeMacro Name="MR_SLA_ACK" Value="0x40" />
         <VCCodeMacro Name="INTERNAL1V1" Value="2" />
         <VCCodeMacro Name="B0000110" Value="6" />
@@ -737,9 +742,12 @@
         <VCCodeMacro Name="REQUEST_DEVICETOHOST_CLASS_INTERFACE" Value="(REQUEST_DEVICETOHOST + REQUEST_CLASS + REQUEST_INTERFACE)" />
         <VCCodeMacro Name="INTERFACE_COUNT" Value="(MSC_INTERFACE + MSC_INTERFACE_COUNT)" />
         <VCCodeMacro Name="EXTERNAL_INT_4" Value="4" />
+        <VCCodeMacro Name="PFG_ZETA" Value="25" />
+        <VCCodeMacro Name="PFG_ZETA" Value="25" />
         <VCCodeMacro Name="CMD_MS5611_PROM_C6" Value="0xAC" />
         <VCCodeMacro Name="DataOutputRate_15HZ" Value="0x04" />
         <VCCodeMacro Name="BITS_GYRO_XGYRO_SELFTEST" Value="0x80" />
+        <VCCodeMacro Name="PFG_ZETA" Value="25" />
         <VCCodeMacro Name="DF_DATAOUT" Value="11" />
         <VCCodeMacro Name="MR_DATA_ACK" Value="0x50" />
         <VCCodeMacro Name="INTERNAL2V56" Value="3" />
@@ -747,21 +755,27 @@
         <VCCodeMacro Name="MOUSE_RIGHT" Value="2" />
         <VCCodeMacro Name="REQUEST_HOSTTODEVICE_CLASS_INTERFACE" Value="(REQUEST_HOSTTODEVICE + REQUEST_CLASS + REQUEST_INTERFACE)" />
         <VCCodeMacro Name="EXTERNAL_INT_5" Value="5" />
+        <VCCodeMacro Name="PFG_SIGMA" Value="1" />
+        <VCCodeMacro Name="PFG_SIGMA" Value="1" />
         <VCCodeMacro Name="CH_ROLL" Value="CH_1" />
         <VCCodeMacro Name="CMD_MS5611_PROM_CRC" Value="0xAE" />
         <VCCodeMacro Name="DataOutputRate_30HZ" Value="0x05" />
         <VCCodeMacro Name="MPUREG_ACCEL_CONFIG" Value="0x1C" />
+        <VCCodeMacro Name="PFG_SIGMA" Value="1" />
         <VCCodeMacro Name="DF_DATAIN" Value="12" />
         <VCCodeMacro Name="MR_DATA_NACK" Value="0x58" />
         <VCCodeMacro Name="B111" Value="7" />
         <VCCodeMacro Name="WEAK" Value="__attribute__ ((weak))" />
         <VCCodeMacro Name="MOUSE_MIDDLE" Value="4" />
         <VCCodeMacro Name="EXTERNAL_INT_6" Value="6" />
+        <VCCodeMacro Name="PFG_X_LAMBDA" Value="60" />
+        <VCCodeMacro Name="PFG_X_LAMBDA" Value="60" />
         <VCCodeMacro Name="CH_PITCH" Value="CH_2" />
         <VCCodeMacro Name="CMD_CONVERT_D1_OSR4096" Value="0x48" />
         <VCCodeMacro Name="DataOutputRate_75HZ" Value="0x06" />
         <VCCodeMacro Name="MPUREG_MOT_THR" Value="0x1F" />
         <VCCodeMacro Name="sign" Value="((x)&lt;0 ? -1 : 1)" />
+        <VCCodeMacro Name="PFG_X_LAMBDA" Value="60" />
         <VCCodeMacro Name="DF_SPICLOCK" Value="13" />
         <VCCodeMacro Name="TWI_STATUS" Value="(TWSR &amp; 0xF8)" />
         <VCCodeMacro Name="INTERNAL" Value="3" />
@@ -769,393 +783,405 @@
         <VCCodeMacro Name="MOUSE_ALL" Value="(MOUSE_LEFT | MOUSE_RIGHT | MOUSE_MIDDLE)" />
         <VCCodeMacro Name="CDC_RX" Value="CDC_ENDPOINT_OUT" />
         <VCCodeMacro Name="EXTERNAL_INT_7" Value="7" />
+        <VCCodeMacro Name="PFG_Y_LAMBDA" Value="50" />
+        <VCCodeMacro Name="PFG_Y_LAMBDA" Value="50" />
         <VCCodeMacro Name="CH_THROTTLE" Value="CH_3" />
         <VCCodeMacro Name="CMD_CONVERT_D2_OSR4096" Value="0x58" />
         <VCCodeMacro Name="MPUREG_MOT_DUR" Value="0x20" />
         <VCCodeMacro Name="PROGMEM" Value="__attribute__(( section(&quot;.progmem.data&quot;) ))" />
+        <VCCodeMacro Name="PFG_Y_LAMBDA" Value="50" />
         <VCCodeMacro Name="DF_SLAVESELECT" Value="10" />
         <VCCodeMacro Name="SLA_W" Value="(address &lt;&lt; 1)" />
         <VCCodeMacro Name="B00111" Value="7" />
         <VCCodeMacro Name="CDC_TX" Value="CDC_ENDPOINT_IN" />
-        <VCCodeMacro Name="CAMERA" Value="DISABLED" />
-        <VCCodeMacro Name="CAMERA" Value="DISABLED" />
+        <VCCodeMacro Name="PFG_Z_LAMBDA" Value="40" />
+        <VCCodeMacro Name="PFG_Z_LAMBDA" Value="40" />
         <VCCodeMacro Name="CH_RUDDER" Value="CH_4" />
         <VCCodeMacro Name="BMP085_ADDRESS" Value="0x77" />
         <VCCodeMacro Name="FLASH_LEDS" Value="do { if (flash_leds_cb != NULL) flash_leds_cb(on); } while (0)" />
         <VCCodeMacro Name="MPUREG_ZRMOT_THR" Value="0x21" />
         <VCCodeMacro Name="f" Value="FilterWithBuffer&lt;T,FILTER_SIZE&gt;::samples[(((FilterWithBuffer&lt;T,FILTER_SIZE&gt;::sample_index-1)+i+1)+3*FILTER_SIZE/2) % FILTER_SIZE]" />
-        <VCCodeMacro Name="CAMERA" Value="DISABLED" />
+        <VCCodeMacro Name="PFG_Z_LAMBDA" Value="40" />
         <VCCodeMacro Name="SLA_R" Value="((address &lt;&lt; 1) + 0x01)" />
         <VCCodeMacro Name="DEFAULT" Value="1" />
         <VCCodeMacro Name="B000111" Value="7" />
         <VCCodeMacro Name="CDC_SET_LINE_CODING" Value="0x20" />
+        <VCCodeMacro Name="PFG_x_OFFSET" Value="1000" />
+        <VCCodeMacro Name="PFG_x_OFFSET" Value="1000" />
         <VCCodeMacro Name="CH_YAW" Value="CH_4" />
         <VCCodeMacro Name="BMP085_EOC" Value="30" />
         <VCCodeMacro Name="MPUREG_ZRMOT_DUR" Value="0x22" />
         <VCCodeMacro Name="x" Value="_timestamps[(((FilterWithBuffer&lt;T,FILTER_SIZE&gt;::sample_index-1)+i+1)+3*FILTER_SIZE/2) % FILTER_SIZE]" />
+        <VCCodeMacro Name="PFG_x_OFFSET" Value="1000" />
         <VCCodeMacro Name="cbi" Value="(_SFR_BYTE(sfr) &amp;= ~_BV(bit))" />
         <VCCodeMacro Name="EXTERNAL" Value="0" />
         <VCCodeMacro Name="B0000111" Value="7" />
         <VCCodeMacro Name="CDC_GET_LINE_CODING" Value="0x21" />
         <VCCodeMacro Name="EXTERNAL_NUM_INTERRUPTS" Value="8" />
+        <VCCodeMacro Name="PFG_y_OFFSET" Value="1000" />
+        <VCCodeMacro Name="PFG_y_OFFSET" Value="1000" />
         <VCCodeMacro Name="MPUREG_FIFO_EN" Value="0x23" />
+        <VCCodeMacro Name="PFG_y_OFFSET" Value="1000" />
         <VCCodeMacro Name="sbi" Value="(_SFR_BYTE(sfr) |= _BV(bit))" />
         <VCCodeMacro Name="B00000111" Value="7" />
         <VCCodeMacro Name="CDC_SET_CONTROL_LINE_STATE" Value="0x22" />
+        <VCCodeMacro Name="PFG_z_OFFSET" Value="0" />
+        <VCCodeMacro Name="PFG_z_OFFSET" Value="0" />
         <VCCodeMacro Name="MPUREG_INT_PIN_CFG" Value="0x37" />
         <VCCodeMacro Name="DF_TRANSFER_PAGE_TO_BUFFER_1" Value="0x53" />
         <VCCodeMacro Name="PSTR" Value="(__extension__({static const prog_char __c[] PROGMEM = (s); &amp;__c[0];}))" />
         <VCCodeMacro Name="MAX_FRAME_DATA_SIZE" Value="110" />
+        <VCCodeMacro Name="PFG_z_OFFSET" Value="0" />
         <VCCodeMacro Name="B1000" Value="8" />
         <VCCodeMacro Name="HID_TX" Value="HID_ENDPOINT_INT" />
         <VCCodeMacro Name="EXTERNAL_NUM_INTERRUPTS" Value="3" />
+        <VCCodeMacro Name="PFG_VWP_OFFSET" Value="60" />
+        <VCCodeMacro Name="PFG_VWP_OFFSET" Value="60" />
         <VCCodeMacro Name="HIL_MODE_DISABLED" Value="0" />
         <VCCodeMacro Name="BIT_INT_RD_CLEAR" Value="0x10" />
         <VCCodeMacro Name="DF_TRANSFER_PAGE_TO_BUFFER_2" Value="0x55" />
+        <VCCodeMacro Name="PFG_VWP_OFFSET" Value="60" />
         <VCCodeMacro Name="CONFIG_APM_HARDWARE" Value="APM_HARDWARE_APM1" />
         <VCCodeMacro Name="MAX_BUFFER_SIZE" Value="32" />
         <VCCodeMacro Name="B01000" Value="8" />
         <VCCodeMacro Name="MSC_RESET" Value="0xFF" />
+        <VCCodeMacro Name="PFG_X_PHI_NEAR" Value="3" />
+        <VCCodeMacro Name="PFG_X_PHI_NEAR" Value="3" />
         <VCCodeMacro Name="HIL_MODE_ATTITUDE" Value="1" />
         <VCCodeMacro Name="MPUREG_INT_ENABLE" Value="0x38" />
         <VCCodeMacro Name="DF_STATUS_REGISTER_READ" Value="0xD7" />
         <VCCodeMacro Name="PSTR" Value="(__extension__({static prog_char __c[] PROGMEM = (s); &amp;__c[0];}))" />
         <VCCodeMacro Name="BROADCAST_ADDRESS" Value="0xffff" />
+        <VCCodeMacro Name="PFG_X_PHI_NEAR" Value="3" />
+        <VCCodeMacro Name="MAVLINK_FF_FLOCK_STATUS_LEN" Value="26" />
         <VCCodeMacro Name="B001000" Value="8" />
         <VCCodeMacro Name="MSC_GET_MAX_LUN" Value="0xFE" />
         <VCCodeMacro Name="EXTERNAL_NUM_INTERRUPTS" Value="2" />
+        <VCCodeMacro Name="PFG_K_PHI_X_NEAR" Value="100" />
+        <VCCodeMacro Name="PFG_K_PHI_X_NEAR" Value="100" />
         <VCCodeMacro Name="HIL_MODE_SENSORS" Value="2" />
         <VCCodeMacro Name="DF_READ_MANUFACTURER_AND_DEVICE_ID" Value="0x9F" />
         <VCCodeMacro Name="ZB_BROADCAST_ADDRESS" Value="0xfffe" />
+        <VCCodeMacro Name="PFG_K_PHI_X_NEAR" Value="100" />
+        <VCCodeMacro Name="MAVLINK_FF_FLOCK_STATUS_CRC" Value="6" />
         <VCCodeMacro Name="B0001000" Value="8" />
         <VCCodeMacro Name="IMANUFACTURER" Value="1" />
-        <VCCodeMacro Name="MOUNT" Value="DISABLED" />
-        <VCCodeMacro Name="MOUNT" Value="DISABLED" />
+        <VCCodeMacro Name="PFG_K_PHI_Y_NEAR" Value="100" />
+        <VCCodeMacro Name="PFG_K_PHI_Y_NEAR" Value="100" />
         <VCCodeMacro Name="BMP_DATA_READY" Value="(_apm2_hardware ? (PINE&amp;0x80) : digitalRead(BMP085_EOC))" />
         <VCCodeMacro Name="BIT_RAW_RDY_EN" Value="0x01" />
         <VCCodeMacro Name="DF_PAGE_READ" Value="0xD2" />
-        <VCCodeMacro Name="MOUNT" Value="DISABLED" />
+        <VCCodeMacro Name="PFG_K_PHI_Y_NEAR" Value="100" />
         <VCCodeMacro Name="B00001000" Value="8" />
         <VCCodeMacro Name="HID_GET_REPORT" Value="0x01" />
         <VCCodeMacro Name="IPRODUCT" Value="2" />
+        <VCCodeMacro Name="PFG_K_PHI_Z_NEAR" Value="100" />
+        <VCCodeMacro Name="PFG_K_PHI_Z_NEAR" Value="100" />
         <VCCodeMacro Name="BIT_DMP_INT_EN" Value="0x02" />
         <VCCodeMacro Name="DF_BUFFER_1_READ" Value="0xD4" />
+        <VCCodeMacro Name="PFG_K_PHI_Z_NEAR" Value="100" />
         <VCCodeMacro Name="DF_DATAOUT" Value="14" />
         <VCCodeMacro Name="CPU_FREQ" Value="16000000L" />
         <VCCodeMacro Name="B1001" Value="9" />
         <VCCodeMacro Name="HID_GET_IDLE" Value="0x02" />
+        <VCCodeMacro Name="PFG_K_V_NEAR" Value="100" />
+        <VCCodeMacro Name="PFG_K_V_NEAR" Value="100" />
         <VCCodeMacro Name="BIT_UNKNOWN_INT_EN" Value="0x04" />
         <VCCodeMacro Name="DF_BUFFER_2_READ" Value="0xD6" />
         <VCCodeMacro Name="ZB_TX_API_LENGTH" Value="12" />
+        <VCCodeMacro Name="PFG_K_V_NEAR" Value="100" />
         <VCCodeMacro Name="DF_DATAIN" Value="15" />
         <VCCodeMacro Name="min" Value="((a)&lt;(b)?(a):(b))" />
         <VCCodeMacro Name="B01001" Value="9" />
         <VCCodeMacro Name="HID_GET_PROTOCOL" Value="0x03" />
+        <VCCodeMacro Name="PFG_K_ALT_V_NEAR" Value="0" />
+        <VCCodeMacro Name="PFG_K_ALT_V_NEAR" Value="0" />
         <VCCodeMacro Name="MANUAL" Value="0" />
         <VCCodeMacro Name="OVERSAMPLING" Value="3" />
         <VCCodeMacro Name="BIT_I2C_MST_INT_EN" Value="0x08" />
         <VCCodeMacro Name="DF_BUFFER_1_WRITE" Value="0x84" />
         <VCCodeMacro Name="TX_16_API_LENGTH" Value="3" />
+        <VCCodeMacro Name="PFG_K_ALT_V_NEAR" Value="0" />
         <VCCodeMacro Name="LOGGING_ENABLED" Value="DISABLED" />
         <VCCodeMacro Name="DF_SPICLOCK" Value="PJ2" />
         <VCCodeMacro Name="max" Value="((a)&gt;(b)?(a):(b))" />
         <VCCodeMacro Name="B001001" Value="9" />
         <VCCodeMacro Name="HID_SET_REPORT" Value="0x09" />
+        <VCCodeMacro Name="PFG_K_PHI_V_NEAR" Value="0" />
+        <VCCodeMacro Name="PFG_K_PHI_V_NEAR" Value="0" />
         <VCCodeMacro Name="CIRCLE" Value="1" />
         <VCCodeMacro Name="BIT_FIFO_OFLOW_EN" Value="0x10" />
         <VCCodeMacro Name="DF_BUFFER_2_WRITE" Value="0x87" />
         <VCCodeMacro Name="GETBYTE" Value="({ unsigned char __c; asm ( &quot;sbrc      %2,%3   \n\t&quot; &quot;lpm       %0,Z+   \n\t&quot; &quot;sbrs      %2,%3   \n\t&quot; &quot;ld        %0,Z+   &quot; : &quot;=r&quot; (__c), &quot;+z&quot; (pnt) : &quot;r&quot; (flag), &quot;I&quot; (ntz(mask)) ); __c; })" />
         <VCCodeMacro Name="TX_64_API_LENGTH" Value="9" />
-        <VCCodeMacro Name="MOUNT2" Value="DISABLED" />
-        <VCCodeMacro Name="MOUNT2" Value="DISABLED" />
+        <VCCodeMacro Name="PFG_K_PHI_V_NEAR" Value="0" />
         <VCCodeMacro Name="DF_SLAVESELECT" Value="28" />
-        <VCCodeMacro Name="MOUNT2" Value="DISABLED" />
         <VCCodeMacro Name="abs" Value="((x)&gt;0?(x):-(x))" />
         <VCCodeMacro Name="B0001001" Value="9" />
         <VCCodeMacro Name="HID_SET_IDLE" Value="0x0A" />
         <VCCodeMacro Name="digitalPinToPCICR" Value="( (((p) &gt;= 10) &amp;&amp; ((p) &lt;= 13)) || (((p) &gt;= 50) &amp;&amp; ((p) &lt;= 53)) || (((p) &gt;= 62) &amp;&amp; ((p) &lt;= 69)) ? (&amp;PCICR) : ((uint8_t *)0) )" />
+        <VCCodeMacro Name="PFG_K_PHI_X_FAR" Value="100" />
+        <VCCodeMacro Name="PFG_K_PHI_X_FAR" Value="100" />
         <VCCodeMacro Name="BIT_ZMOT_EN" Value="0x20" />
         <VCCodeMacro Name="DF_BUFFER_1_TO_PAGE_WITH_ERASE" Value="0x83" />
         <VCCodeMacro Name="AT_COMMAND_API_LENGTH" Value="2" />
+        <VCCodeMacro Name="PFG_K_PHI_X_FAR" Value="100" />
         <VCCodeMacro Name="CONFIG_RELAY" Value="DISABLED" />
         <VCCodeMacro Name="DF_RESET" Value="41" />
         <VCCodeMacro Name="constrain" Value="((amt)&lt;(low)?(low):((amt)&gt;(high)?(high):(amt)))" />
         <VCCodeMacro Name="B00001001" Value="9" />
         <VCCodeMacro Name="HID_SET_PROTOCOL" Value="0x0B" />
+        <VCCodeMacro Name="PFG_K_PHI_Y_FAR" Value="100" />
+        <VCCodeMacro Name="PFG_K_PHI_Y_FAR" Value="100" />
         <VCCodeMacro Name="STABILIZE" Value="2" />
         <VCCodeMacro Name="BIT_MOT_EN" Value="0x40" />
         <VCCodeMacro Name="DF_BUFFER_2_TO_PAGE_WITH_ERASE" Value="0x86" />
         <VCCodeMacro Name="REMOTE_AT_COMMAND_API_LENGTH" Value="13" />
+        <VCCodeMacro Name="PFG_K_PHI_Y_FAR" Value="100" />
         <VCCodeMacro Name="PLOG" Value="if (g.log_bitmask &amp; MASK_LOG_##_s) Serial.printf_P(PSTR(&quot; %S&quot;), PSTR(#_s))" />
         <VCCodeMacro Name="DF_CARDDETECT" Value="33" />
         <VCCodeMacro Name="round" Value="((x)&gt;=0?(long)((x)+0.5):(long)((x)-0.5))" />
         <VCCodeMacro Name="B1010" Value="10" />
+        <VCCodeMacro Name="PFG_K_PHI_Z_FAR" Value="100" />
+        <VCCodeMacro Name="PFG_K_PHI_Z_FAR" Value="100" />
         <VCCodeMacro Name="BIT_FF_EN" Value="0x80" />
         <VCCodeMacro Name="DF_PAGE_ERASE" Value="0x81" />
+        <VCCodeMacro Name="PFG_K_PHI_Z_FAR" Value="100" />
         <VCCodeMacro Name="radians" Value="((deg)*DEG_TO_RAD)" />
         <VCCodeMacro Name="B01010" Value="10" />
+        <VCCodeMacro Name="PFG_K_V_FAR" Value="100" />
+        <VCCodeMacro Name="PFG_K_V_FAR" Value="100" />
         <VCCodeMacro Name="FLY_BY_WIRE_A" Value="5" />
         <VCCodeMacro Name="MPUREG_INT_STATUS" Value="0x3A" />
         <VCCodeMacro Name="DF_BLOCK_ERASE" Value="0x50" />
         <VCCodeMacro Name="PACKET_OVERHEAD_LENGTH" Value="6" />
+        <VCCodeMacro Name="PFG_K_V_FAR" Value="100" />
         <VCCodeMacro Name="GEOFENCE_ENABLED" Value="DISABLED" />
         <VCCodeMacro Name="degrees" Value="((rad)*RAD_TO_DEG)" />
         <VCCodeMacro Name="B001010" Value="10" />
         <VCCodeMacro Name="digitalPinToPCICRbit" Value="( (((p) &gt;= 10) &amp;&amp; ((p) &lt;= 13)) || (((p) &gt;= 50) &amp;&amp; ((p) &lt;= 53)) ? 0 : ( (((p) &gt;= 62) &amp;&amp; ((p) &lt;= 69)) ? 2 : 0 ) )" />
+        <VCCodeMacro Name="PFG_K_ALT_V_FAR" Value="0" />
+        <VCCodeMacro Name="PFG_K_ALT_V_FAR" Value="0" />
         <VCCodeMacro Name="DF_SECTOR_ERASE" Value="0x7C" />
+        <VCCodeMacro Name="PFG_K_ALT_V_FAR" Value="0" />
         <VCCodeMacro Name="sq" Value="((x)*(x))" />
         <VCCodeMacro Name="B0001010" Value="10" />
         <VCCodeMacro Name="DEVICE_CLASS" Value="0x02" />
         <VCCodeMacro Name="USB_DEVICE_DESC_SIZE" Value="18" />
-        <VCCodeMacro Name="PFG_CHI" Value="30" />
-        <VCCodeMacro Name="PFG_CHI" Value="30" />
+        <VCCodeMacro Name="PFG_K_PHI_V_FAR" Value="0" />
+        <VCCodeMacro Name="PFG_K_PHI_V_FAR" Value="0" />
         <VCCodeMacro Name="BIT_RAW_RDY_INT" Value="0x01" />
         <VCCodeMacro Name="DF_CHIP_ERASE_0" Value="0xC7" />
         <VCCodeMacro Name="API_ID_INDEX" Value="3" />
-        <VCCodeMacro Name="PFG_CHI" Value="30" />
+        <VCCodeMacro Name="PFG_K_PHI_V_FAR" Value="0" />
         <VCCodeMacro Name="B00001010" Value="10" />
         <VCCodeMacro Name="USB_CONFIGUARTION_DESC_SIZE" Value="9" />
-        <VCCodeMacro Name="PFG_TAU" Value="200" />
-        <VCCodeMacro Name="PFG_TAU" Value="200" />
+        <VCCodeMacro Name="PFG_DEFAULT_SIDE" Value="-1" />
+        <VCCodeMacro Name="PFG_DEFAULT_SIDE" Value="-1" />
         <VCCodeMacro Name="BIT_DMP_INT" Value="0x02" />
         <VCCodeMacro Name="DF_CHIP_ERASE_1" Value="0x94" />
-        <VCCodeMacro Name="PFG_TAU" Value="200" />
+        <VCCodeMacro Name="PFG_DEFAULT_SIDE" Value="1" />
         <VCCodeMacro Name="CLI_ENABLED" Value="DISABLED" />
         <VCCodeMacro Name="interrupts" Value="sei()" />
         <VCCodeMacro Name="B1011" Value="11" />
         <VCCodeMacro Name="DEVICE_CLASS" Value="0x00" />
         <VCCodeMacro Name="USB_INTERFACE_DESC_SIZE" Value="9" />
-        <VCCodeMacro Name="PFG_ZETA" Value="25" />
-        <VCCodeMacro Name="PFG_ZETA" Value="25" />
         <VCCodeMacro Name="FLY_BY_WIRE_B" Value="6" />
         <VCCodeMacro Name="BIT_UNKNOWN_INT" Value="0x04" />
         <VCCodeMacro Name="DF_CHIP_ERASE_2" Value="0x80" />
         <VCCodeMacro Name="DF_TRANSFER_PAGE_TO_BUFFER_1" Value="0x53" />
-        <VCCodeMacro Name="PFG_ZETA" Value="25" />
         <VCCodeMacro Name="noInterrupts" Value="cli()" />
         <VCCodeMacro Name="B01011" Value="11" />
         <VCCodeMacro Name="USB_ENDPOINT_DESC_SIZE" Value="7" />
         <VCCodeMacro Name="digitalPinToPCMSK" Value="( (((p) &gt;= 10) &amp;&amp; ((p) &lt;= 13)) || (((p) &gt;= 50) &amp;&amp; ((p) &lt;= 53)) ? (&amp;PCMSK0) : ( (((p) &gt;= 62) &amp;&amp; ((p) &lt;= 69)) ? (&amp;PCMSK2) : ((uint8_t *)0) ) )" />
-        <VCCodeMacro Name="PFG_SIGMA" Value="1" />
-        <VCCodeMacro Name="PFG_SIGMA" Value="1" />
+        <VCCodeMacro Name="PFG_MIN_ALT" Value="10000" />
+        <VCCodeMacro Name="PFG_MIN_ALT" Value="10000" />
         <VCCodeMacro Name="BIT_I2C_MST_INT" Value="0x08" />
         <VCCodeMacro Name="DF_CHIP_ERASE_3" Value="0x9A" />
         <VCCodeMacro Name="DF_TRANSFER_PAGE_TO_BUFFER_2" Value="0x55" />
         <VCCodeMacro Name="RX_16_RSSI_OFFSET" Value="2" />
-        <VCCodeMacro Name="PFG_SIGMA" Value="1" />
+        <VCCodeMacro Name="PFG_MIN_ALT" Value="10000" />
         <VCCodeMacro Name="B001011" Value="11" />
-        <VCCodeMacro Name="PFG_X_LAMBDA" Value="60" />
-        <VCCodeMacro Name="PFG_X_LAMBDA" Value="60" />
+        <VCCodeMacro Name="PFG_MAX_ALT" Value="30000" />
+        <VCCodeMacro Name="PFG_MAX_ALT" Value="30000" />
         <VCCodeMacro Name="BIT_FIFO_OFLOW_INT" Value="0x10" />
         <VCCodeMacro Name="DF_STATUS_REGISTER_READ" Value="0xD7" />
         <VCCodeMacro Name="RX_64_RSSI_OFFSET" Value="8" />
-        <VCCodeMacro Name="PFG_X_LAMBDA" Value="60" />
+        <VCCodeMacro Name="PFG_MAX_ALT" Value="30000" />
         <VCCodeMacro Name="MOUNT2" Value="DISABLED" />
         <VCCodeMacro Name="clockCyclesPerMicrosecond" Value="( F_CPU / 1000000L )" />
         <VCCodeMacro Name="B0001011" Value="11" />
         <VCCodeMacro Name="KEY_LEFT_CTRL" Value="0x80" />
         <VCCodeMacro Name="USB_DEVICE_DESCRIPTOR_TYPE" Value="1" />
-        <VCCodeMacro Name="PFG_Y_LAMBDA" Value="50" />
-        <VCCodeMacro Name="PFG_Y_LAMBDA" Value="50" />
+        <VCCodeMacro Name="PFG_MIN_AIRSPEED_CM" Value="800" />
+        <VCCodeMacro Name="PFG_MIN_AIRSPEED_CM" Value="800" />
         <VCCodeMacro Name="BIT_ZMOT_INT" Value="0x20" />
         <VCCodeMacro Name="DF_READ_MANUFACTURER_AND_DEVICE_ID" Value="0x9F" />
-        <VCCodeMacro Name="PFG_Y_LAMBDA" Value="50" />
+        <VCCodeMacro Name="PFG_MIN_AIRSPEED_CM" Value="800" />
+        <VCCodeMacro Name="MAVLINK_FF_PF_FIELD_LEN" Value="54" />
         <VCCodeMacro Name="clockCyclesToMicroseconds" Value="( (a) / clockCyclesPerMicrosecond() )" />
         <VCCodeMacro Name="B00001011" Value="11" />
         <VCCodeMacro Name="KEY_LEFT_SHIFT" Value="0x81" />
         <VCCodeMacro Name="USB_CONFIGURATION_DESCRIPTOR_TYPE" Value="2" />
-        <VCCodeMacro Name="PFG_Z_LAMBDA" Value="40" />
-        <VCCodeMacro Name="PFG_Z_LAMBDA" Value="40" />
+        <VCCodeMacro Name="PFG_MAX_AIRSPEED_CM" Value="1400" />
+        <VCCodeMacro Name="PFG_MAX_AIRSPEED_CM" Value="1400" />
         <VCCodeMacro Name="FLY_BY_WIRE_C" Value="7" />
         <VCCodeMacro Name="BIT_MOT_INT" Value="0x40" />
         <VCCodeMacro Name="DF_PAGE_READ" Value="0xD2" />
         <VCCodeMacro Name="DEFAULT_FRAME_ID" Value="1" />
-        <VCCodeMacro Name="PFG_Z_LAMBDA" Value="40" />
+        <VCCodeMacro Name="PFG_MAX_AIRSPEED_CM" Value="1400" />
+        <VCCodeMacro Name="MAVLINK_FF_PF_FIELD_CRC" Value="114" />
         <VCCodeMacro Name="PSTR" Value="_x" />
         <VCCodeMacro Name="microsecondsToClockCycles" Value="( (a) * clockCyclesPerMicrosecond() )" />
         <VCCodeMacro Name="B1100" Value="12" />
         <VCCodeMacro Name="KEY_LEFT_ALT" Value="0x82" />
         <VCCodeMacro Name="USB_STRING_DESCRIPTOR_TYPE" Value="3" />
         <VCCodeMacro Name="digitalPinToPCMSKbit" Value="( (((p) &gt;= 10) &amp;&amp; ((p) &lt;= 13)) ? ((p) - 6) : ( ((p) == 50) ? 3 : ( ((p) == 51) ? 2 : ( ((p) == 52) ? 1 : ( ((p) == 53) ? 0 : ( (((p) &gt;= 62) &amp;&amp; ((p) &lt;= 69)) ? ((p) - 62) : 0 ) ) ) ) ) )" />
-        <VCCodeMacro Name="PFG_x_OFFSET" Value="1000" />
-        <VCCodeMacro Name="PFG_x_OFFSET" Value="1000" />
         <VCCodeMacro Name="TCNT2_781_HZ" Value="(256-80)" />
         <VCCodeMacro Name="BIT_FF_INT" Value="0x80" />
         <VCCodeMacro Name="DF_BUFFER_1_READ" Value="0xD4" />
         <VCCodeMacro Name="NO_RESPONSE_FRAME_ID" Value="0" />
-        <VCCodeMacro Name="PFG_x_OFFSET" Value="1000" />
         <VCCodeMacro Name="MOUNT" Value="ENABLED" />
         <VCCodeMacro Name="float" Value="double" />
         <VCCodeMacro Name="B01100" Value="12" />
         <VCCodeMacro Name="KEY_LEFT_GUI" Value="0x83" />
         <VCCodeMacro Name="USB_INTERFACE_DESCRIPTOR_TYPE" Value="4" />
-        <VCCodeMacro Name="PFG_y_OFFSET" Value="1000" />
-        <VCCodeMacro Name="PFG_y_OFFSET" Value="1000" />
+        <VCCodeMacro Name="FLOCK_SIZE" Value="3" />
+        <VCCodeMacro Name="FLOCK_SIZE" Value="3" />
         <VCCodeMacro Name="TCNT2_1008_HZ" Value="(256-62)" />
         <VCCodeMacro Name="MPUREG_ACCEL_XOUT_H" Value="0x3B" />
         <VCCodeMacro Name="DF_BUFFER_2_READ" Value="0xD6" />
-        <VCCodeMacro Name="PFG_y_OFFSET" Value="1000" />
+        <VCCodeMacro Name="FLOCK_SIZE" Value="3" />
         <VCCodeMacro Name="lowByte" Value="((uint8_t) ((w) &amp; 0xff))" />
         <VCCodeMacro Name="B001100" Value="12" />
         <VCCodeMacro Name="KEY_RIGHT_CTRL" Value="0x84" />
         <VCCodeMacro Name="USB_ENDPOINT_DESCRIPTOR_TYPE" Value="5" />
-        <VCCodeMacro Name="PFG_z_OFFSET" Value="0" />
-        <VCCodeMacro Name="PFG_z_OFFSET" Value="0" />
+        <VCCodeMacro Name="VIEW_RANGE" Value="360" />
+        <VCCodeMacro Name="VIEW_RANGE" Value="360" />
         <VCCodeMacro Name="TCNT2_1302_HZ" Value="(256-48)" />
         <VCCodeMacro Name="MPUREG_ACCEL_XOUT_L" Value="0x3C" />
         <VCCodeMacro Name="DF_BUFFER_1_WRITE" Value="0x84" />
         <VCCodeMacro Name="FL_ZFILL" Value="0x01" />
-        <VCCodeMacro Name="PFG_z_OFFSET" Value="0" />
+        <VCCodeMacro Name="VIEW_RANGE" Value="360" />
         <VCCodeMacro Name="highByte" Value="((uint8_t) ((w) &gt;&gt; 8))" />
         <VCCodeMacro Name="B0001100" Value="12" />
         <VCCodeMacro Name="KEY_RIGHT_SHIFT" Value="0x85" />
-        <VCCodeMacro Name="PFG_VWP_OFFSET" Value="60" />
-        <VCCodeMacro Name="PFG_VWP_OFFSET" Value="60" />
+        <VCCodeMacro Name="FLOCKMEMBER_TIME_OUT" Value="1500" />
+        <VCCodeMacro Name="FLOCKMEMBER_TIME_OUT" Value="1500" />
         <VCCodeMacro Name="MPUREG_ACCEL_YOUT_H" Value="0x3D" />
         <VCCodeMacro Name="DF_BUFFER_2_WRITE" Value="0x87" />
         <VCCodeMacro Name="FL_PLUS" Value="0x02" />
         <VCCodeMacro Name="ACK_OPTION" Value="0" />
-        <VCCodeMacro Name="PFG_VWP_OFFSET" Value="60" />
+        <VCCodeMacro Name="FLOCKMEMBER_TIME_OUT" Value="1500" />
         <VCCodeMacro Name="CAMERA" Value="DISABLED" />
         <VCCodeMacro Name="B00001100" Value="12" />
         <VCCodeMacro Name="KEY_RIGHT_ALT" Value="0x86" />
         <VCCodeMacro Name="USB_DEVICE_CLASS_COMMUNICATIONS" Value="0x02" />
-        <VCCodeMacro Name="PFG_X_PHI_NEAR" Value="3" />
-        <VCCodeMacro Name="PFG_X_PHI_NEAR" Value="3" />
         <VCCodeMacro Name="AUTO" Value="10" />
         <VCCodeMacro Name="MPUREG_ACCEL_YOUT_L" Value="0x3E" />
         <VCCodeMacro Name="DF_BUFFER_1_TO_PAGE_WITH_ERASE" Value="0x83" />
         <VCCodeMacro Name="FL_SPACE" Value="0x04" />
         <VCCodeMacro Name="DISABLE_ACK_OPTION" Value="1" />
-        <VCCodeMacro Name="PFG_X_PHI_NEAR" Value="3" />
         <VCCodeMacro Name="bitRead" Value="(((value) &gt;&gt; (bit)) &amp; 0x01)" />
         <VCCodeMacro Name="B1101" Value="13" />
         <VCCodeMacro Name="KEY_RIGHT_GUI" Value="0x87" />
         <VCCodeMacro Name="USB_DEVICE_CLASS_HUMAN_INTERFACE" Value="0x03" />
-        <VCCodeMacro Name="PFG_K_PHI_X_NEAR" Value="100" />
-        <VCCodeMacro Name="PFG_K_PHI_X_NEAR" Value="100" />
         <VCCodeMacro Name="RTL" Value="11" />
         <VCCodeMacro Name="MPUREG_ACCEL_ZOUT_H" Value="0x3F" />
         <VCCodeMacro Name="DF_BUFFER_2_TO_PAGE_WITH_ERASE" Value="0x86" />
         <VCCodeMacro Name="FL_LPAD" Value="0x08" />
         <VCCodeMacro Name="BROADCAST_OPTION" Value="4" />
-        <VCCodeMacro Name="PFG_K_PHI_X_NEAR" Value="100" />
         <VCCodeMacro Name="bitSet" Value="((value) |= (1UL &lt;&lt; (bit)))" />
         <VCCodeMacro Name="B01101" Value="13" />
         <VCCodeMacro Name="USB_DEVICE_CLASS_STORAGE" Value="0x08" />
-        <VCCodeMacro Name="PFG_K_PHI_Y_NEAR" Value="100" />
-        <VCCodeMacro Name="PFG_K_PHI_Y_NEAR" Value="100" />
+        <VCCodeMacro Name="GOAL_LAT" Value="353283260" />
+        <VCCodeMacro Name="GOAL_LAT" Value="353283260" />
         <VCCodeMacro Name="LOITER" Value="12" />
         <VCCodeMacro Name="MPUREG_ACCEL_ZOUT_L" Value="0x40" />
         <VCCodeMacro Name="DF_PAGE_ERASE" Value="0x81" />
         <VCCodeMacro Name="FL_ALT" Value="0x10" />
-        <VCCodeMacro Name="PFG_K_PHI_Y_NEAR" Value="100" />
+        <VCCodeMacro Name="GOAL_LAT" Value="353283260" />
         <VCCodeMacro Name="bitClear" Value="((value) &amp;= ~(1UL &lt;&lt; (bit)))" />
         <VCCodeMacro Name="B001101" Value="13" />
         <VCCodeMacro Name="KEY_UP_ARROW" Value="0xDA" />
         <VCCodeMacro Name="USB_DEVICE_CLASS_VENDOR_SPECIFIC" Value="0xFF" />
-        <VCCodeMacro Name="PFG_K_PHI_Z_NEAR" Value="100" />
-        <VCCodeMacro Name="PFG_K_PHI_Z_NEAR" Value="100" />
+        <VCCodeMacro Name="GOAL_LON" Value="-1207533502" />
+        <VCCodeMacro Name="GOAL_LON" Value="-1207533502" />
         <VCCodeMacro Name="MPUREG_TEMP_OUT_H" Value="0x41" />
         <VCCodeMacro Name="DF_BLOCK_ERASE" Value="0x50" />
         <VCCodeMacro Name="FL_WIDTH" Value="0x20" />
-        <VCCodeMacro Name="PFG_K_PHI_Z_NEAR" Value="100" />
+        <VCCodeMacro Name="GOAL_LON" Value="-1207533502" />
         <VCCodeMacro Name="bitWrite" Value="(bitvalue ? bitSet(value, bit) : bitClear(value, bit))" />
         <VCCodeMacro Name="B0001101" Value="13" />
         <VCCodeMacro Name="KEY_DOWN_ARROW" Value="0xD9" />
-        <VCCodeMacro Name="PFG_K_V_NEAR" Value="100" />
-        <VCCodeMacro Name="PFG_K_V_NEAR" Value="100" />
+        <VCCodeMacro Name="GOAL_ALT" Value="15000" />
+        <VCCodeMacro Name="GOAL_ALT" Value="15000" />
         <VCCodeMacro Name="MPUREG_TEMP_OUT_L" Value="0x42" />
         <VCCodeMacro Name="DF_SECTOR_ERASE" Value="0x7C" />
         <VCCodeMacro Name="FL_PREC" Value="0x40" />
         <VCCodeMacro Name="ZB_PACKET_ACKNOWLEDGED" Value="0x01" />
-        <VCCodeMacro Name="PFG_K_V_NEAR" Value="100" />
+        <VCCodeMacro Name="GOAL_ALT" Value="15000" />
         <VCCodeMacro Name="B00001101" Value="13" />
         <VCCodeMacro Name="KEY_LEFT_ARROW" Value="0xD8" />
         <VCCodeMacro Name="USB_CONFIG_POWERED_MASK" Value="0x40" />
-        <VCCodeMacro Name="PFG_K_ALT_V_NEAR" Value="0" />
-        <VCCodeMacro Name="PFG_K_ALT_V_NEAR" Value="0" />
         <VCCodeMacro Name="MPUREG_GYRO_XOUT_H" Value="0x43" />
         <VCCodeMacro Name="DF_CHIP_ERASE_0" Value="0xC7" />
         <VCCodeMacro Name="FL_LONG" Value="0x80" />
         <VCCodeMacro Name="ZB_BROADCAST_PACKET" Value="0x02" />
-        <VCCodeMacro Name="PFG_K_ALT_V_NEAR" Value="0" />
         <VCCodeMacro Name="B1110" Value="14" />
         <VCCodeMacro Name="KEY_RIGHT_ARROW" Value="0xD7" />
         <VCCodeMacro Name="USB_CONFIG_BUS_POWERED" Value="0x80" />
-        <VCCodeMacro Name="PFG_K_PHI_V_NEAR" Value="0" />
-        <VCCodeMacro Name="PFG_K_PHI_V_NEAR" Value="0" />
         <VCCodeMacro Name="MPUREG_GYRO_XOUT_L" Value="0x44" />
         <VCCodeMacro Name="DF_CHIP_ERASE_1" Value="0x94" />
-        <VCCodeMacro Name="PFG_K_PHI_V_NEAR" Value="0" />
         <VCCodeMacro Name="B01110" Value="14" />
         <VCCodeMacro Name="KEY_BACKSPACE" Value="0xB2" />
         <VCCodeMacro Name="USB_CONFIG_SELF_POWERED" Value="0xC0" />
-        <VCCodeMacro Name="PFG_K_PHI_X_FAR" Value="100" />
-        <VCCodeMacro Name="PFG_K_PHI_X_FAR" Value="100" />
         <VCCodeMacro Name="GUIDED" Value="15" />
         <VCCodeMacro Name="MPUREG_GYRO_YOUT_H" Value="0x45" />
         <VCCodeMacro Name="DF_CHIP_ERASE_2" Value="0x80" />
         <VCCodeMacro Name="FL_PGMSTRING" Value="FL_LONG" />
-        <VCCodeMacro Name="PFG_K_PHI_X_FAR" Value="100" />
         <VCCodeMacro Name="PROGMEM" Value="__attribute__(())" />
         <VCCodeMacro Name="B001110" Value="14" />
         <VCCodeMacro Name="KEY_TAB" Value="0xB3" />
         <VCCodeMacro Name="USB_CONFIG_REMOTE_WAKEUP" Value="0x20" />
-        <VCCodeMacro Name="PFG_K_PHI_Y_FAR" Value="100" />
-        <VCCodeMacro Name="PFG_K_PHI_Y_FAR" Value="100" />
         <VCCodeMacro Name="INITIALISING" Value="16" />
         <VCCodeMacro Name="MPUREG_GYRO_YOUT_L" Value="0x46" />
         <VCCodeMacro Name="DF_CHIP_ERASE_3" Value="0x9A" />
         <VCCodeMacro Name="FL_NEGATIVE" Value="FL_LONG" />
-        <VCCodeMacro Name="PFG_K_PHI_Y_FAR" Value="100" />
         <VCCodeMacro Name="CONFIG_IMU_TYPE" Value="CONFIG_IMU_MPU6000" />
         <VCCodeMacro Name="bit" Value="(1UL &lt;&lt; (b))" />
         <VCCodeMacro Name="B0001110" Value="14" />
         <VCCodeMacro Name="AVAILABLE_TONE_PINS" Value="1" />
         <VCCodeMacro Name="KEY_RETURN" Value="0xB0" />
-        <VCCodeMacro Name="PFG_K_PHI_Z_FAR" Value="100" />
-        <VCCodeMacro Name="PFG_K_PHI_Z_FAR" Value="100" />
         <VCCodeMacro Name="DIGIT_TO_VAL" Value="(_x - '0')" />
         <VCCodeMacro Name="MPUREG_GYRO_ZOUT_H" Value="0x47" />
         <VCCodeMacro Name="OBC_MODE" Value="((control_mode==AUTO?APM_OBC::OBC_AUTO:control_mode==MANUAL?APM_OBC::OBC_MANUAL:APM_OBC::OBC_FBW))" />
-        <VCCodeMacro Name="PFG_K_PHI_Z_FAR" Value="100" />
         <VCCodeMacro Name="CONFIG_RELAY" Value="DISABLED" />
         <VCCodeMacro Name="B00001110" Value="14" />
         <VCCodeMacro Name="KEY_ESC" Value="0xB1" />
-        <VCCodeMacro Name="PFG_K_V_FAR" Value="100" />
-        <VCCodeMacro Name="PFG_K_V_FAR" Value="100" />
         <VCCodeMacro Name="MPUREG_GYRO_ZOUT_L" Value="0x48" />
         <VCCodeMacro Name="FL_ALTUPP" Value="FL_PLUS" />
-        <VCCodeMacro Name="PFG_K_V_FAR" Value="100" />
         <VCCodeMacro Name="MAG_ORIENTATION" Value="AP_COMPASS_APM2_SHIELD" />
         <VCCodeMacro Name="PROGMEM" Value="__attribute__(( section(&quot;.progmem.data&quot;) ))" />
         <VCCodeMacro Name="B1111" Value="15" />
         <VCCodeMacro Name="KEY_INSERT" Value="0xD1" />
         <VCCodeMacro Name="USB_CONFIG_POWER_MA" Value="((mA)/2)" />
-        <VCCodeMacro Name="PFG_K_ALT_V_FAR" Value="0" />
-        <VCCodeMacro Name="PFG_K_ALT_V_FAR" Value="0" />
         <VCCodeMacro Name="MPUREG_USER_CTRL" Value="0x6A" />
         <VCCodeMacro Name="FL_ALTHEX" Value="FL_SPACE" />
         <VCCodeMacro Name="TX_64_REQUEST" Value="0x0" />
-        <VCCodeMacro Name="PFG_K_ALT_V_FAR" Value="0" />
+        <VCCodeMacro Name="MAVLINK_FF_VWP_LEN" Value="31" />
         <VCCodeMacro Name="CONFIG_PITOT_SOURCE" Value="PITOT_SOURCE_ANALOG_PIN" />
         <VCCodeMacro Name="B01111" Value="15" />
         <VCCodeMacro Name="KEY_DELETE" Value="0xD4" />
-        <VCCodeMacro Name="PFG_K_PHI_V_FAR" Value="0" />
-        <VCCodeMacro Name="PFG_K_PHI_V_FAR" Value="0" />
         <VCCodeMacro Name="TX_16_REQUEST" Value="0x1" />
-        <VCCodeMacro Name="PFG_K_PHI_V_FAR" Value="0" />
+        <VCCodeMacro Name="MAVLINK_FF_VWP_CRC" Value="61" />
         <VCCodeMacro Name="MAGNETOMETER" Value="ENABLED" />
         <VCCodeMacro Name="B001111" Value="15" />
         <VCCodeMacro Name="KEY_PAGE_UP" Value="0xD3" />
-        <VCCodeMacro Name="PFG_DEFAULT_SIDE" Value="-1" />
-        <VCCodeMacro Name="PFG_DEFAULT_SIDE" Value="-1" />
         <VCCodeMacro Name="CMD_BLANK" Value="0" />
         <VCCodeMacro Name="BIT_USER_CTRL_SIG_COND_RESET" Value="0x01" />
         <VCCodeMacro Name="FL_FLTUPP" Value="FL_ALT" />
         <VCCodeMacro Name="AT_COMMAND_REQUEST" Value="0x08" />
-        <VCCodeMacro Name="PFG_DEFAULT_SIDE" Value="1" />
         <VCCodeMacro Name="B0001111" Value="15" />
         <VCCodeMacro Name="KEY_PAGE_DOWN" Value="0xD6" />
         <VCCodeMacro Name="USB_ENDPOINT_DIRECTION_MASK" Value="0x80" />
@@ -1166,41 +1192,29 @@
         <VCCodeMacro Name="B00001111" Value="15" />
         <VCCodeMacro Name="KEY_HOME" Value="0xD2" />
         <VCCodeMacro Name="USB_ENDPOINT_OUT" Value="((addr) | 0x00)" />
-        <VCCodeMacro Name="PFG_MIN_ALT" Value="10000" />
-        <VCCodeMacro Name="PFG_MIN_ALT" Value="10000" />
         <VCCodeMacro Name="NO_COMMAND" Value="0" />
         <VCCodeMacro Name="BIT_USER_CTRL_FIFO_RESET" Value="0x04" />
         <VCCodeMacro Name="FL_FLTFIX" Value="FL_LONG" />
         <VCCodeMacro Name="REMOTE_AT_REQUEST" Value="0x17" />
-        <VCCodeMacro Name="PFG_MIN_ALT" Value="10000" />
         <VCCodeMacro Name="B10000" Value="16" />
         <VCCodeMacro Name="AVAILABLE_TONE_PINS" Value="1" />
         <VCCodeMacro Name="KEY_END" Value="0xD5" />
         <VCCodeMacro Name="USB_ENDPOINT_IN" Value="((addr) | 0x80)" />
-        <VCCodeMacro Name="PFG_MAX_ALT" Value="30000" />
-        <VCCodeMacro Name="PFG_MAX_ALT" Value="30000" />
         <VCCodeMacro Name="WAIT_COMMAND" Value="255" />
         <VCCodeMacro Name="BIT_USER_CTRL_DMP_RESET" Value="0x08" />
         <VCCodeMacro Name="ZB_TX_REQUEST" Value="0x10" />
-        <VCCodeMacro Name="PFG_MAX_ALT" Value="30000" />
         <VCCodeMacro Name="PSTR" Value="(__extension__({static const prog_char __c[] PROGMEM = (s); (const prog_char_t *)&amp;__c[0]; }))" />
         <VCCodeMacro Name="serialEvent_implemented" Value="" />
         <VCCodeMacro Name="CONFIG_BARO" Value="AP_BARO_MS5611" />
         <VCCodeMacro Name="B010000" Value="16" />
         <VCCodeMacro Name="KEY_CAPS_LOCK" Value="0xC1" />
-        <VCCodeMacro Name="PFG_MIN_AIRSPEED_CM" Value="800" />
-        <VCCodeMacro Name="PFG_MIN_AIRSPEED_CM" Value="800" />
         <VCCodeMacro Name="BIT_USER_CTRL_I2C_IF_DIS" Value="0x10" />
         <VCCodeMacro Name="ZB_EXPLICIT_TX_REQUEST" Value="0x11" />
-        <VCCodeMacro Name="PFG_MIN_AIRSPEED_CM" Value="800" />
         <VCCodeMacro Name="B0010000" Value="16" />
         <VCCodeMacro Name="KEY_F1" Value="0xC2" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_MASK" Value="0x03" />
-        <VCCodeMacro Name="PFG_MAX_AIRSPEED_CM" Value="1400" />
-        <VCCodeMacro Name="PFG_MAX_AIRSPEED_CM" Value="1400" />
         <VCCodeMacro Name="BIT_USER_CTRL_I2C_MST_EN" Value="0x20" />
         <VCCodeMacro Name="RX_64_RESPONSE" Value="0x80" />
-        <VCCodeMacro Name="PFG_MAX_AIRSPEED_CM" Value="1400" />
         <VCCodeMacro Name="B00010000" Value="16" />
         <VCCodeMacro Name="KEY_F2" Value="0xC3" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_CONTROL" Value="0x00" />
@@ -1210,28 +1224,19 @@
         <VCCodeMacro Name="B10001" Value="17" />
         <VCCodeMacro Name="KEY_F3" Value="0xC4" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_ISOCHRONOUS" Value="0x01" />
-        <VCCodeMacro Name="FLOCK_SIZE" Value="3" />
-        <VCCodeMacro Name="FLOCK_SIZE" Value="3" />
         <VCCodeMacro Name="MASK_OPTIONS_RELATIVE_ALT" Value="(1&lt;&lt;0)" />
         <VCCodeMacro Name="BIT_USER_CTRL_DMP_EN" Value="0x80" />
         <VCCodeMacro Name="RX_64_IO_RESPONSE" Value="0x82" />
-        <VCCodeMacro Name="FLOCK_SIZE" Value="3" />
         <VCCodeMacro Name="B010001" Value="17" />
         <VCCodeMacro Name="KEY_F4" Value="0xC5" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_BULK" Value="0x02" />
-        <VCCodeMacro Name="VIEW_RANGE" Value="360" />
-        <VCCodeMacro Name="VIEW_RANGE" Value="360" />
         <VCCodeMacro Name="MPUREG_PWR_MGMT_1" Value="0x6B" />
         <VCCodeMacro Name="RX_16_IO_RESPONSE" Value="0x83" />
-        <VCCodeMacro Name="VIEW_RANGE" Value="360" />
         <VCCodeMacro Name="B0010001" Value="17" />
         <VCCodeMacro Name="KEY_F5" Value="0xC6" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_INTERRUPT" Value="0x03" />
-        <VCCodeMacro Name="FLOCKMEMBER_TIME_OUT" Value="1500" />
-        <VCCodeMacro Name="FLOCKMEMBER_TIME_OUT" Value="1500" />
         <VCCodeMacro Name="BIT_PWR_MGMT_1_CLK_INTERNAL" Value="0x00" />
         <VCCodeMacro Name="AT_RESPONSE" Value="0x88" />
-        <VCCodeMacro Name="FLOCKMEMBER_TIME_OUT" Value="1500" />
         <VCCodeMacro Name="B00010001" Value="17" />
         <VCCodeMacro Name="AVAILABLE_TONE_PINS" Value="1" />
         <VCCodeMacro Name="KEY_F6" Value="0xC7" />
@@ -1246,44 +1251,37 @@
         <VCCodeMacro Name="MODEM_STATUS_RESPONSE" Value="0x8a" />
         <VCCodeMacro Name="B010010" Value="18" />
         <VCCodeMacro Name="KEY_F8" Value="0xC9" />
-        <VCCodeMacro Name="GOAL_LAT" Value="353283260" />
-        <VCCodeMacro Name="GOAL_LAT" Value="353283260" />
         <VCCodeMacro Name="CH_5_TOGGLE" Value="1" />
         <VCCodeMacro Name="BIT_PWR_MGMT_1_CLK_ZGYRO" Value="0x03" />
         <VCCodeMacro Name="ZB_RX_RESPONSE" Value="0x90" />
-        <VCCodeMacro Name="GOAL_LAT" Value="353283260" />
         <VCCodeMacro Name="B0010010" Value="18" />
         <VCCodeMacro Name="KEY_F9" Value="0xCA" />
         <VCCodeMacro Name="CDC_V1_10" Value="0x0110" />
-        <VCCodeMacro Name="GOAL_LON" Value="-1207533502" />
-        <VCCodeMacro Name="GOAL_LON" Value="-1207533502" />
         <VCCodeMacro Name="CH_6_TOGGLE" Value="2" />
         <VCCodeMacro Name="FPSTR" Value="(wchar_t *)(s)" />
         <VCCodeMacro Name="PGM_UINT8" Value="(uint8_t)pgm_read_byte_far(p)" />
         <VCCodeMacro Name="PROGSTR_QUEUE_SIZE" Value="3" />
         <VCCodeMacro Name="BIT_PWR_MGMT_1_CLK_EXT32KHZ" Value="0x04" />
         <VCCodeMacro Name="ZB_EXPLICIT_RX_RESPONSE" Value="0x91" />
-        <VCCodeMacro Name="GOAL_LON" Value="-1207533502" />
         <VCCodeMacro Name="B00010010" Value="18" />
         <VCCodeMacro Name="KEY_F10" Value="0xCB" />
         <VCCodeMacro Name="CDC_COMMUNICATION_INTERFACE_CLASS" Value="0x02" />
-        <VCCodeMacro Name="GOAL_ALT" Value="15000" />
-        <VCCodeMacro Name="GOAL_ALT" Value="15000" />
         <VCCodeMacro Name="CH_7_TOGGLE" Value="3" />
         <VCCodeMacro Name="BIT_PWR_MGMT_1_CLK_EXT19MHZ" Value="0x05" />
         <VCCodeMacro Name="ZB_TX_STATUS_RESPONSE" Value="0x8b" />
-        <VCCodeMacro Name="GOAL_ALT" Value="15000" />
         <VCCodeMacro Name="B10011" Value="19" />
         <VCCodeMacro Name="KEY_F11" Value="0xCC" />
         <VCCodeMacro Name="CH_8_TOGGLE" Value="4" />
         <VCCodeMacro Name="BIT_PWR_MGMT_1_CLK_STOP" Value="0x07" />
         <VCCodeMacro Name="ZB_IO_SAMPLE_RESPONSE" Value="0x92" />
+        <VCCodeMacro Name="MAVLINK_FF_REL_STATE_LEN" Value="41" />
         <VCCodeMacro Name="B010011" Value="19" />
         <VCCodeMacro Name="KEY_F12" Value="0xCD" />
         <VCCodeMacro Name="CDC_CALL_MANAGEMENT" Value="0x01" />
         <VCCodeMacro Name="RELAY_TOGGLE" Value="5" />
         <VCCodeMacro Name="BIT_PWR_MGMT_1_TEMP_DIS" Value="0x08" />
         <VCCodeMacro Name="ZB_IO_NODE_IDENTIFIER_RESPONSE" Value="0x95" />
+        <VCCodeMacro Name="MAVLINK_FF_REL_STATE_CRC" Value="0" />
         <VCCodeMacro Name="B0010011" Value="19" />
         <VCCodeMacro Name="CDC_ABSTRACT_CONTROL_MODEL" Value="0x02" />
         <VCCodeMacro Name="STOP_REPEAT" Value="10" />
@@ -1356,8 +1354,10 @@
         <VCCodeMacro Name="serialEvent1_implemented" Value="" />
         <VCCodeMacro Name="B010111" Value="23" />
         <VCCodeMacro Name="PAYLOAD_TOO_LARGE" Value="0x74" />
+        <VCCodeMacro Name="MAVLINK_FF_GPS_ERROR_ASSIST_LEN" Value="24" />
         <VCCodeMacro Name="B0010111" Value="23" />
         <VCCodeMacro Name="BITS_DLPF_CFG_256HZ_NOLPF2" Value="0x00" />
+        <VCCodeMacro Name="MAVLINK_FF_GPS_ERROR_ASSIST_CRC" Value="201" />
         <VCCodeMacro Name="USB_MUX_PIN" Value="-1" />
         <VCCodeMacro Name="B00010111" Value="23" />
         <VCCodeMacro Name="BITS_DLPF_CFG_188HZ" Value="0x01" />

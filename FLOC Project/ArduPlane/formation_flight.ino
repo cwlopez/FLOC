@@ -5,11 +5,6 @@
 //1/18/13
 
 #if FORMATION_FLIGHT
-static void broadcast_my_location()
-{
-	ac_location_broadcast();
-
-}
 static void update_ac_flockmember()
 {
 	Matrix3f rot = ahrs.get_dcm_matrix(); // neglecting angle of attack for now
@@ -19,87 +14,28 @@ static void update_ac_flockmember()
 	packet.lon = current_loc.lng;
 	packet.alt = g_gps->altitude * 10; // [mm]
 	packet.relative_alt = (current_loc.alt-home.alt) * 10; //[mm]
-	packet.vx = g_gps->ground_speed * rot.a.x; //[cm/s] body
-	packet.vy = g_gps->ground_speed * rot.b.x; //[cm/s] body
-	packet.vz = g_gps->ground_speed * rot.c.x; //[cm/s] body
+	packet.vx = g_gps->ground_speed * rot.a.x; //[cm/s] N
+	packet.vy = g_gps->ground_speed * rot.b.x; //[cm/s] E
+	packet.vz = g_gps->ground_speed * rot.c.x; //[cm/s] D
 	packet.hdg = ahrs.yaw_sensor; // degrees *100
 
 	ac_flockmember.set_state(packet.lat, packet.lon, packet.alt, packet.relative_alt, packet.vx, packet.vy, packet.vz, packet.hdg);
 	ac_flockmember.update_rel();
-	const Relative* debug_rel = ac_flockmember.get_rel();
-	float debug_d2L = debug_rel->d2L;
-	float debug_dXL = debug_rel->dXL;
-	float debug_dYL = debug_rel->dYL;
-	float debug_dZL = debug_rel->dZL;
-	bool freff_dafa = true;
-	bool debug_relishmustard= true;
-	bool debug_relishmayo= true;
-	bool debug_relishcatzup= true;
-	bool debug_relishbbq= true;
+
+	//Update the memberid bitmask
+	uint32_t membermask = *ac_flockmember.get_membermask();
+	uint32_t memberid_mask;
+	if(ac_rollcall.Huey)
+		memberid_mask = memberid_mask | (1<<1);
+	if(ac_rollcall.Dewey)
+		memberid_mask = memberid_mask | (1<<2);
+	if(ac_rollcall.Louie)
+		memberid_mask = memberid_mask | (1<<3);
+	membermask = membermask & memberid_mask;
+	ac_flockmember.set_membermask(&membermask);
+
 }
-static void process_flockmember_location(uint8_t sysid, mavlink_global_position_int_t* packet)
-{
-	bool dededeeuub = false;
-	//Who is the message even coming from?
-	switch(sysid){
-#if(MAV_SYSTEM_ID!=HUEY_ID)
-	case HUEY_ID:
-		if(ac_rollcall.Huey)
-		{
-			huey.set_state(packet->lat, packet->lon, packet->alt, packet->relative_alt, packet->vx, packet->vy, packet->vz, packet->hdg);
-		}
-		else
-		{
-			//if(member_in_view(&packet->lat, &packet->lon, &packet->alt))
-			//{
-				ac_flockmember.add_member_in_view(sysid,&huey);
-				ac_rollcall.Huey = true;
-				huey.set_state(packet->lat, packet->lon, packet->alt, packet->relative_alt, packet->vx, packet->vy, packet->vz, packet->hdg);
-		
-			//}
-		}
-		return;
-#endif
-#if(MAV_SYSTEM_ID!=DEWEY_ID)
-	case DEWEY_ID:
-		if(ac_rollcall.Dewey)
-		{
-			int32_t debug_dewey_lat = packet->lat;
-			int32_t debug_dewey_lon = packet->lon;
-			bool debugs_guns = false;
-			dewey.set_state(packet->lat, packet->lon, packet->alt, packet->relative_alt, packet->vx, packet->vy, packet->vz, packet->hdg);
-		}
-		else
-		{
-			//if(member_in_view(&packet->lat, &packet->lon, &packet->alt))
-			//{
-				ac_flockmember.add_member_in_view(sysid,&dewey);
-				ac_rollcall.Dewey = true;
-				dewey.set_state(packet->lat, packet->lon, packet->alt, packet->relative_alt, packet->vx, packet->vy, packet->vz, packet->hdg);
-			//}
-		}
-		return;
-#endif
-#if(MAV_SYSTEM_ID!=LOUIE_ID)
-	case LOUIE_ID:
-		if(ac_rollcall.Louie)
-		{
-			louie.set_state(packet->lat, packet->lon, packet->alt, packet->relative_alt, packet->vx, packet->vy, packet->vz, packet->hdg);
-		}
-		else
-		{
-			//if(member_in_view(&packet->lat, &packet->lon, &packet->alt))
-			//{
-				ac_flockmember.add_member_in_view(sysid,&louie);
-				ac_rollcall.Louie = true;
-				louie.set_state(packet->lat, packet->lon, packet->alt, packet->relative_alt, packet->vx, packet->vy, packet->vz, packet->hdg);
-		
-			//}
-		}
-		return;
-#endif
-	}
-}
+
 static void update_formation_flight_commands()
 {
 	
@@ -352,5 +288,6 @@ static void check_formation_health()
 			}
 		}
 #endif
+
 }
 #endif

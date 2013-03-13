@@ -27,6 +27,7 @@ class pf_field
 
 	 //near-field threshold
 	 uint16_t	_chi;				//radius dividing the near-field and far-field regions [M]
+	 uint8_t	_regime_mask;		//bitmask for regime parameters 
 
 	 //potential function shaping functions
 	 uint16_t	_tau;				//repulsive potential sizing parameter
@@ -54,6 +55,9 @@ class pf_field
 	 float		_k_phi_V_far;			//gain for the PFG component of velocity matching *100
 
 	 //potential function gradient values
+	 Vector3f	_phi_a;					//gradient value for the attractive potential function (Usually NED)
+	 Vector3f	_phi_r;					//gradient value for the repulsive potential function (Usually NED)
+	 Vector3f	_phi_norm;				//gradient value for the normalized potential function (Usually NED)
 	 Vector3f	_phi_NED;				//gradient value for the total potential function (NED frame)
 	 Vector3f	_phi_b;					//gradient value for the total potential function (body frame)
 	 Vector3f	_phi_c_NED;				//gradient value for the total potential function, corrected to insure waypoints are not placed behind the a/c (NED frame)
@@ -63,23 +67,9 @@ class pf_field
 
 	 //VWP, and airspeed commands
 	 Location	_next_VWP;				//Location structure is the standard way to store WPs in ArduPlane
-	 int32_t	_next_airspeed_com;		//Airspeed commands are int32_t, not uint32_t ... not sure why
+	 uint16_t	_next_airspeed_com;		//Airspeed commands are now in uint16_t... may need to convert to int32_t at some point...
 
 public:
-	//////////////DEBUG///////////////////////////
-	float debug_dNorth_com;
-	float debug_dEast_com;
-	float debug_dspd_com;
-	float debug_dalt_com;
-	float debug_mag_phi;
-	Vector3f debug_Nphi;
-	Vector3f debug_r_phi;
-	Vector3f debug_a_phi;
-	Vector3f debug_tmp_dX;
-	Vector3f debug_tmp_dL;
-	Vector3f debug_tmp_pf_offset;
-	/////////////////////////////////////////////
-
 
 	//constructor: sets parameters and initializes some variables
 	pf_field();
@@ -96,10 +86,19 @@ public:
 	const Location* get_VWP();
 
 	//retrieves current Airspeed command from pf_field object
-	const int32_t* get_new_speed();
+	const uint16_t* get_new_speed();
+
+	//retrieves the potential function gradient components
+	const Vector3f* get_pfg_att();
+	const Vector3f* get_pfg_rep();
+	const Vector3f* get_pfg_norm();
+
+	//retrieves the potential field regime bitmask
+	uint8_t get_regime_mask();
 
 	//publicly accessible toggle to describe if the pf_field is updated
 	bool updated;
+
 };
 
 extern pf_field PF_FIELD;

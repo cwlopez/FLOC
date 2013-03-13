@@ -927,17 +927,8 @@ void GCS_MAVLINK::handleMessage(mavlink_message_t* msg)
 #if FORMATION_FLIGHT
 	if(msg->sysid!= 0 && msg->sysid!=254 && msg->sysid!=255 && msg->sysid!=MAV_SYSTEM_ID) //If the message was sent from anybody but this a/c or GCS
 	{
-		switch (msg->msgid)
-		{
-		//There is really only one message type we care about right now
-		case MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
-			if(broadcast_enabled)
-			{
-			mavlink_global_position_int_t packet;
-			mavlink_msg_global_position_int_decode(msg, &packet);
-			process_flockmember_location(msg->sysid, &packet);
-			}
-		}
+		if(broadcast_enabled)
+			handle_fcom_sender(msg);
 	}
 	else //If message was received from GCS
 	{

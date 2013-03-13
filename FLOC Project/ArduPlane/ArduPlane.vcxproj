@@ -98,10 +98,10 @@
     <None Include="failsafe.ino">
       <FileType>CppCode</FileType>
     </None>
-    <None Include="formation_flight.ino">
+    <None Include="FCOM_Mavlink.ino">
       <FileType>CppCode</FileType>
     </None>
-    <None Include="Formation_Mavlink.ino">
+    <None Include="formation_flight.ino">
       <FileType>CppCode</FileType>
     </None>
     <None Include="GCS_Mavlink.ino">
@@ -282,6 +282,9 @@
     <ClInclude Include="defines.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="fcom_types.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="flock_member.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -403,7 +406,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties arduino.upload.port="COM7" />
+      <UserProperties arduino.upload.port="COM8" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

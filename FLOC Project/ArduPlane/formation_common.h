@@ -38,5 +38,12 @@ struct RollCall {
 #define MtoFT(x) (x*3.28084)			//	*3.28084
 #define De7ToFT(x) (x*0.0365214)		// Change Lat/Lon degrees * 10^7 to feet
 #define De7ToM(x) (x*.01113195)			// Change Lat/Lon degrees *10^7 to M
-#endif
+
+//Log Tags (should not conflict with other APM log tags)
+#define LOG_FLOCK_STATUS_MSG	0x0B
+#define LOG_PF_FIELD_MSG		0x0C
+#define LOG_VWP_MSG				0x0D
+#define LOG_REL_MSG				0x0E
+#define LOG_ERROR_ASSIST_MSG	0x0F
+#endif 
 

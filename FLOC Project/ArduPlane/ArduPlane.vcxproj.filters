@@ -141,13 +141,13 @@
     <None Include="setup.ino" />
     <None Include="system.ino" />
     <None Include="test.ino" />
-    <None Include="Formation_Mavlink.ino" />
     <None Include="..\libraries\FastSerial\ftoa_engine.S">
       <Filter>_libraries\FastSerial</Filter>
     </None>
     <None Include="..\libraries\FastSerial\ultoa_invert.S">
       <Filter>_libraries\FastSerial</Filter>
     </None>
+    <None Include="FCOM_Mavlink.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APM_Config.h">
@@ -553,6 +553,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="APM_Config_LOUIE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fcom_types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

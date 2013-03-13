@@ -12,7 +12,7 @@
 // to select MAVLink 1.0 in the arduino GUI build
 #define MAVLINK_SEPARATE_HELPERS
 
-#include "include/mavlink/v1.0/ardupilotmega/version.h"
+#include "include/mavlink/v1.0/apm_formation_flight/version.h"
 
 // this allows us to make mavlink_message_t much smaller
 #define MAVLINK_MAX_PAYLOAD_LEN MAVLINK_MAX_DIALECT_PAYLOAD_SIZE
@@ -115,7 +115,7 @@ static inline uint16_t comm_get_txspace(mavlink_channel_t chan)
 }
 
 #define MAVLINK_USE_CONVENIENCE_FUNCTIONS
-#include "include/mavlink/v1.0/ardupilotmega/mavlink.h"
+#include "include/mavlink/v1.0/apm_formation_flight/mavlink.h"
 
 uint8_t mavlink_check_target(uint8_t sysid, uint8_t compid);
 

@@ -2,31 +2,8 @@
 
 // This is the configuration file for HUEY
 
-# define CONFIG_APM_HARDWARE APM_HARDWARE_APM2
-
-//Use the UART2 Pins on the APM Board
-# define TELEMETRY_UART2	ENABLED
-//Use HIL Firmware w/ Attitude Supplied
-# define HIL_MODE			HIL_MODE_DISABLED
-//Use the Serial1 Port for Debugging w/ Visual Micro
-# define HIL_DEBUG			DISABLED
-
-# define LOGGING_ENABLED                ENABLED
-# define LOG_ATTITUDE_FAST              DISABLED
-# define LOG_ATTITUDE_MED               DISABLED
-# define LOG_GPS                        ENABLED
-# define LOG_PM                         DISABLED
-# define LOG_CTUN                       DISABLED
-# define LOG_NTUN                       ENABLED
-# define LOG_MODE                       ENABLED
-# define LOG_RAW                        DISABLED
-# define LOG_CMD                        DISABLED
-# define LOG_CUR                        DISABLED
-
-# define GEOFENCE_ENABLED	DISABLED
-//Enable Formation Flight Firmware
-# define FORMATION_FLIGHT	ENABLED
 //Identifier for a/c 
+# define AIRFRAME_NAME "LOUIE" //for logging
 //Current configuration: 1 = Huey, 2 = Dewey, 3 = Louie
 # define MAV_SYSTEM_ID		3
 //Other Flock Member IDs
