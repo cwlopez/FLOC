@@ -5,6 +5,7 @@
 #include "flock_member.h"
 #include <GCS_MAVLink.h>
 
+
 flock_member::flock_member()	//Constructor for this a/c
 {
 	//upon construction of a/c flock member, assign it the MAV_SYSTEM_ID given in the APM_Config file
@@ -34,26 +35,33 @@ void flock_member::set_state(int32_t &current_lat, int32_t &current_lon, int32_t
 					int16_t &current_vx, int16_t &current_vy, int16_t &current_vz, uint16_t &current_hdg)
 {
 		_time_boot_ms = millis();
-		_lat = current_lat;
-		_lon = current_lon;
-		_alt = current_alt;
-		_relative_alt = current_relative_alt;
-		_V.x = current_vx;
-		_V.y = current_vy;
-		_V.z = current_vz;
-		_hdg = current_hdg;
+		_lat = current_lat;						//[e7]
+		_lon = current_lon;						//[e7]
+		_alt = current_alt;						//[m*100]
+		_relative_alt = current_relative_alt;	//[m*100]
+		_V.x = current_vx;						//[m/s*100]
+		_V.y = current_vy;						//[m/s*100]
+		_V.z = current_vz;						//[m/s*100]
+		_hdg = current_hdg;						//cd
 
 		_my_location.id = MAVLINK_MSG_ID_GLOBAL_POSITION_INT; //Eroneous ID at the moment...
 		_my_location.options = MASK_OPTIONS_RELATIVE_ALT; //Sets options to signify relative altitude is used
-		_my_location.alt = _alt/10; //[cm]
+		_my_location.alt = _alt; //[cm]
 		_my_location.lat = _lat;
 		_my_location.lng = _lon;
 
+		//_last_location = _my_location;
+		//_last_position_calc = _time_boot_ms;
+		
 		state_updated = true;
 }
 
 void flock_member::set_D2Goal(int32_t* p_D2Goal){
 	_d2goal = *p_D2Goal;
+}
+
+void flock_member::set_last_heartbeat(uint32_t* timestamp){
+	_last_heartbeat = *timestamp;
 }
 
 // Only applicable to a/c, not other formation members.
@@ -73,16 +81,74 @@ void flock_member::set_membermask(uint32_t* p_membermask)
 	_membermask=*p_membermask;
 }
 //----------------------------------------------------
-
+/*
 // *Note, it is up to the calling function to signify whether or not to change the "updated" status after getting information 
+#if HIL_MODE == HIL_MODE_DISABLED
+const Location* flock_member::get_loc(AP_AHRS_DCM* ahrs, AP_IMU_INS* imu, AP_Airspeed* airspeed)
+#endif
+#if HIL_MODE == HIL_MODE_ATTITUDE
+const Location* flock_member::get_loc(AP_AHRS_HIL* ahrs, AP_IMU_Shim* imu, AP_Airspeed* airspeed)
+#endif
+{
+	if(state_updated) //New location information has been updated by GPS
+	{
+		Location* p_loc = &_my_location;
+		return (const Location*)p_loc;
+	}
+	else	//Location information has not been updated by GPS, so we will use a dead-reckoning technique to approximate
+	{
+		Matrix3f dcm_matrix= ahrs->get_dcm_matrix();
+		Vector3f wind = ahrs->wind_estimate();
+		float deltat = millis()-_last_position_calc;
+        float airspeed_ret;
+        ahrs->airspeed_estimate(&airspeed_ret);
+        // use airspeed to estimate our ground velocity in
+        // earth frame by subtracting the wind
+        Vector3f velocity = dcm_matrix.colx() * airspeed_ret;
+
+        // add in wind estimate
+        velocity += wind;
+
+        _last_position_calc = millis();
+
+        // update position delta for get_position()
+        float position_offset_north = velocity.x * deltat;
+        float position_offset_east  = velocity.y * deltat;
+		location_offset(&_my_location, position_offset_north, position_offset_east);
+		_last_position_calc = millis();
+	}
+}
+*/
+/*
+const Location* flock_member::get_loc(){
+	if(state_updated) //New location information has been updated by GPS
+	{
+		Location* p_loc = &_my_location;
+		return (const Location*)p_loc;
+	}
+	else	//Location information has not been updated by GPS, so we will use a dead-reckoning technique to approximate
+	{
+
+		float deltat = millis()-_last_position_calc;
+        const float* velocity = get_vel();
+
+        // update position delta for get_position()
+        float position_offset_north = velocity[0] * deltat;
+        float position_offset_east  = velocity[1] * deltat;
+		location_offset(&_my_location, position_offset_north, position_offset_east);
+		_last_position_calc = millis();
+	}
+}
+*/
 const Location* flock_member::get_loc(){
 	Location* p_loc = &_my_location;
-	return (const Location*)p_loc;
+	return (const Location*)p_loc;	
 }
 
-const uint8_t* flock_member::get_vel(){
-	uint8_t tmp_vel[3] = {_V.x, _V.y, _V.z};
-	return (const uint8_t*)tmp_vel;
+//Return pointer to velocity array in m/s*100
+const int16_t* flock_member::get_vel(){
+	float tmp_vel[3] = {_V.x, _V.y, _V.z};
+	return (const int16_t*)tmp_vel;
 }
 
 const uint16_t* flock_member::get_hdg(){
@@ -123,9 +189,9 @@ void flock_member::update_rel(){
 			float	tmp_lon_scale;
 			static int32_t last_lat;
 			static float scale = 1.0;
-			if (labs(last_lat - tmp_loc->lat) < 100000) 
+			if (labs(last_lat - tmp_loc->lat) < 1000) 
 			{
-			// we are within 0.01 degrees (about 1km) of the
+			// we are within 0.001 degrees (about 1km) of the
 			// same latitude. We can avoid the cos() and return
 			// the same scale factor.
 			tmp_lon_scale = scale;
@@ -136,12 +202,12 @@ void flock_member::update_rel(){
 			last_lat = tmp_loc->lat;
 			}
 
-			tmp_distance = get_distance(my_loc,tmp_loc); //[M]
+			tmp_distance = get_distance(my_loc,tmp_loc); //[m]
 
 			//Store Relative values in structure
-			_dX[j].x = De7ToM((float)(tmp_loc->lat-my_loc->lat));						//X distance of member wrt a/c (NED frame) [M]
-			_dX[j].y = De7ToM((float)(tmp_loc->lng-my_loc->lng)*tmp_lon_scale);			//Y distance of member wrt a/c (NED frame) [M]
-			_dX[j].z = my_loc->alt/100.0-tmp_loc->alt/100.0;						//Z distance of member wrt a/c (NED frame) [M]
+			_dX[j].x = (int32_t)(100*De7ToM((tmp_loc->lat-my_loc->lat)));				//X distance of member wrt a/c (NED frame) [m*100]
+			_dX[j].y = (int32_t)(De7ToM((tmp_loc->lng-my_loc->lng)*tmp_lon_scale)*100);	//Y distance of member wrt a/c (NED frame) [m*100]
+			_dX[j].z = (int32_t)(tmp_loc->alt-my_loc->alt);								//Z distance of member wrt a/c (NED frame) [m*100]
 
 			//Store Relative values in structure
 			_my_relative.Num_members = _num_members;
@@ -152,17 +218,17 @@ void flock_member::update_rel(){
 		
 			if(_member_ids[i] == _local_leader)
 			{
-				_dist_2_leader = tmp_distance;
-				const uint8_t* tmp_leader_v = _member_ptrs[j]->get_vel();		//get velocity array from leader
+				_dist_2_leader = (int32_t)(tmp_distance*100);
+				const int16_t* tmp_leader_v = _member_ptrs[j]->get_vel();		//get velocity array from leader
 				const uint16_t* tmp_p_hdg = _member_ptrs[j]->get_hdg();
-				//calc relative velocity of leader wrt a/c in ft (NED frame) [M/s]
-				_dV.x = (tmp_leader_v[0]-_V.x)/100.0;													
-				_dV.y = (tmp_leader_v[1]-_V.y)/100.0;
-				_dV.z = (tmp_leader_v[2]-_V.z)/100.0;
+				//calc relative velocity of leader wrt a/c in ft (NED frame) [m/s*100]
+				_dV.x = (tmp_leader_v[0]-_V.x);													
+				_dV.y = (tmp_leader_v[1]-_V.y);
+				_dV.z = (tmp_leader_v[2]-_V.z);
 				//Store Relative values in structure
-				_my_relative.dvx = _dV.x;
-				_my_relative.dvy = _dV.y;
-				_my_relative.dvz = _dV.z;
+				_my_relative.dVXL = _dV.x;
+				_my_relative.dVYL = _dV.y;
+				_my_relative.dVZL = _dV.z;
 				_my_relative.dXL = _dX[j].x;
 				_my_relative.dYL = _dX[j].y;
 				_my_relative.dZL = _dX[j].z;
@@ -175,6 +241,8 @@ void flock_member::update_rel(){
 	}
 	//note that the relative state of the a/c flock member
 	rel_updated = true;
+	//not that the absolute state of the a/c flock member has been used
+	state_updated = false;
 }
 
 void flock_member::add_member_in_view(uint8_t sysid, flock_member* p_member){
@@ -206,6 +274,9 @@ void flock_member::remove_member_in_view(uint8_t sysid){
 		}
 	}
 	_num_members--;
+	//remove from member mask
+	uint32_t bits = (1<<(sysid-1));
+	_membermask= _membermask & ~bits;
 //We don't touch member pointers because they are indexed by member ids, not in joining order
 }
 
@@ -213,11 +284,19 @@ const uint32_t* flock_member::get_last_update_time(){
 	return (const uint32_t*)&_time_boot_ms;
 }
 
+const uint32_t* flock_member::get_last_heartbeat(){
+	return (const uint32_t*)&_last_heartbeat;
+}
+
 uint8_t flock_member::get_local_leader()
 {
 	return _local_leader;
 }
 
+const flock_member* flock_member::get_member_pntr(uint8_t sysid)
+{
+	return (const flock_member*)_member_ptrs[sysid];
+}
 bool flock_member::get_leader_status()
 {
 	return _global_leader;

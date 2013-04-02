@@ -26,43 +26,42 @@ class pf_field
  private:
 
 	 //near-field threshold
-	 uint16_t	_chi;				//radius dividing the near-field and far-field regions [M]
+	 uint16_t	_chi;				//radius dividing the near-field and far-field regions [m]
 	 uint8_t	_regime_mask;		//bitmask for regime parameters 
 
 	 //potential function shaping functions
-	 uint16_t	_tau;				//repulsive potential sizing parameter
-	 uint16_t	_zeta;				//repulsive potential sizing parameter
+	 float		_tau;				//repulsive potential sizing parameter 
+	 float		_zeta;				//repulsive potential sizing parameter
 	 uint16_t	_sigma;				//attractive potential sizing parameter
-	 Vector3ui	_lambda;			//attractive potential weight*100
+	 Vector3ui	_lambda;			//attractive potential weight *100
 
-	 //attractive potential offsets (+x out the nose, +y out the right wing, +z down out of the belly)
-	 Vector3f	_pf_offset_b;		//attractive potential offset from theoretical center of a/c [M*100]
-	 int8_t	_side;				//either +1 or -1
+	 //attractive potential offsets (Local Navigation frame: NED frame, rotated about z axis by heading angle)
+	 Vector3i	_pf_offset_l;		//attractive potential offset from theoretical center of a/c [m*100]
+	 int8_t		_side;				//either +1 or -1
 	 
 	 //virtual Waypoint offset 
-	 uint16_t	_VWP_offset;			//distance from current location to next VWP [M]
+	 uint8_t	_VWP_offset;			// X-Y distance from current location to next VWP [m]
+	 uint8_t	_VWP_Z_offset;			// Z distance from current location to next VWP [m]
 
 	 //potential function gains in near-field region (NED coordinate frame)
-	 Vector3f	_k_phi_near;			//gain for normalized PFG *100
-	 float		_k_V_near;				//gain for the velocity-match component *100
-	 float		_k_alt_V_near;			//gain for the Altitude velocity match component
-	 float		_k_phi_V_near;			//gain for the PFG component of velocity matching *100
+	 int16_t	_k_V_near;				//gain for the velocity-match component *100
+	 int16_t	_k_alt_V_near;			//gain for the Altitude velocity match component
+	 int16_t	_k_phi_V_near;			//gain for the PFG component of velocity matching *100
 
 	 //potential function gains in far-field region (NED coordinate frame)
-	 Vector3f	_k_phi_far;				//gain for normalized PFG *100
-	 float		_k_V_far;				//gain for the velocity-match component *100
-	 float		_k_alt_V_far;			//gain for the Altitude velocity match component
-	 float		_k_phi_V_far;			//gain for the PFG component of velocity matching *100
+	 int16_t	_k_V_far;				//gain for the velocity-match component *100
+	 int16_t	_k_alt_V_far;			//gain for the Altitude velocity match component
+	 int16_t	_k_phi_V_far;			//gain for the PFG component of velocity matching *100
 
 	 //potential function gradient values
 	 Vector3f	_phi_a;					//gradient value for the attractive potential function (Usually NED)
 	 Vector3f	_phi_r;					//gradient value for the repulsive potential function (Usually NED)
 	 Vector3f	_phi_norm;				//gradient value for the normalized potential function (Usually NED)
 	 Vector3f	_phi_NED;				//gradient value for the total potential function (NED frame)
-	 Vector3f	_phi_b;					//gradient value for the total potential function (body frame)
+	 Vector3f	_phi_l;					//gradient value for the total potential function (Local Navigation frame)
 	 Vector3f	_phi_c_NED;				//gradient value for the total potential function, corrected to insure waypoints are not placed behind the a/c (NED frame)
 	 Vector3f	_Nphi_NED;				//Normalized gradient value for the total potential function (NED frame)
-	 Vector3f	_Nphi_b;				//Normalized gradient value for the total potential function (body frame)
+	 Vector3f	_Nphi_l;				//Normalized gradient value for the total potential function (Local Navigation frame)
 	 Vector3f	_Nphi_c_NED;			//Normalized gradient value for the total potential function, corrected to insure waypoints are not placed behind the a/c (NED frame)
 
 	 //VWP, and airspeed commands
@@ -99,6 +98,8 @@ public:
 	//publicly accessible toggle to describe if the pf_field is updated
 	bool updated;
 
+	//Assign the side for the offset
+	void set_side(int8_t side);
 };
 
 extern pf_field PF_FIELD;

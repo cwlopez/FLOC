@@ -263,13 +263,7 @@
     <ClInclude Include="APM_Config.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="APM_Config_DEWEY.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
-    <ClInclude Include="APM_Config_HUEY.h">
-      <FileType>CppCode</FileType>
-    </ClInclude>
-    <ClInclude Include="APM_Config_LOUIE.h">
+    <ClInclude Include="APM_Config_Formation.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="AP_XBee.h" />

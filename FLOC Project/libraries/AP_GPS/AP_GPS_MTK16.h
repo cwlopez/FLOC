@@ -10,18 +10,27 @@
 //
 //	GPS configuration : Custom protocol per "Customize Function Specification, 3D Robotics, v1.6"
 //
+//***Updated 3/22/13 to include support for MediaTek firmware v19
 #ifndef AP_GPS_MTK16_h
 #define AP_GPS_MTK16_h
 
 #include "GPS.h"
 #include "AP_GPS_MTK_Common.h"
 
+#define MTK_GPS_REVISION_V16  16
+#define MTK_GPS_REVISION_V19  19
+
 class AP_GPS_MTK16 : public GPS {
 public:
-    AP_GPS_MTK16(Stream *s);
+    AP_GPS_MTK16(Stream *s) :
+	  GPS(s),
+	  _step(0),
+		_payload_counter(0),
+		_mtk_revision(0)
+		{}
     virtual void        init(enum GPS_Engine_Setting nav_setting = GPS_ENGINE_NONE);
     virtual bool        read(void);
-    static bool _detect(uint8_t );
+    static bool			_detect(uint8_t );
 
 private:
 // XXX this is being ignored by the compiler #pragma pack(1)
@@ -42,12 +51,14 @@ private:
         FIX_NONE = 1,
         FIX_2D = 2,
         FIX_3D = 3,
+		FIX_2D_SBAS = 6,
         FIX_3D_SBAS = 7
     };
 
     enum diyd_mtk_protocol_bytes {
-        PREAMBLE1 = 0xd0,
-        PREAMBLE2 = 0xdd,
+        PREAMBLE1_V16 = 0xd0,
+        PREAMBLE1_V19 = 0xd1,
+        PREAMBLE2     = 0xdd,
     };
 
     // Packet checksum accumulators
@@ -57,6 +68,7 @@ private:
     // State machine state
     uint8_t         _step;
     uint8_t         _payload_counter;
+	uint8_t			_mtk_revision;
 
     // Time from UNIX Epoch offset
     long            _time_offset;

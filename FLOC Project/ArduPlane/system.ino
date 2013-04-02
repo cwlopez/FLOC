@@ -385,6 +385,7 @@ static void set_mode(byte mode)
     case MANUAL:
 #if FORMATION_FLIGHT
 		broadcast_enabled = false;
+		goal_loiter_sum = 0;
 #endif
     case CIRCLE:
     case STABILIZE:

@@ -159,6 +159,7 @@ static void crash_checker()
 
 static void calc_throttle()
 {
+#if FORMATION_FLIGHT == ENABLED
 if(control_mode == FORMATION && !ac_flockmember.get_leader_status())
 {
 	//for formation mode, we hijack "energy pid" for just airspeed... see how this works out for us
@@ -167,6 +168,7 @@ if(control_mode == FORMATION && !ac_flockmember.get_leader_status())
 }
 else
 {
+#endif
   if (!alt_control_airspeed()) {
     int16_t throttle_target = g.throttle_cruise + throttle_nudge;
 
@@ -198,7 +200,9 @@ else
     g.channel_throttle.servo_out = constrain(g.channel_throttle.servo_out,
     g.throttle_min.get(), g.throttle_max.get());
   }
+#if FORMATION_FLIGHT == ENABLED
 }
+#endif
 }
 
 /*****************************************
@@ -236,20 +240,24 @@ static void calc_nav_pitch()
 {
   // Calculate the Pitch of the plane
   // --------------------------------
+#if FORMATION_FLIGHT == ENABLED
 	//////////////////////////ADDED IF STATEMENT FOR FORMATION//////////////////////////////////////////////////////////
   if(control_mode == FORMATION && !ac_flockmember.get_leader_status())
   {
-	  nav_pitch_cd = g.pidNavPitchAltitude.get_pid(V_altitude_error_cm); //Use virtual altitude error from VWP if in formation mode
+	  nav_pitch_cd = g.pidNavPitchAltitude.get_pid(V_altitude_error_cm/100); //Use virtual altitude error from VWP if in formation mode
   }
   else
   {
+#endif
   if (alt_control_airspeed()) {
     nav_pitch_cd = -g.pidNavPitchAirspeed.get_pid(airspeed_error_cm);
   } 
   else {
     nav_pitch_cd = g.pidNavPitchAltitude.get_pid(altitude_error_cm);
   }
+#if FORMATION_FLIGHT == ENABLED
   }
+#endif
   nav_pitch_cd = constrain(nav_pitch_cd, g.pitch_limit_min_cd.get(), g.pitch_limit_max_cd.get());
 }
 

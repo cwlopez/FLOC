@@ -15,16 +15,16 @@
 struct Relative {
 	uint8_t			Num_members;
 	uint8_t			Member_ids[FLOCK_SIZE];
-	float			dX[FLOCK_SIZE];
-	float			dY[FLOCK_SIZE];
-	float			dZ[FLOCK_SIZE];
-	float			dXL;
-	float			dYL;
-	float			dZL;
-	float			d2L;
-	float			dvx;
-	float			dvy;
-	float			dvz;
+	int32_t			dX[FLOCK_SIZE];
+	int32_t			dY[FLOCK_SIZE];
+	int32_t			dZ[FLOCK_SIZE];
+	int32_t			dXL;
+	int32_t			dYL;
+	int32_t			dZL;
+	int32_t			d2L;
+	int16_t			dVXL;
+	int16_t			dVYL;
+	int16_t			dVZL;
 	uint16_t		hdgL;
 };
 
@@ -45,5 +45,23 @@ struct RollCall {
 #define LOG_VWP_MSG				0x0D
 #define LOG_REL_MSG				0x0E
 #define LOG_ERROR_ASSIST_MSG	0x0F
+
+//FCOM Message Defines
+enum ff_message {
+	FF_HEARTBEAT,
+	FF_LOCATION,
+	FF_FLOCK_STATUS,
+	FF_PF_FIELD,
+	FF_VWP,
+	FF_REL_STATE,
+	FF_ERROR_ASSIST,
+	FF_MSG_RETRY_DEFERRED // this must be last
+};
+
+enum XBee_Addresses {
+	TO_GCS,
+	TO_ALL
+};
+# define XBEE_API_OVERHEAD 15
 #endif 
 

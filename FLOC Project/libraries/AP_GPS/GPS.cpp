@@ -20,6 +20,22 @@
  #include "WProgram.h"
 #endif
 
+GPS::GPS(void) :
+	// ensure all the inherited fields are zeroed
+	num_sats(0),
+	new_data(false),
+	fix(false),
+	valid_read(false),
+	last_fix_time(0),
+	_have_raw_velocity(false),
+	_status(GPS::NO_FIX),
+	_last_ground_speed_cm(0),
+	_velocity_north(0),
+	_velocity_east(0),
+	_velocity_down(0)	
+{
+}
+
 void
 GPS::update(void)
 {
@@ -57,11 +73,12 @@ GPS::update(void)
 
             if (_have_raw_velocity) {
                 // the GPS is able to give us velocity numbers directly
-                _velocity_north = _vel_north * 0.01;
-                _velocity_east  = _vel_east * 0.01;
+                _velocity_north = _vel_north * 0.01f;
+                _velocity_east  = _vel_east * 0.01f;
+				_velocity_down  = _vel_down * 0.01f;
             } else {
-                float gps_heading = ToRad(ground_course * 0.01);
-                float gps_speed   = ground_speed * 0.01;
+                float gps_heading = ToRad(ground_course * 0.01f);
+                float gps_speed   = ground_speed * 0.01f;
                 float sin_heading, cos_heading;
 
                 cos_heading = cos(gps_heading);
@@ -69,6 +86,9 @@ GPS::update(void)
 
                 _velocity_north = gps_speed * cos_heading;
                 _velocity_east  = gps_speed * sin_heading;
+
+				// no good way to get descent rate
+				_velocity_down  = 0;
             }
         }
     }

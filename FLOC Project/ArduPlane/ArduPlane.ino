@@ -272,7 +272,6 @@ GCS_MAVLINK gcs3;
 #if FCOM_UART2 == ENABLED
 GCS_MAVLINK fcom; //instance of GCS so that we can use all of its functionallity to parse incoming messages, even if we aren't sending with it.
 mavlink_channel_t fcom_chan = MAVLINK_COMM_1; //This has to be declared for the xbee send function
-
 //XBee object
 XBee fcom_xbee;
 //XBee API parameters
@@ -281,6 +280,10 @@ uint8_t frame_id = NO_RESPONSE_FRAME_ID;
 //Addresses
 XBeeAddress64  fcom_broadcast64((uint32_t)0,(uint32_t)BROADCAST_ADDRESS);
 XBeeAddress64  fcom_QGCS64((uint32_t)QGCS_MSB,(uint32_t)QGCS_LSB);
+//Initialize the broadcast as false- this will get changed in the control mode selection
+static bool broadcast_enabled = false;
+//Initialize the status check bool as true- this limits status messages to 1/2Hz
+static bool fcom_status_check = true;
 
 #endif
 
@@ -638,12 +641,14 @@ RollCall		ac_rollcall;
 flock_member	ac_flockmember;
 //Initialize the potential function field for the a/c
 pf_field		ac_pf_field;
-//Initialize the broadcast as false- this will get changed in the control mode selection
-static bool broadcast_enabled = false;
 //Initialize goal WP to loiter around
 static struct Location goal_WP;
+
+static int32_t goal_loiter_sum;
+static int32_t goal_unwind;
+static int32_t goal_wp_distance;
+
 //Initialize the "distance to the goal" variable
-static int32_t D2Goal;
 
 static int32_t V_altitude_error_cm;
 static int32_t F_airspeed_error;
@@ -867,6 +872,7 @@ static void fast_loop()
 
 static void medium_loop()
 {
+/*
 #if MOUNT == ENABLED
   camera_mount.update_mount_position();
 #endif
@@ -878,6 +884,7 @@ static void medium_loop()
 #if CAMERA == ENABLED
   g.camera.trigger_pic_cleanup();
 #endif
+  */
 
   // This is the start of the medium (10 Hz) loop pieces
   // -----------------------------------------
@@ -923,7 +930,8 @@ static void medium_loop()
     }
 	if(broadcast_enabled)
 	{
-		fcom_send_location(fcom_broadcast64);
+		fcom_send_message(TO_ALL, FF_LOCATION);
+		//fcom_send_location(fcom_broadcast64);
 	}
 #endif
 /////////////////////////////////////////////////////////////////////////////
@@ -937,12 +945,6 @@ static void medium_loop()
     // Read 6-position switch on radio
     // -------------------------------
     read_control_switch();
-#if FORMATION_FLIGHT == ENABLED
-	if(control_mode==FORMATION)
-	{
-		update_formation_flight_commands();
-	}
-#endif
     // calculate the plane's desired bearing
     // -------------------------------------
     navigate();
@@ -1002,7 +1004,7 @@ static void medium_loop()
 	if(LOG_REL_STATE)
 		{
 			Relative rel =*ac_flockmember.get_rel();
-			Log_Write_Relative((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, (int16_t)(rel.dXL*100), (int16_t)(rel.dYL*100), (int16_t)(rel.dZL*100), (int16_t)(rel.dvx*100), (int16_t)(rel.dvy*100), (int16_t)(rel.dvz*100));
+			Log_Write_Relative((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, (int16_t)(rel.dXL), (int16_t)(rel.dYL), (int16_t)(rel.dZL), (int16_t)(rel.d2L), (int16_t)(rel.dVXL), (int16_t)(rel.dVYL), (int16_t)(rel.dVZL));
 		}
 	if(LOG_PF_FIELD)
 		{
@@ -1017,7 +1019,7 @@ static void medium_loop()
 		{
 			Location VWP_Loc = *ac_pf_field.get_VWP();
 			uint16_t VWP_Aspd = *ac_pf_field.get_new_speed();
-			Log_Write_VWP((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, VWP_Loc.lat, VWP_Loc.lng, VWP_Loc.alt, (int16_t)VWP_Aspd);
+			Log_Write_VWP((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, VWP_Loc.lat, VWP_Loc.lng, VWP_Loc.alt, (int16_t)(uint16_t)VWP_Aspd);
 		}
   #endif
 #endif
@@ -1076,20 +1078,24 @@ static void slow_loop()
     update_aux_servo_function(&g.rc_5, &g.rc_6, &g.rc_7, &g.rc_8, &g.rc_9, &g.rc_10, &g.rc_11);
 #endif
     enable_aux_servos();
-
+/*
 #if MOUNT == ENABLED
     camera_mount.update_mount_type();
 #endif
 #if MOUNT2 == ENABLED
     camera_mount2.update_mount_type();
 #endif
+*/
     ////////////////////////////////////////////////////////////////////////
     //ADDED FORMATION FLIGHT STUFF
     ////////////////////////////////////////////////////////////////////////
 #if FORMATION_FLIGHT
     if(control_mode == FORMATION)
     {
-      update_flock_leadership();
+		if(ac_flockmember.get_leader_status())
+		{
+			update_flock_leadership();
+		}
     }
 #endif
     ///////////////////////////////////////////////////////////////////////
@@ -1104,7 +1110,6 @@ static void slow_loop()
 #if USB_MUX_PIN > 0
     check_usb_mux();
 #endif
-
     break;
   }
 }
@@ -1127,33 +1132,58 @@ static void one_second_loop()
 		}
 		if (LOG_GPS_ERROR_ASSIST) 
 		{
-			Log_Write_Error_Assist((int32_t)g_gps->time,(byte)g_gps->fix,(g_gps->altitude - home.alt), g_gps->hdop, (byte)g_gps->num_sats);
+			Log_Write_Error_Assist((int32_t)g_gps->time, g_gps->hdop);
 		}
 	#endif
-
+		//Hardcode Home Location of the EFR
+#if HARDCODE_EFR_HOME == ENABLED
+			home.alt=HOME_ALT;
+			home.lat=HOME_LAT;
+			home.lng=HOME_LNG;
+			home_is_set = true;
+#endif
   if(broadcast_enabled)
   {
 	  // send heartbeat to inter-ac network
-	  fcom_send_heartbeat(fcom_broadcast64);
-	  fcom_send_gps_error_assist(fcom_QGCS64);
+	  fcom_send_message(TO_ALL, FF_HEARTBEAT);
+	  //fcom_send_heartbeat(fcom_broadcast64);
 
   }
   else
   {
 	  // send hearbeat, location, and GPS error assist to QGCS for monitoring all the UAVs
-	  fcom_send_heartbeat(fcom_QGCS64);
-	  fcom_send_location(fcom_QGCS64);
-	  fcom_send_gps_error_assist(fcom_QGCS64);
+#if FCOM_GCS == ENABLED
+	  fcom_send_message(TO_GCS, FF_HEARTBEAT);
+	  //fcom_send_heartbeat(fcom_QGCS64);
+	  fcom_send_message(TO_GCS, FF_LOCATION);
+	  //fcom_send_location(fcom_QGCS64);
+#endif
   }
+
 
   if(control_mode == FORMATION)
   {
-	fcom_send_flock_status(fcom_broadcast64);
-	fcom_send_pf_field(fcom_QGCS64);
-	fcom_send_vwp(fcom_QGCS64);
-	fcom_send_rel_state(fcom_QGCS64);
-
+	  fcom_send_message(TO_ALL, FF_FLOCK_STATUS);
+	//fcom_send_flock_status(fcom_broadcast64);
+#if FCOM_GCS == ENABLED
+	fcom_send_message(TO_GCS, FF_PF_FIELD);
+	//fcom_send_pf_field(fcom_QGCS64);
+	fcom_send_message(TO_GCS, FF_VWP);
+	//fcom_send_vwp(fcom_QGCS64);
+	fcom_send_message(TO_GCS, FF_REL_STATE);
+	//fcom_send_rel_state(fcom_QGCS64);
+#endif
     check_formation_health();
+  }
+  //Send an empty message every two seconds, just to make it easier to see if the inter-ac network is working
+  if(fcom_status_check)
+  {
+	  fcom_status_LEDs(TO_ALL);
+	  fcom_status_check = false;
+  }
+  else if(!fcom_status_check)
+  {
+	  fcom_status_check = true;
   }
 #endif
   ///////////////////////////////////////////////////////////////////////
@@ -1416,16 +1446,20 @@ static void update_navigation()
 	  break;
 #if FORMATION_FLIGHT
 	case FORMATION:
+		update_goal_wp_distance();
+		update_distance_to_goal();
 		if(ac_flockmember.get_leader_status())
 		{
 			set_goal_WP();
-			update_loiter();
+			update_goal_loiter();
 			calc_bearing_error();
 		}
 		else
 		{
 			update_formation_flight_commands();
 		}
+
+
       break;
 #endif
 

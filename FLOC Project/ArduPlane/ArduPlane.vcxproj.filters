@@ -153,12 +153,6 @@
     <ClInclude Include="APM_Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="APM_Config_DEWEY.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="APM_Config_HUEY.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GCS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -552,10 +546,10 @@
     <ClInclude Include="AP_XBee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="APM_Config_LOUIE.h">
+    <ClInclude Include="fcom_types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fcom_types.h">
+    <ClInclude Include="APM_Config_Formation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

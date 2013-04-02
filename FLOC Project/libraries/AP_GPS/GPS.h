@@ -15,7 +15,7 @@
 class GPS
 {
 public:
-
+	GPS();
     /// Update GPS state based on possible bytes received from the module.
     ///
     /// This routine must be called periodically to process incoming data.
@@ -128,6 +128,9 @@ public:
     float velocity_east(void)  {
         return _status == GPS_OK ? _velocity_east  : 0;
     }
+	float velocity_down(void)  {
+        return _status == GPS_OK ? _velocity_down  : 0;
+    }
 
     // last ground speed in m/s. This can be used when we have no GPS
     // lock to return the last ground speed we had with lock
@@ -151,8 +154,21 @@ protected:
     ///
     /// @param	s	Stream connected to the GPS module.
     ///
-    GPS(Stream *s) : _port(s) {
-    };
+    GPS(Stream *s) : 
+	_port(s), 
+	num_sats(0),
+	new_data(false),
+	fix(false),
+	valid_read(false),
+	last_fix_time(0),
+	_have_raw_velocity(false),
+	_status(GPS::NO_FIX),
+	_last_ground_speed_cm(0),
+	_velocity_north(0),
+	_velocity_east(0),
+	_velocity_down(0)	
+{
+};
 
     /// read from the GPS stream and update properties
     ///
@@ -222,6 +238,7 @@ private:
     // components of the velocity, in m/s
     float _velocity_north;
     float _velocity_east;
+	float _velocity_down;
 };
 
 inline int32_t

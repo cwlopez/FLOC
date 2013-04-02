@@ -10,9 +10,31 @@ Arduplane.ino should include
 */
 //Making this static means it can only be called by functions inside the ArduPlane .ino project files
 #if FORMATION_FLIGHT
-
-static NOINLINE void fcom_send_heartbeat(XBeeAddress64 &address64)
+static NOINLINE void fcom_status_LEDs(enum XBee_Addresses address_id)
 {
+	uint8_t api_packet = 0xF1;
+	XBeeAddress64 address64;
+	switch(address_id)
+	{
+	case TO_ALL:
+		address64 = fcom_broadcast64;
+	case TO_GCS:
+		address64 = fcom_QGCS64;
+	}
+	Tx64Request status_LEDs_request64(address64, api_option , &api_packet, 1, frame_id);
+	fcom_xbee.send(mavlink_comm_1_port, status_LEDs_request64);
+}
+
+static NOINLINE void fcom_send_heartbeat(enum XBee_Addresses address_id)
+{
+	XBeeAddress64 address64;
+	switch(address_id)
+	{
+	case TO_ALL:
+		address64 = fcom_broadcast64;
+	case TO_GCS:
+		address64 = fcom_QGCS64;
+	}
     uint8_t base_mode = MAV_MODE_FLAG_CUSTOM_MODE_ENABLED;
     uint8_t system_status = MAV_STATE_ACTIVE;
     uint32_t custom_mode = control_mode;
@@ -117,13 +139,23 @@ static NOINLINE void fcom_send_heartbeat(XBeeAddress64 &address64)
 
 
 
-static NOINLINE void fcom_send_location(XBeeAddress64 &address64)
+static NOINLINE void fcom_send_location(enum XBee_Addresses address_id)
 {
-	uint16_t rel_alt;
+	XBeeAddress64 address64;
+	switch(address_id)
+	{
+	case TO_ALL:
+		address64 = fcom_broadcast64;
+	case TO_GCS:
+		address64 = fcom_QGCS64;
+	}
+
+
+	int32_t rel_alt;
 #if FF_BARO_ALT == ENABLED
-	rel_alt = read_barometer() * 10; //Use only the altimeter for relative altitude measurement
+	rel_alt = read_barometer() ; //Use only the altimeter for relative altitude measurement
 #else
-	rel_alt = current_loc.alt-home.alt * 10; //Use the standard relative altitude measurement with corrected GPS and home altitude
+	rel_alt = (current_loc.alt-home.alt); //Use the standard relative altitude measurement with corrected GPS and home altitude
 #endif
 
 	//Get the current state of the a/c flock member:
@@ -136,8 +168,8 @@ static NOINLINE void fcom_send_location(XBeeAddress64 &address64)
 	//If lock disappears, dead-reckoning should take over and continue to provide estimates for lat, lng
 	packet.lat = current_loc.lat; 
 	packet.lon = current_loc.lng;
-	packet.alt = g_gps->altitude * 10; //[mm]
-	packet.relative_alt = rel_alt; //[mm]
+	packet.alt = current_loc.alt; //[cm]
+	packet.relative_alt = rel_alt; //[cm]
 	packet.vx = g_gps->ground_speed * rot.a.x; //N
 	packet.vy = g_gps->ground_speed * rot.b.x; //E
 	packet.vz = g_gps->ground_speed * rot.c.x; //D
@@ -173,8 +205,17 @@ static NOINLINE void fcom_send_location(XBeeAddress64 &address64)
 	fcom_xbee.send(mavlink_comm_1_port, location_request64);	
 }
 
-static NOINLINE void fcom_send_flock_status(XBeeAddress64 &address64)
+static NOINLINE void fcom_send_flock_status(enum XBee_Addresses address_id)
 {
+	XBeeAddress64 address64;
+	switch(address_id)
+	{
+	case TO_ALL:
+		address64 = fcom_broadcast64;
+	case TO_GCS:
+		address64 = fcom_QGCS64;
+	}
+
 	uint8_t num_members = ac_flockmember.get_members_iv();
 	uint32_t memberid_mask;
 	//construct the bitmask for the memberids- only if it shows that there are members
@@ -220,8 +261,16 @@ static NOINLINE void fcom_send_flock_status(XBeeAddress64 &address64)
 	fcom_xbee.send(mavlink_comm_1_port, ff_request64);	
 }
 
-static NOINLINE void fcom_send_pf_field(XBeeAddress64 &address64)
+static NOINLINE void fcom_send_pf_field(enum XBee_Addresses address_id)
 {
+	XBeeAddress64 address64;
+	switch(address_id)
+	{
+	case TO_ALL:
+		address64 = fcom_broadcast64;
+	case TO_GCS:
+		address64 = fcom_QGCS64;
+	}
 
 	Vector3f pfg_att = *ac_pf_field.get_pfg_att();
 	Vector3f pfg_rep = *ac_pf_field.get_pfg_rep();
@@ -271,8 +320,17 @@ static NOINLINE void fcom_send_pf_field(XBeeAddress64 &address64)
 	fcom_xbee.send(mavlink_comm_1_port, ff_request64);	
 }
 
-static NOINLINE void fcom_send_vwp(XBeeAddress64 &address64)
+static NOINLINE void fcom_send_vwp(enum XBee_Addresses address_id)
 {
+	XBeeAddress64 address64;
+	switch(address_id)
+	{
+	case TO_ALL:
+		address64 = fcom_broadcast64;
+	case TO_GCS:
+		address64 = fcom_QGCS64;
+	}
+
 	const Location* p_VWP = ac_pf_field.get_VWP();
 	const uint16_t* p_speed_com = ac_pf_field.get_new_speed();
 
@@ -314,19 +372,28 @@ static NOINLINE void fcom_send_vwp(XBeeAddress64 &address64)
 	fcom_xbee.send(mavlink_comm_1_port, ff_request64);	
 }
 
-static NOINLINE void fcom_send_rel_state(XBeeAddress64 &address64)
+static NOINLINE void fcom_send_rel_state(enum XBee_Addresses address_id)
 {
+	XBeeAddress64 address64;
+	switch(address_id)
+	{
+	case TO_ALL:
+		address64 = fcom_broadcast64;
+	case TO_GCS:
+		address64 = fcom_QGCS64;
+	}
+
 	const Relative* p_ac_rel = ac_flockmember.get_rel();
 
 	mavlink_ff_rel_state_t packet;
 	packet.time_usec = g_gps->last_fix_time*(uint64_t)1000;
 	packet.coordinate_frame = MAV_FRAME_LOCAL_NED;
-	packet.dx = p_ac_rel->dXL;
-	packet.dy = p_ac_rel->dYL;
-	packet.dz = p_ac_rel->dZL;
-	packet.dvx = p_ac_rel->dvx;
-	packet.dvy = p_ac_rel->dvy;
-	packet.dvz = p_ac_rel->dvz;
+	packet.dx = p_ac_rel->dXL/100.0;
+	packet.dy = p_ac_rel->dYL/100.0;
+	packet.dz = p_ac_rel->dZL/100.0;
+	packet.dvx = p_ac_rel->dVXL/100.0;
+	packet.dvy = p_ac_rel->dVYL/100.0;
+	packet.dvz = p_ac_rel->dVZL/100.0;
 
 	uint16_t checksum;
 	uint8_t ck[2];
@@ -357,9 +424,18 @@ static NOINLINE void fcom_send_rel_state(XBeeAddress64 &address64)
 	Tx64Request ff_request64(address64, api_option , (uint8_t*)&api_packet, MAVLINK_FF_REL_STATE_LEN, frame_id);
 	fcom_xbee.send(mavlink_comm_1_port, ff_request64);	
 }
-
-static NOINLINE void fcom_send_gps_error_assist(XBeeAddress64 &address64)
+/*
+static NOINLINE void fcom_send_gps_error_assist(enum XBee_Addresses address_id)
 {
+	XBeeAddress64 address64;
+	switch(address_id)
+	{
+	case TO_ALL:
+		address64 = fcom_broadcast64;
+	case TO_GCS:
+		address64 = fcom_QGCS64;
+	}
+
 	uint8_t gps_fix;
 	if(g_gps->fix) gps_fix = 1;
 	else gps_fix = 0;
@@ -400,7 +476,92 @@ static NOINLINE void fcom_send_gps_error_assist(XBeeAddress64 &address64)
 	Tx64Request ff_request64(address64, api_option , (uint8_t*)&api_packet, MAVLINK_FF_GPS_ERROR_ASSIST_LEN, frame_id);
 	fcom_xbee.send(mavlink_comm_1_port, ff_request64);	
 }
+*/
+/*
+static NOINLINE void telcom_send_flock_observe_1HZ()
+{
+	mavlink_channel_t chan = MAVLINK_COMM_0;
 
+	uint8_t num_members = ac_flockmember.get_members_iv();
+	uint32_t memberid_mask;
+	//construct the bitmask for the memberids- only if it shows that there are members
+	if(num_members)
+	{
+		memberid_mask = *ac_flockmember.get_membermask();
+	}
+
+	mavlink_ff_flock_status_t packet;
+	packet.time_usec = g_gps->last_fix_time*(uint64_t)1000;
+	packet.leader = ac_flockmember.get_local_leader();
+	packet.members_iv = num_members;
+	packet.member_ids = memberid_mask;
+	packet.dist_to_goal = *ac_flockmember.get_D2Goal(); //Distance from goal (includes loiter rotations)
+
+	mavlink_msg_ff_flock_status_send(chan,packet.time_usec,packet.leader,packet.members_iv,packet.member_ids,packet.dist_to_goal); 
+
+	const Location* p_VWP = ac_pf_field.get_VWP();
+	const uint16_t* p_speed_com = ac_pf_field.get_new_speed();
+
+	mavlink_ff_vwp_t packet0;
+	packet0.time_usec = g_gps->last_fix_time*(uint64_t)1000;
+	packet0.coordinate_frame = MAV_FRAME_LOCAL_NED;
+	packet0.lat= p_VWP->lat;
+	packet0.lon= p_VWP->lng;
+	packet0.alt= p_VWP->alt;
+	packet0.spd= *p_speed_com;
+
+	mavlink_msg_ff_vwp_send(chan, packet0.time_usec, packet0.coordinate_frame, packet0.lat, packet0.lon,packet0.alt,packet0.spd);
+
+	
+	Vector3f pfg_att = *ac_pf_field.get_pfg_att();
+	Vector3f pfg_rep = *ac_pf_field.get_pfg_rep();
+	Vector3f pfg_norm = *ac_pf_field.get_pfg_norm();
+
+	mavlink_ff_pf_field_t packet1;
+	packet1.time_usec = g_gps->last_fix_time*(uint64_t)1000;
+	packet1.coordinate_frame = MAV_FRAME_LOCAL_NED;
+	packet1.x_att = pfg_att.x;
+	packet1.y_att = pfg_att.y;
+	packet1.z_att = pfg_att.z;
+	packet1.x_rep = pfg_rep.x;
+	packet1.y_rep = pfg_rep.y;
+	packet1.z_rep = pfg_rep.z;
+	packet1.x_norm = pfg_norm.x;
+	packet1.y_norm = pfg_norm.y;
+	packet1.z_norm = pfg_norm.z;
+	packet1.regime_mask = ac_pf_field.get_regime_mask();
+
+	mavlink_msg_ff_pf_field_send(chan,packet1.time_usec,packet1.coordinate_frame,packet1.regime_mask, packet1.x_att,packet1.y_att,packet1.z_att,
+		packet1.x_rep, packet1.y_rep,packet1.z_rep,packet1.x_norm,packet1.y_norm, packet1.z_norm);
+
+	const Relative* p_ac_rel = ac_flockmember.get_rel();
+
+	mavlink_ff_rel_state_t packet2;
+	packet2.time_usec = g_gps->last_fix_time*(uint64_t)1000;
+	packet2.coordinate_frame = MAV_FRAME_LOCAL_NED;
+	packet2.dx = p_ac_rel->dXL;
+	packet2.dy = p_ac_rel->dYL;
+	packet2.dz = p_ac_rel->dZL;
+	packet2.dvx = p_ac_rel->dVXL;
+	packet2.dvy = p_ac_rel->dVYL;
+	packet2.dvz = p_ac_rel->dVZL;
+
+	mavlink_msg_ff_rel_state_send(chan,packet2.time_usec, packet2.coordinate_frame, packet2.dx, packet2.dy, packet2.dz, packet2.dvx, packet2.dvy, packet2.dvz);
+	
+	uint8_t gps_fix;
+	if(g_gps->fix) gps_fix = 1;
+	else gps_fix = 0;
+
+	mavlink_ff_gps_error_assist_t packet3;
+	packet3.time_usec = g_gps->last_fix_time*(uint64_t)1000;
+	packet3.fix_type = gps_fix;
+	packet3.alt_rel = g_gps->altitude - home.alt;
+	packet3.eph = g_gps->hdop;
+	packet3.satellites_visible = g_gps->num_sats;
+
+	mavlink_msg_ff_gps_error_assist_send(chan, packet3.time_usec, packet3.fix_type, packet3.eph, packet3.satellites_visible, packet3.alt_rel);
+}
+*/
 //Process Incoming FCOM messages
 //These messages are re-routed from GCS_MAVLINK.pde (for standard parsing, etc)
 
@@ -457,12 +618,22 @@ static void handle_fcom_message(flock_member* p_flockmember, bool* p_rollcall, m
 
 static void process_flockmember_heartbeat(uint8_t sysid, flock_member* p_flockmember, bool* p_rollcall, mavlink_heartbeat_t* packet)
 {
-	//Do nothing if the member is already part of the rollcall
+	uint32_t right_now = millis();
+	//Just update timestamp if the member is already in view
 	//If not, add them
 	if(!*p_rollcall)
 	{
+		//Add the flock member to the list
 		ac_flockmember.add_member_in_view(sysid, p_flockmember);
+		//Update the last heartbeat received timestamp
+		p_flockmember->set_last_heartbeat(&right_now);
+		//Set the rollcall to true
 		*p_rollcall = true;
+	}
+	else
+	{
+		//Update the last heartbeat received timestamp
+		p_flockmember->set_last_heartbeat(&right_now);
 	}
 }
 
@@ -476,6 +647,136 @@ static void process_flockmember_status(flock_member* p_flockmember, mavlink_ff_f
 {
 	//All we care about right now is the distance to the goal (to evaluate global leadership)
 	p_flockmember->set_D2Goal(&(packet->dist_to_goal));
+}
+
+
+//
+#define MAX_DEFERRED_FF_MESSAGES FF_MSG_RETRY_DEFERRED
+static struct fcom_queue {
+    enum ff_message deferred_messages[MAX_DEFERRED_FF_MESSAGES];
+    uint8_t next_deferred_message;
+    uint8_t num_deferred_messages;
+} fcom_queue[2];
+
+// send a message using mavlink
+static void fcom_send_message(enum XBee_Addresses address_id, enum ff_message id)
+{
+	uint8_t i, nextid;
+    struct fcom_queue *q = &fcom_queue[(uint8_t)fcom_chan];
+    // see if we can send the deferred messages, if any
+    while (q->num_deferred_messages != 0) {
+        if (!fcom_try_send_message(address_id,
+                                      q->deferred_messages[q->next_deferred_message])) {
+            break;
+        }
+        q->next_deferred_message++;
+        if (q->next_deferred_message == MAX_DEFERRED_FF_MESSAGES) {
+            q->next_deferred_message = 0;
+        }
+        q->num_deferred_messages--;
+    }
+
+    if (id == FF_MSG_RETRY_DEFERRED) {
+        return;
+    }
+
+    // this message id might already be deferred
+    for (i=0, nextid = q->next_deferred_message; i < q->num_deferred_messages; i++) {
+        if (q->deferred_messages[nextid] == id) {
+            // its already deferred, discard
+            return;
+        }
+        nextid++;
+        if (nextid == MAX_DEFERRED_FF_MESSAGES) {
+            nextid = 0;
+        }
+    }
+
+    if (q->num_deferred_messages != 0 ||
+        !fcom_try_send_message(address_id, id)) {
+        // can't send it now, so defer it
+        if (q->num_deferred_messages == MAX_DEFERRED_FF_MESSAGES) {
+            // the defer buffer is full, discard
+            return;
+        }
+        nextid = q->next_deferred_message + q->num_deferred_messages;
+        if (nextid >= MAX_DEFERRED_FF_MESSAGES) {
+            nextid -= MAX_DEFERRED_FF_MESSAGES;
+        }
+        q->deferred_messages[nextid] = id;
+        q->num_deferred_messages++;
+    }
+}
+// try to send a message, return false if it won't fit in the serial tx buffer
+static bool fcom_try_send_message(enum XBee_Addresses address_id, enum ff_message id)
+{
+    int16_t payload_space = comm_get_txspace(fcom_chan) - XBEE_API_OVERHEAD;
+    if (telemetry_delayed(fcom_chan)) {
+        return false;
+    }
+
+    switch (id) {
+    case FF_HEARTBEAT:
+        if (payload_space < MAVLINK_HEARTBEAT_LEN)
+		{ 
+			return false;
+		}
+
+        fcom_send_heartbeat(address_id);
+        return true;
+
+	case FF_LOCATION:
+		if (payload_space < MAVLINK_GLOBAL_POSITION_INT_LEN)
+		{ 
+			return false;
+		}
+        fcom_send_location(address_id);
+        break;
+
+    case FF_FLOCK_STATUS:
+        if (payload_space < MAVLINK_FF_FLOCK_STATUS_LEN)
+		{ 
+			return false;
+		}
+        fcom_send_flock_status(address_id);
+        break;
+
+    case FF_PF_FIELD:
+        if (payload_space < MAVLINK_FF_PF_FIELD_LEN)
+		{ 
+			return false;
+		}
+        fcom_send_pf_field(address_id);
+        break;
+
+    case FF_VWP:
+        if (payload_space < MAVLINK_FF_VWP_LEN)
+		{ 
+			return false;
+		}
+        fcom_send_vwp(address_id);
+        break;
+
+    case FF_REL_STATE:
+        if (payload_space < MAVLINK_FF_REL_STATE_LEN)
+		{ 
+			return false;
+		}
+        fcom_send_rel_state(address_id);
+        break;
+/*	
+	case FF_ERROR_ASSIST:
+        if (payload_space < MAVLINK_FF_GPS_ERROR_ASSIST_LEN)
+		{ 
+			return false;
+		}
+        fcom_send_gps_error_assist(address_id);
+        break;
+*/
+    case FF_MSG_RETRY_DEFERRED:
+        break; // just here to prevent a warning
+    }
+    return true;
 }
 
 #endif

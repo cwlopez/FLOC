@@ -438,7 +438,7 @@ static void Log_Write_VWP(int32_t log_time,byte coordinate_frame, int32_t latitu
 	DataFlash.WriteByte(END_BYTE);
 }
 
-static void Log_Write_Relative(int32_t log_time, byte coordinate_frame, int16_t relx, int16_t rely, int16_t relz, int16_t relvx, int16_t relvy, int16_t relvz)
+static void Log_Write_Relative(int32_t log_time, byte coordinate_frame, int16_t relx, int16_t rely, int16_t relz, int16_t rel2L, int16_t relvx, int16_t relvy, int16_t relvz)
 {
 	DataFlash.WriteByte(HEAD_BYTE1);
     DataFlash.WriteByte(HEAD_BYTE2);
@@ -448,22 +448,20 @@ static void Log_Write_Relative(int32_t log_time, byte coordinate_frame, int16_t 
 	DataFlash.WriteInt(relx);
 	DataFlash.WriteInt(rely);
 	DataFlash.WriteInt(relz);
+	DataFlash.WriteInt(rel2L);
 	DataFlash.WriteInt(relvx);
 	DataFlash.WriteInt(relvy);
 	DataFlash.WriteInt(relvz);
 	DataFlash.WriteByte(END_BYTE);
 }
 
-static void Log_Write_Error_Assist(int32_t log_time,byte gps_fix, int32_t gps_rel, int16_t gps_hdop, byte gps_num_sat)
+static void Log_Write_Error_Assist(int32_t log_time, int16_t gps_hdop)
 {
 	DataFlash.WriteByte(HEAD_BYTE1);
     DataFlash.WriteByte(HEAD_BYTE2);
 	DataFlash.WriteByte(LOG_ERROR_ASSIST_MSG);
 	DataFlash.WriteLong(log_time);
-	DataFlash.WriteByte(gps_fix);
-	DataFlash.WriteLong(gps_rel);
 	DataFlash.WriteInt(gps_hdop);
-	DataFlash.WriteByte(gps_num_sat);
 	DataFlash.WriteByte(END_BYTE);
 }
 
@@ -481,7 +479,7 @@ static void Log_Read_Flock_Status()
 	mask=	DataFlash.ReadLong();
 	l	=	DataFlash.ReadLong();
 
-	byte huey = ((byte)mask & (byte)0x01);			//isolate 1st bit value
+	byte huey  = ((byte)mask & (byte)0x01);			//isolate 1st bit value
 	byte dewey = (((byte)mask & (byte)0x02)>>1);	//isolate 2nd bit value
 	byte louie = (((byte)mask & (byte)0x04)>>2);	//isolate 3rd bit value
 
@@ -556,7 +554,7 @@ static void Log_Read_Relative()
 {
     int32_t t;
 	byte b;
-	int16_t i[6];
+	int16_t i[7];
 
     t = DataFlash.ReadLong();
     b = DataFlash.ReadByte();
@@ -566,8 +564,9 @@ static void Log_Read_Relative()
 	i[3] = DataFlash.ReadInt();
 	i[4] = DataFlash.ReadInt();
 	i[5] = DataFlash.ReadInt();
+	i[6] = DataFlash.ReadInt();
 
-    Serial.printf_P(PSTR("REL: %ld, %d, %4.2f, %4.2f, %4.2f, %3.2f, %3.2f, %3.2f\n"),
+    Serial.printf_P(PSTR("REL: %ld, %d, %4.2f, %4.2f, %4.2f, %4.2f, %3.2f, %3.2f, %3.2f\n"),
 							(long)t, 
 								(int)b, 
 									i[0]/100.0,
@@ -575,28 +574,21 @@ static void Log_Read_Relative()
 													i[2]/100.0,
 															i[3]/100.0,
 																	i[4]/100.0,
-																		i[5]/100.0);
+																		i[5]/100.0,
+																			i[6]/100.0);
 																						
 }
 
 static void Log_Read_Error_Assist()
 {
 	int32_t t;
-	byte b[2];
-    int32_t l;
     int16_t i;
     t = DataFlash.ReadLong();
-    b[0] = DataFlash.ReadByte();
-    l = DataFlash.ReadLong();
     i= DataFlash.ReadInt();
-	b[1] = DataFlash.ReadByte();
 
-    Serial.printf_P(PSTR("ERR: %ld, %d, %4.2f, %3.2f, %d\n"),
+    Serial.printf_P(PSTR("ERR: %ld, %3.2f\n"),
 							(long)t, 
-								(int)b[0], 
-										l/100.0,
-											i/100.0, 
-													(int)b[1]);
+									i/100.0);
 }
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
