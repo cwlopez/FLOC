@@ -5,22 +5,6 @@
 #include "flock_member.h"
 #include <GCS_MAVLink.h>
 
-
-flock_member::flock_member()	//Constructor for this a/c
-{
-	//upon construction of a/c flock member, assign it the MAV_SYSTEM_ID given in the APM_Config file
-	_sysid = MAV_SYSTEM_ID;
-	//initialize the check for global leadership as false (this has yet to be determined by the swarming algorithm)
-	_global_leader = true;
-	//initialize the number of flock members as 0 (they have yet to be added to the flock)
-	_num_members = 0;
-
-	//initialize the update checks as false... the a/c has not been updated yet
-	state_updated = false;
-	rel_updated = false;
-//----------------------------------------
-}
-
 flock_member::flock_member(uint8_t sysid) //constructor for a different flock member
 {
 	//given the sysid as an input, assign it to the flock member's private variable
@@ -65,18 +49,18 @@ void flock_member::set_last_heartbeat(uint32_t* timestamp){
 }
 
 // Only applicable to a/c, not other formation members.
-void flock_member::set_local_leader(uint8_t leader_sysid){
+void local_member::set_local_leader(uint8_t leader_sysid){
 	_local_leader = leader_sysid;
 }
 
-void flock_member::set_global_leader(bool global_status){
+void local_member::set_global_leader(bool global_status){
 	if(global_status)
 		_local_leader = 0;
 
 	_global_leader = global_status;
 }
 
-void flock_member::set_membermask(uint32_t* p_membermask)
+void local_member::set_membermask(uint32_t* p_membermask)
 {
 	_membermask=*p_membermask;
 }
@@ -156,7 +140,7 @@ const uint16_t* flock_member::get_hdg(){
 	return (const uint16_t*)p_hdg;
 }
 
-const Relative* flock_member::get_rel(){
+const Relative* local_member::get_rel(){
 	Relative* p_current_relative;
 	p_current_relative= &_my_relative;
 	return (const Relative*)p_current_relative;
@@ -166,7 +150,7 @@ const int32_t* flock_member::get_D2Goal(){
 	return (const int32_t*)&_d2goal;
 }
 
-void flock_member::update_rel(){
+void local_member::update_rel(){
 	if(_num_members == 0)
 	{
 		_my_relative.Num_members = _num_members;
@@ -245,7 +229,7 @@ void flock_member::update_rel(){
 	state_updated = false;
 }
 
-void flock_member::add_member_in_view(uint8_t sysid, flock_member* p_member){
+void local_member::add_member_in_view(uint8_t sysid, flock_member* p_member){
 	//this system will hopefully keep things easy to scale the number of members
 	//new member ids are just added onto the end of the list, while their ptr fits into the slot corresponding to their id
 	//the member_ids array will serve as an indexing guide (with the sysid system 1-N, where N is number of possible flock members)
@@ -263,7 +247,7 @@ void flock_member::add_member_in_view(uint8_t sysid, flock_member* p_member){
 	p_member->in_view = true;
 }
 
-void flock_member::remove_member_in_view(uint8_t sysid){
+void local_member::remove_member_in_view(uint8_t sysid){
 	int ctr = 0;
 //To keep this indexing system organized, when a member is removed, it loses its spot.
 //the next member moves up into its index slot - this leaves the indexing system scalable
@@ -288,28 +272,26 @@ const uint32_t* flock_member::get_last_heartbeat(){
 	return (const uint32_t*)&_last_heartbeat;
 }
 
-uint8_t flock_member::get_local_leader()
+uint8_t local_member::get_local_leader()
 {
 	return _local_leader;
 }
 
-const flock_member* flock_member::get_member_pntr(uint8_t sysid)
+const flock_member* local_member::get_member_pntr(uint8_t sysid)
 {
 	return (const flock_member*)_member_ptrs[sysid];
 }
-bool flock_member::get_leader_status()
+bool local_member::get_leader_status()
 {
 	return _global_leader;
 }
 
-const uint32_t* flock_member::get_membermask()
+const uint32_t* local_member::get_membermask()
 {
 	return (const uint32_t*)&_membermask;
 }
 
-uint8_t flock_member::get_members_iv()
+uint8_t local_member::get_members_iv()
 {
 	return _num_members;
 }
-
-flock_member FLOCK_MEMBER;

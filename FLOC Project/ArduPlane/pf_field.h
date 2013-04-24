@@ -8,7 +8,7 @@
 #include "formation_common.h"
 
 //forward declaration of the flock_member class 
-class flock_member;
+class local_member;
 #if HIL_MODE == HIL_MODE_DISABLED
 class AP_AHRS_DCM;
 #endif
@@ -76,10 +76,10 @@ public:
 	//update the potential field: given the pointer to the a/c flock member object (this a/c), 
 	//updates the potential function field based on the relative positions of the other flock members wrt the a/c 
 #if HIL_MODE == HIL_MODE_DISABLED
-	void update(flock_member* p_ac, AP_AHRS_DCM* p_ahrs, AP_Airspeed* p_airspeed);
+	void update(local_member* p_ac, AP_AHRS_DCM* p_ahrs, AP_Airspeed* p_airspeed);
 #endif
 #if HIL_MODE == HIL_MODE_ATTITUDE
-	void update(flock_member* p_ac, AP_AHRS_HIL* p_ahrs, AP_Airspeed* p_airspeed);
+	void update(local_member* p_ac, AP_AHRS_HIL* p_ahrs, AP_Airspeed* p_airspeed);
 #endif
 	//retrieves current VWP calculated from pf_field object
 	const Location* get_VWP();

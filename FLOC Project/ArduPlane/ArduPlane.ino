@@ -638,7 +638,7 @@ static int32_t offset_altitude_cm;
 //Initialize the RollCall structure
 RollCall		ac_rollcall;
 //Initialize the a/c flock member structure
-flock_member	ac_flockmember;
+local_member	ac_flockmember;
 //Initialize the potential function field for the a/c
 pf_field		ac_pf_field;
 //Initialize goal WP to loiter around

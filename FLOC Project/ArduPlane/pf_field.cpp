@@ -43,11 +43,11 @@ void pf_field::set_side(int8_t side)
 }
 
 #if HIL_MODE == HIL_MODE_DISABLED
-	void pf_field::update(flock_member* p_ac, AP_AHRS_DCM* ahrs, AP_Airspeed* airspeed)
+	void pf_field::update(local_member* p_ac, AP_AHRS_DCM* ahrs, AP_Airspeed* airspeed)
 {
 #endif
 #if HIL_MODE == HIL_MODE_ATTITUDE
-	void pf_field::update(flock_member* p_ac, AP_AHRS_HIL* ahrs, AP_Airspeed* airspeed)
+	void pf_field::update(local_member* p_ac, AP_AHRS_HIL* ahrs, AP_Airspeed* airspeed)
 {
 #endif
 				const Relative* tmp_p_rel = p_ac->get_rel(); //Gets the current relative information from the ac object

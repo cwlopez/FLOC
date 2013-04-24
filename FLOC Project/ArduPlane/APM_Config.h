@@ -14,7 +14,7 @@
 //Use HIL Firmware w/ Attitude Supplied
 # define HIL_MODE			HIL_MODE_ATTITUDE
 //Use the Serial1 Port for Debugging w/ Visual Micro
-# define HIL_DEBUG			ENABLED
+# define HIL_DEBUG			DISABLED
 
 // Changing these will not change anything, they must be changed in the parameters or CLI
 # define LOGGING_ENABLED                ENABLED
