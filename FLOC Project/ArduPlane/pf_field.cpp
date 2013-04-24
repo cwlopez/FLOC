@@ -198,7 +198,8 @@ void pf_field::set_side(int8_t side)
 					tmp_dEast_com		=	_VWP_offset*_Nphi_c_NED.y;
 					//Calculate the change in altitude [m]
 					//k_alt_V is the equivalent of a derivative gain- set to 0 for simplicity.
-					tmp_dalt_com	=	-_VWP_Z_offset*_Nphi_NED.z + (_k_alt_V_near/100.0)*tmp_dV.z;  
+					//tmp_dalt_com	=	_VWP_Z_offset*_Nphi_NED.z;  
+					tmp_dalt_com = tmp_dL.z/100.0;
 					//Calculate the change in airspeed [m/s]
 					//k_phi_V_near is the equivalent of an integrator gain, while k_V_near is the equivalent of a proportional gain
 					tmp_dspd_com=(_k_phi_V_near/100.0)*_Nphi_l.x + (_k_V_near/100.0)*tmp_dVaspd; //[m/s]
@@ -210,7 +211,8 @@ void pf_field::set_side(int8_t side)
 				{								//Far-Field Case
 					tmp_dNorth_com	=	_VWP_offset*_Nphi_NED.x;
 					tmp_dEast_com	=	_VWP_offset*_Nphi_NED.y;
-					tmp_dalt_com	=	-_VWP_Z_offset*_Nphi_NED.z + (_k_alt_V_far/100.0)*tmp_dV.z;
+					//tmp_dalt_com	=	_VWP_Z_offset*_Nphi_NED.z;
+					tmp_dalt_com = tmp_dL.z/100.0;
 					tmp_dspd_com	=	0;
 					_phi_norm = _Nphi_NED;
 				}

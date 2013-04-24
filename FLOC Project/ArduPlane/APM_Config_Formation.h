@@ -76,7 +76,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 //PFG/VWP PARAMETERS
 ////////	Parameter		|	Value
-# define	PFG_CHI				10
+# define	PFG_CHI				0
 # define	PFG_TAU				2000
 # define	PFG_ZETA			200
 # define	PFG_SIGMA			1

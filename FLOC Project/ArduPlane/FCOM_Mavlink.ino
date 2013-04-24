@@ -18,8 +18,10 @@ static NOINLINE void fcom_status_LEDs(enum XBee_Addresses address_id)
 	{
 	case TO_ALL:
 		address64 = fcom_broadcast64;
+		break;
 	case TO_GCS:
 		address64 = fcom_QGCS64;
+		break;
 	}
 	Tx64Request status_LEDs_request64(address64, api_option , &api_packet, 1, frame_id);
 	fcom_xbee.send(mavlink_comm_1_port, status_LEDs_request64);
@@ -32,8 +34,10 @@ static NOINLINE void fcom_send_heartbeat(enum XBee_Addresses address_id)
 	{
 	case TO_ALL:
 		address64 = fcom_broadcast64;
+		break;
 	case TO_GCS:
 		address64 = fcom_QGCS64;
+		break;
 	}
     uint8_t base_mode = MAV_MODE_FLAG_CUSTOM_MODE_ENABLED;
     uint8_t system_status = MAV_STATE_ACTIVE;
@@ -146,8 +150,10 @@ static NOINLINE void fcom_send_location(enum XBee_Addresses address_id)
 	{
 	case TO_ALL:
 		address64 = fcom_broadcast64;
+		break;
 	case TO_GCS:
 		address64 = fcom_QGCS64;
+		break;
 	}
 
 
@@ -212,8 +218,10 @@ static NOINLINE void fcom_send_flock_status(enum XBee_Addresses address_id)
 	{
 	case TO_ALL:
 		address64 = fcom_broadcast64;
+		break;
 	case TO_GCS:
 		address64 = fcom_QGCS64;
+		break;
 	}
 
 	uint8_t num_members = ac_flockmember.get_members_iv();
@@ -268,8 +276,10 @@ static NOINLINE void fcom_send_pf_field(enum XBee_Addresses address_id)
 	{
 	case TO_ALL:
 		address64 = fcom_broadcast64;
+		break;
 	case TO_GCS:
 		address64 = fcom_QGCS64;
+		break;
 	}
 
 	Vector3f pfg_att = *ac_pf_field.get_pfg_att();
@@ -327,8 +337,10 @@ static NOINLINE void fcom_send_vwp(enum XBee_Addresses address_id)
 	{
 	case TO_ALL:
 		address64 = fcom_broadcast64;
+		break;
 	case TO_GCS:
 		address64 = fcom_QGCS64;
+		break;
 	}
 
 	const Location* p_VWP = ac_pf_field.get_VWP();
@@ -379,8 +391,10 @@ static NOINLINE void fcom_send_rel_state(enum XBee_Addresses address_id)
 	{
 	case TO_ALL:
 		address64 = fcom_broadcast64;
+		break;
 	case TO_GCS:
 		address64 = fcom_QGCS64;
+		break;
 	}
 
 	const Relative* p_ac_rel = ac_flockmember.get_rel();

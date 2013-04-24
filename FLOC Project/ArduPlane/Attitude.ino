@@ -244,7 +244,7 @@ static void calc_nav_pitch()
 	//////////////////////////ADDED IF STATEMENT FOR FORMATION//////////////////////////////////////////////////////////
   if(control_mode == FORMATION && !ac_flockmember.get_leader_status())
   {
-	  nav_pitch_cd = g.pidNavPitchAltitude.get_pid(V_altitude_error_cm/100); //Use virtual altitude error from VWP if in formation mode
+	  nav_pitch_cd = g.pidNavPitchAltitude.get_pid(V_altitude_error_cm); //Use virtual altitude error from VWP if in formation mode
   }
   else
   {

@@ -1163,7 +1163,7 @@ static void one_second_loop()
 
   if(control_mode == FORMATION)
   {
-	  fcom_send_message(TO_ALL, FF_FLOCK_STATUS);
+	fcom_send_message(TO_ALL, FF_FLOCK_STATUS);
 	//fcom_send_flock_status(fcom_broadcast64);
 #if FCOM_GCS == ENABLED
 	fcom_send_message(TO_GCS, FF_PF_FIELD);
