@@ -163,7 +163,7 @@ static void calc_throttle()
 if(control_mode == FORMATION && !ac_flockmember.get_leader_status())
 {
 	//for formation mode, we hijack "energy pid" for just airspeed... see how this works out for us
-	g.channel_throttle.servo_out = g.throttle_cruise + g.pidTeThrottle.get_pid(F_airspeed_error);
+	g.channel_throttle.servo_out = FORMATION_THROTTLE + g.pidTeThrottle.get_pid(F_airspeed_error);
 	g.channel_throttle.servo_out = constrain(g.channel_throttle.servo_out, g.throttle_min.get(), g.throttle_max.get());
 }
 else

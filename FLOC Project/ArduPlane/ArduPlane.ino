@@ -1018,8 +1018,8 @@ static void medium_loop()
 	if(LOG_VWP)
 		{
 			Location VWP_Loc = *ac_pf_field.get_VWP();
-			uint16_t VWP_Aspd = *ac_pf_field.get_new_speed();
-			Log_Write_VWP((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, VWP_Loc.lat, VWP_Loc.lng, VWP_Loc.alt, (int16_t)(uint16_t)VWP_Aspd);
+			int32_t VWP_Aspd = *ac_pf_field.get_new_speed();
+			Log_Write_VWP((int32_t)g_gps->time, (byte)MAV_FRAME_LOCAL_NED, VWP_Loc.lat, VWP_Loc.lng, VWP_Loc.alt, (int16_t)(VWP_Aspd/100));
 		}
   #endif
 #endif

@@ -19,11 +19,11 @@
 // Changing these will not change anything, they must be changed in the parameters or CLI
 # define LOGGING_ENABLED                ENABLED
 # define LOG_ATTITUDE_FAST              DISABLED
-# define LOG_ATTITUDE_MED               DISABLED
+# define LOG_ATTITUDE_MED               ENABLED
 # define LOG_GPS                        ENABLED
 # define LOG_PM                         DISABLED
-# define LOG_CTUN                       DISABLED
-# define LOG_NTUN                       DISABLED
+# define LOG_CTUN                       ENABLED
+# define LOG_NTUN                       ENABLED
 # define LOG_MODE                       ENABLED
 # define LOG_RAW                        DISABLED
 # define LOG_CMD                        DISABLED

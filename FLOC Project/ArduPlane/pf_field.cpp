@@ -27,12 +27,7 @@ pf_field::pf_field()
 	_pf_offset_l.z	= PFG_z_OFFSET;
 	_VWP_offset		= PFG_VWP_XY_OFFSET;
 	_VWP_Z_offset	= PFG_VWP_Z_OFFSET;
-	_k_V_near		= PFG_K_V_NEAR;
-	_k_alt_V_near	= PFG_K_ALT_V_NEAR;
-	_k_phi_V_near	= PFG_K_PHI_V_NEAR;
-	_k_V_far		= PFG_K_V_FAR;
-	_k_alt_V_far	= PFG_K_ALT_V_FAR;
-	_k_phi_V_far	= PFG_K_PHI_V_FAR;
+	
 	_side			= PFG_DEFAULT_SIDE;
 
 }
@@ -51,6 +46,7 @@ void pf_field::set_side(int8_t side)
 {
 #endif
 				const Relative* tmp_p_rel = p_ac->get_rel(); //Gets the current relative information from the ac object
+				Vector3i tmp_gV_L =  *p_ac->get_gV_L();
 				uint16_t tmp_psi_ac = *p_ac->get_hdg();	//Get our heading (deg)
 				//Calculate total repulsive function from i flock members
 				Vector3f tmp_r_phi; //initialize vector (NED components)
@@ -82,11 +78,17 @@ void pf_field::set_side(int8_t side)
 				//Relative distance magnitude to leader
 				int32_t tmp_d2L=tmp_p_rel->d2L;	//[m*100]
 				//Relative velocity to leader (NED components)
-				Vector3i tmp_dV;	//initialize vector (NED components)
-				int16_t tmp_dVaspd;	//initialize dVaspd (Local Navigation x component)
-				tmp_dV.x=tmp_p_rel->dVXL;		//[m/s*100]
-				tmp_dV.y=tmp_p_rel->dVYL;		//[m/s*100]
-				tmp_dV.z=tmp_p_rel->dVZL;		//[m/s*100]
+				//Vector3i tmp_dV;	//initialize vector (NED components)
+				Vector3i tmp_gV_LNAV;	//initialize dVaspd (Local Navigation frame)
+				//tmp_dV.x=tmp_p_rel->dVXL;		//[m/s*100]
+				//tmp_dV.y=tmp_p_rel->dVYL;		//[m/s*100]
+				//tmp_dV.z=tmp_p_rel->dVZL;		//[m/s*100]
+				float Cpsi = cos(ToRad(tmp_psi_ac/100.0));
+				float Spsi = sin(ToRad(tmp_psi_ac/100.0));
+
+				tmp_gV_LNAV.x=int16_t((tmp_gV_L.x)*Cpsi+(tmp_gV_L.y)*Spsi);		//[m/s*100]
+				tmp_gV_LNAV.y=int16_t(-(tmp_gV_L.x)*Spsi+(tmp_gV_L.y)*Cpsi);		//[m/s*100]
+				tmp_gV_LNAV.z=tmp_p_rel->dVZL;		//[m/s*100]
 
 
 				//Calculate the attractive potential gradient (NED components)
@@ -102,25 +104,52 @@ void pf_field::set_side(int8_t side)
 				*/
 					Vector3i tmp_pf_offset_NED;						//Initialize vector
 					uint16_t tmp_psi_L = tmp_p_rel->hdgL;		//Get the heading of the Leader
+					float CpsiL = cos(ToRad(tmp_p_rel->hdgL/100.0));
+					float SpsiL = sin(ToRad(tmp_p_rel->hdgL/100.0));
 					//set offset (Leader's Local frame)
 					Vector3i tmp_pf_offset = _pf_offset_l;
 					//update offset with side correction
 					tmp_pf_offset.y = tmp_pf_offset.y*_side;
 					//Rotate the offset distances (Leader's Local Navigation Frame) to NED frame
-					tmp_pf_offset_NED.x = tmp_pf_offset.x*cos(ToRad(tmp_psi_L/100.0)) - tmp_pf_offset.y*sin(ToRad(tmp_psi_L/100.0));
-					tmp_pf_offset_NED.y = tmp_pf_offset.x*sin(ToRad(tmp_psi_L/100.0)) + tmp_pf_offset.y*cos(ToRad(tmp_psi_L/100.0));
+					tmp_pf_offset_NED.x = tmp_pf_offset.x*CpsiL - tmp_pf_offset.y*SpsiL;
+					tmp_pf_offset_NED.y = tmp_pf_offset.x*SpsiL + tmp_pf_offset.y*CpsiL;
 					tmp_pf_offset_NED.z = tmp_pf_offset.z;
+
+					//Extrapolate Goal for NF case
+					Location tmp_goal_loc = *p_ac->get_loc();
+					Location tmp_current_loc = *p_ac->get_loc();
+
+					//A bunch of new stuff for this extrapolation technique
+					location_offset(&tmp_goal_loc,tmp_dL.x/100.0, tmp_dL.y/100.0);
+					location_offset(&tmp_goal_loc,-tmp_pf_offset_NED.x/100.0, -tmp_pf_offset_NED.y/100.0);
+					float tmp_N_extrap = 10*CpsiL;
+					float tmp_E_extrap = 10*SpsiL;
+					location_offset(&tmp_goal_loc,tmp_N_extrap, tmp_E_extrap);
+					int32_t tmp_B_extrap = get_bearing_cd(&tmp_current_loc,&tmp_goal_loc);
+
+					Vector3f extrap_uvec_NED;
+					extrap_uvec_NED.x = cos(ToRad(tmp_B_extrap/100.0));
+					extrap_uvec_NED.y = sin(ToRad(tmp_B_extrap/100.0));
+					extrap_uvec_NED.z = 0;
+
+					tmp_dL -=tmp_pf_offset_NED;
+					tmp_d2L = int32_t(100*safe_sqrt(square(tmp_dL.x/100.0)+square(tmp_dL.y/100.0)+square(tmp_dL.z/100.0)));
+
 				//Subtract offset distance vector from leader distance vector to get modified relative distance vector to leader
 				if(tmp_d2L<(_chi*100))	//Near-field regime condition
 				{
-					tmp_dL -=tmp_pf_offset_NED;
 					_phi_a.x = 2*(_lambda.x/100.0)*(tmp_dL.x/100.0);			//Calculate Quad PF X gradient with weighting parameter (NED frame)
 					_phi_a.y = 2*(_lambda.y/100.0)*(tmp_dL.y/100.0);			//Calculate Quad PF Y gradient with weighting parameter (NED frame)
 					_phi_a.z = 2*(_lambda.z/100.0)*(tmp_dL.z/100.0);			//Calculate Quad PF Z gradient with weighting parameter (NED frame)
+					float tmp_phi_a_mag = _phi_a.length();
+					_phi_a_c.x = tmp_phi_a_mag*extrap_uvec_NED.x;
+					_phi_a_c.y = tmp_phi_a_mag*extrap_uvec_NED.y;
+					_phi_a_c.z = 0;
 				}
 				else
 				{
-					float tmp_M =2*safe_sqrt(square(_lambda.x/100.0)+square(_lambda.y/100.0)+square(_lambda.z/100.0))*(_chi);		//Slope of linear potential field (Magnitude of gradient) = nominal magnitude of quadratic gradient at chi
+					//float tmp_M =2*safe_sqrt(square(_lambda.x/100.0)+square(_lambda.y/100.0)+square(_lambda.z/100.0))*(_chi);		//Slope of linear potential field (Magnitude of gradient) = nominal magnitude of quadratic gradient at chi
+					float tmp_M = 2*_chi;
 					float tmp_R = safe_sqrt(square((_lambda.x/100.0)*(tmp_dL.x/100.0))+square((_lambda.y/100.0)*(tmp_dL.y/100.0))+square((_lambda.z/100.0)*(tmp_dL.z/100)));
 					_phi_a.x = tmp_M*square(_lambda.x/100.0)*(tmp_dL.x/100.0)/tmp_R;			//Calculate Lin PF X gradient with weighting parameter (NED frame)
 					_phi_a.y = tmp_M*square(_lambda.y/100.0)*(tmp_dL.y/100.0)/tmp_R;			//Calculate Lin PF Y gradient with weighting parameter (NED frame)
@@ -128,20 +157,23 @@ void pf_field::set_side(int8_t side)
 				}
 				//Calculate the total potential gradient components
 				_phi_NED = _phi_a + _phi_r;
-
+				_phi_c_NED = _phi_a_c + _phi_r;
 				
 
 				//Calculate the magnitude of the total potential function gradient
 				if(_phi_NED.length() > 0) //divide-by-zero check (safety first)
 				{
 					//Calculate the normalized potential gradient components
-					_Nphi_NED = _phi_NED.normalized(); 
-					if(tmp_d2L<_chi) //near-field consideration- We don't want the VWP behind the body
+					_Nphi_NED = _phi_NED.normalized();
+					_Nphi_c_NED = _phi_c_NED.normalized();
+					//Find X component in Local Navigation frame by rotating NED vector about heading
+					_Nphi_l.x = _Nphi_NED.x*Cpsi + _Nphi_NED.y*Spsi;
+					if(tmp_d2L<_chi*100) //near-field consideration- We don't want the VWP behind the body
 					{
 						_regime_mask = 0x01;	//Make first bit in regime mask 1 to reflect that we're in near-field regime
-						//Find X component in Local Navigation frame by rotating NED vector about heading
-						_Nphi_l.x = _Nphi_NED.x*cos(ToRad(tmp_psi_ac/100.0)) + _Nphi_NED.y*sin(ToRad(tmp_psi_ac/100.0));
-						//Correct normalized vector for VWP in near-field
+						
+					
+/*						//Correct normalized vector for VWP in near-field
 						if(_Nphi_l.x<0)		//Vector is pointing behind ac in Local Navigation frame
 						{
 							//Rotate NED pf gradiend components into Local Navigation components
@@ -150,7 +182,7 @@ void pf_field::set_side(int8_t side)
 							//Correct potential function to point forward
 							/*	Note:
 								Corrected by using airspeed instead of relative distance... almost a predictor of where the goal "will" be in a second
-							*/
+							/
 							float airspeed_est;
 							if(ahrs->airspeed_estimate(&airspeed_est))
 							{
@@ -169,7 +201,7 @@ void pf_field::set_side(int8_t side)
 							_regime_mask = 0x03;
 						}
 						//Make sure regime mask reflects that only 
-						else _regime_mask = 0x01;
+					else _regime_mask = 0x01;					*/	
 					}
 					else
 					{
@@ -190,21 +222,15 @@ void pf_field::set_side(int8_t side)
 				float tmp_dspd_com;
 
 
-				if(tmp_d2L<_chi)
+				if(tmp_d2L<_chi*100)
 				{
-					tmp_dVaspd = tmp_dV.x*cos(ToRad(tmp_psi_ac)) + tmp_dV.y*sin(ToRad(tmp_psi_ac));
 					//Calculate the North and East Offset [m]
 					tmp_dNorth_com	=	_VWP_offset*_Nphi_c_NED.x;
-					tmp_dEast_com		=	_VWP_offset*_Nphi_c_NED.y;
+					tmp_dEast_com	=	_VWP_offset*_Nphi_c_NED.y;
 					//Calculate the change in altitude [m]
 					//k_alt_V is the equivalent of a derivative gain- set to 0 for simplicity.
 					//tmp_dalt_com	=	_VWP_Z_offset*_Nphi_NED.z;  
 					tmp_dalt_com = tmp_dL.z/100.0;
-					//Calculate the change in airspeed [m/s]
-					//k_phi_V_near is the equivalent of an integrator gain, while k_V_near is the equivalent of a proportional gain
-					tmp_dspd_com=(_k_phi_V_near/100.0)*_Nphi_l.x + (_k_V_near/100.0)*tmp_dVaspd; //[m/s]
-					//Convert to units used by WP and airspeed commands
-					tmp_dspd_com= tmp_dspd_com*100; //[cm/s]
 					_phi_norm = _Nphi_c_NED;
 				}
 				else
@@ -213,7 +239,6 @@ void pf_field::set_side(int8_t side)
 					tmp_dEast_com	=	_VWP_offset*_Nphi_NED.y;
 					//tmp_dalt_com	=	_VWP_Z_offset*_Nphi_NED.z;
 					tmp_dalt_com = tmp_dL.z/100.0;
-					tmp_dspd_com	=	0;
 					_phi_norm = _Nphi_NED;
 				}
 				
@@ -223,11 +248,11 @@ void pf_field::set_side(int8_t side)
 					_next_VWP.alt+=(int32_t)(tmp_dalt_com*100); //double-check sign here.
 					constrain(_next_VWP.alt,PFG_MIN_ALT,PFG_MAX_ALT);
 
-				if(tmp_d2L<_chi)
+				if(tmp_d2L<_chi*100)
 				{							//Near-Field Case
-					float airspeed_ret;
-					ahrs->airspeed_estimate(&airspeed_ret);
-					_next_airspeed_com = (uint16_t)(airspeed_ret*100+tmp_dspd_com); //converted to uint16_t with units of (cm/s)
+					
+					//New speed matching/ Speed from PFG command algorithm
+					_next_airspeed_com = int32_t(100*((tmp_gV_LNAV.x/100.0*(PFG_K_P_dV/100.0)) +(_Nphi_l.x*(PFG_K_I_dV/100.0))));
 					constrain(_next_airspeed_com,PFG_MIN_AIRSPEED_CM,PFG_MAX_AIRSPEED_CM);
 				}
 				else
@@ -240,8 +265,8 @@ const Location* pf_field::get_VWP(){
 	return (const Location*)&_next_VWP;
 }
 
-const uint16_t* pf_field::get_new_speed(){
-	return (const uint16_t*)&_next_airspeed_com;
+const int32_t* pf_field::get_new_speed(){
+	return (const int32_t*)&_next_airspeed_com;
 }
 
 const Vector3f* pf_field::get_pfg_att(){

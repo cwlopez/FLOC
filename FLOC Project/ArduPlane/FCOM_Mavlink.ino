@@ -344,7 +344,7 @@ static NOINLINE void fcom_send_vwp(enum XBee_Addresses address_id)
 	}
 
 	const Location* p_VWP = ac_pf_field.get_VWP();
-	const uint16_t* p_speed_com = ac_pf_field.get_new_speed();
+	int32_t speed_com = *ac_pf_field.get_new_speed();
 
 	mavlink_ff_vwp_t packet;
 	packet.time_usec = g_gps->last_fix_time*(uint64_t)1000;
@@ -352,7 +352,7 @@ static NOINLINE void fcom_send_vwp(enum XBee_Addresses address_id)
 	packet.lat= p_VWP->lat;
 	packet.lon= p_VWP->lng;
 	packet.alt= p_VWP->alt;
-	packet.spd= *p_speed_com;
+	packet.spd= fabs(speed_com/100.0);
 
 	uint16_t checksum;
 	uint8_t ck[2];
@@ -661,6 +661,7 @@ static void process_flockmember_status(flock_member* p_flockmember, mavlink_ff_f
 {
 	//All we care about right now is the distance to the goal (to evaluate global leadership)
 	p_flockmember->set_D2Goal(&(packet->dist_to_goal));
+	p_flockmember->set_local_leader(packet->leader);
 }
 
 

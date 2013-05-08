@@ -43,18 +43,9 @@ class pf_field
 	 uint8_t	_VWP_offset;			// X-Y distance from current location to next VWP [m]
 	 uint8_t	_VWP_Z_offset;			// Z distance from current location to next VWP [m]
 
-	 //potential function gains in near-field region (NED coordinate frame)
-	 int16_t	_k_V_near;				//gain for the velocity-match component *100
-	 int16_t	_k_alt_V_near;			//gain for the Altitude velocity match component
-	 int16_t	_k_phi_V_near;			//gain for the PFG component of velocity matching *100
-
-	 //potential function gains in far-field region (NED coordinate frame)
-	 int16_t	_k_V_far;				//gain for the velocity-match component *100
-	 int16_t	_k_alt_V_far;			//gain for the Altitude velocity match component
-	 int16_t	_k_phi_V_far;			//gain for the PFG component of velocity matching *100
-
 	 //potential function gradient values
 	 Vector3f	_phi_a;					//gradient value for the attractive potential function (Usually NED)
+	 Vector3f	_phi_a_c;				//gradient value for the attractive potential function, corrected with heading extrapolation
 	 Vector3f	_phi_r;					//gradient value for the repulsive potential function (Usually NED)
 	 Vector3f	_phi_norm;				//gradient value for the normalized potential function (Usually NED)
 	 Vector3f	_phi_NED;				//gradient value for the total potential function (NED frame)
@@ -66,7 +57,7 @@ class pf_field
 
 	 //VWP, and airspeed commands
 	 Location	_next_VWP;				//Location structure is the standard way to store WPs in ArduPlane
-	 uint16_t	_next_airspeed_com;		//Airspeed commands are now in uint16_t... may need to convert to int32_t at some point...
+	 int32_t	_next_airspeed_com;		//Airspeed commands are now in uint16_t... may need to convert to int32_t at some point...
 
 public:
 
@@ -85,7 +76,7 @@ public:
 	const Location* get_VWP();
 
 	//retrieves current Airspeed command from pf_field object
-	const uint16_t* get_new_speed();
+	const int32_t* get_new_speed();
 
 	//retrieves the potential function gradient components
 	const Vector3f* get_pfg_att();

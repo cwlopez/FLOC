@@ -44,12 +44,13 @@ void flock_member::set_D2Goal(int32_t* p_D2Goal){
 	_d2goal = *p_D2Goal;
 }
 
+
 void flock_member::set_last_heartbeat(uint32_t* timestamp){
 	_last_heartbeat = *timestamp;
 }
 
 // Only applicable to a/c, not other formation members.
-void local_member::set_local_leader(uint8_t leader_sysid){
+void flock_member::set_local_leader(uint8_t leader_sysid){
 	_local_leader = leader_sysid;
 }
 
@@ -130,9 +131,12 @@ const Location* flock_member::get_loc(){
 }
 
 //Return pointer to velocity array in m/s*100
-const int16_t* flock_member::get_vel(){
-	float tmp_vel[3] = {_V.x, _V.y, _V.z};
-	return (const int16_t*)tmp_vel;
+const Vector3i* flock_member::get_vel(){
+	return (const Vector3i*)&_V;
+}
+
+const Vector3i* flock_member::get_gV_L(){
+	return (const Vector3i*)&_gV_L;
 }
 
 const uint16_t* flock_member::get_hdg(){
@@ -203,12 +207,13 @@ void local_member::update_rel(){
 			if(_member_ids[i] == _local_leader)
 			{
 				_dist_2_leader = (int32_t)(tmp_distance*100);
-				const int16_t* tmp_leader_v = _member_ptrs[j]->get_vel();		//get velocity array from leader
+				_gV_L = *_member_ptrs[j]->get_vel();		//get velocity array from leader
 				const uint16_t* tmp_p_hdg = _member_ptrs[j]->get_hdg();
 				//calc relative velocity of leader wrt a/c in ft (NED frame) [m/s*100]
-				_dV.x = (tmp_leader_v[0]-_V.x);													
-				_dV.y = (tmp_leader_v[1]-_V.y);
-				_dV.z = (tmp_leader_v[2]-_V.z);
+				_dV.x = (_gV_L.x-_V.x);													
+				_dV.y = (_gV_L.y-_V.y);
+				_dV.z = (_gV_L.z-_V.z);
+
 				//Store Relative values in structure
 				_my_relative.dVXL = _dV.x;
 				_my_relative.dVYL = _dV.y;
@@ -258,9 +263,6 @@ void local_member::remove_member_in_view(uint8_t sysid){
 		}
 	}
 	_num_members--;
-	//remove from member mask
-	uint32_t bits = (1<<(sysid-1));
-	_membermask= _membermask & ~bits;
 //We don't touch member pointers because they are indexed by member ids, not in joining order
 }
 
@@ -272,14 +274,14 @@ const uint32_t* flock_member::get_last_heartbeat(){
 	return (const uint32_t*)&_last_heartbeat;
 }
 
-uint8_t local_member::get_local_leader()
+uint8_t flock_member::get_local_leader()
 {
 	return _local_leader;
 }
 
-const flock_member* local_member::get_member_pntr(uint8_t sysid)
+const flock_member* local_member::get_member_pntr(uint8_t index)
 {
-	return (const flock_member*)_member_ptrs[sysid];
+	return (const flock_member*)_member_ptrs[index];
 }
 bool local_member::get_leader_status()
 {

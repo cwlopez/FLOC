@@ -3,9 +3,9 @@
 //This is to set values specific to the formation flight mode
 
 //Select which airframe you are using
-# define I_AM_HUEY
+//# define I_AM_HUEY
 //# define I_AM_DEWEY
-//# define I_AM_LOUIE
+# define I_AM_LOUIE
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //FLOCK SIZE/MEMBER PARAMETERS
@@ -33,11 +33,11 @@
 //CUSTOM FF LOG PARAMETERS
 // These custom logs can not be turned on/off with CLI, so they must be enabled/disabled here
 # define FF_LOGGING_ENABLED				ENABLED
-# define LOG_FLOCK_STATUS				DISABLED
-# define LOG_PF_FIELD					DISABLED
-# define LOG_VWP						DISABLED
+# define LOG_FLOCK_STATUS				ENABLED
+# define LOG_PF_FIELD					ENABLED
+# define LOG_VWP						ENABLED
 # define LOG_REL_STATE					ENABLED
-# define LOG_GPS_ERROR_ASSIST			ENABLED
+# define LOG_GPS_ERROR_ASSIST			DISABLED
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -77,30 +77,31 @@
 //PFG/VWP PARAMETERS
 ////////	Parameter		|	Value
 # define	PFG_CHI				30
-# define	PFG_TAU				2000
-# define	PFG_ZETA			200
+# define	PFG_TAU				5000
+# define	PFG_ZETA			800
 # define	PFG_SIGMA			1
-# define	PFG_X_LAMBDA		4
-# define	PFG_Y_LAMBDA		4
-# define	PFG_Z_LAMBDA		4
+# define	PFG_X_LAMBDA		20
+# define	PFG_Y_LAMBDA		20
+# define	PFG_Z_LAMBDA		20
 # define	PFG_x_OFFSET		1000
 # define	PFG_y_OFFSET		1000
+# define	OFFSET_ANGLE		13500 //REMEMBER- Change this if the angle changes
 # define	PFG_z_OFFSET		0
 # define	PFG_VWP_XY_OFFSET	60 //Meters
 # define	PFG_VWP_Z_OFFSET	2 //meters
-# define	PFG_X_PHI_NEAR		3
-# define	PFG_K_V_NEAR		100
-# define	PFG_K_ALT_V_NEAR	0
-# define	PFG_K_PHI_V_NEAR	100
-# define	PFG_K_V_FAR			100
-# define	PFG_K_ALT_V_FAR		0
-# define	PFG_K_PHI_V_FAR		0
+
 # define	PFG_DEFAULT_SIDE	-1
 
 # define	PFG_MIN_ALT			10000
 # define	PFG_MAX_ALT			30000
 # define	PFG_MIN_AIRSPEED_CM	800
-# define	PFG_MAX_AIRSPEED_CM	1400
+# define	PFG_MAX_AIRSPEED_CM	1300
+
+//Airspeed Controller Gains
+# define	PFG_K_P_dV			100
+# define	PFG_K_I_dV			100
+
+# define	FORMATION_THROTTLE  60
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //OTHER PARAMETER DEFINES

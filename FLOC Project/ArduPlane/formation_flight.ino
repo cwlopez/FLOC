@@ -54,8 +54,10 @@ static void update_ac_flockmember()
 
 static void update_formation_flight_commands()
 {
-	
-		F_airspeed_error = *ac_pf_field.get_new_speed();
+		int32_t spd_cm	= *ac_pf_field.get_new_speed();
+
+		
+		F_airspeed_error = spd_cm - g_gps->ground_speed;
 		// copy the current location into the OldWP slot
 		// ---------------------------------------
 		prev_WP = current_loc;
@@ -100,14 +102,17 @@ static void update_flock_leadership()
 
 			int j = tmp_rel.Member_ids[i]-1;	//subtract 1 to start at offset ids (we start at 0 in C)
 			flock_member tmp_flock_member = *ac_flockmember.get_member_pntr(j);
-
-			if(*ac_flockmember.get_D2Goal()>*tmp_flock_member.get_D2Goal())
+			
+			if(tmp_flock_member.get_local_leader()!=MAV_SYSTEM_ID) //Make sure it's not following you
 			{
-				closer_to_goal[cntr]=i;
-				cntr++;
+				if(*ac_flockmember.get_D2Goal()>*tmp_flock_member.get_D2Goal())
+				{
+					closer_to_goal[cntr]=i;
+					cntr++;
+				}
 			}
 		}
-		if(cntr == 0)
+		if(cntr == 0 )
 		{
 			ac_flockmember.set_global_leader(true);
 			return;
